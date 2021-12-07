@@ -13,21 +13,34 @@ from torch.autograd import Variable
 
 class KacIndependenceMeasure(nn.Module):
 
-    def __init__(self, dim_x, dim_y, lr = 0.005, num_iter = 100):
+    def __init__(self, dim_x, dim_y, lr = 0.005, num_iter = 100, input_projection_dim = 0):
         super(KacIndependenceMeasure, self).__init__()
         self.num_iter = num_iter
         self.dim_x = dim_x
         self.dim_y = dim_y
         self.lr = lr
+        self.input_projection_dim = input_projection_dim
+
+        if self.input_projection_dim > 0:
+            self.projection = nn.Linear(self.dim_x, self.input_projection_dim)
+
         self.reset()
 
     def reset(self):
         self.a = Variable(torch.randn(self.dim_x), requires_grad=True)
         self.b = Variable(torch.randn(self.dim_y), requires_grad=True)
-        self.optimizer = torch.optim.Adam([self.a, self.b], lr=self.lr)
+        if self.input_projection_dim > 0:
+            self.optimizer = torch.optim.AdamW([self.a, self.b, self.projection], lr=self.lr, weight_decay=0.0)
+        else:    
+            self.optimizer = torch.optim.AdamW([self.a, self.b], lr=self.lr, weight_decay=0.0)
 
 
     def forward(self, x, y):
+        # batch norm?
+        if self.input_projection_dim > 0:
+                x = self.projection(x)
+
+
         xa = (x @ self.a/torch.norm(self.a))
         yb = (y @ self.b/torch.norm(self.b))
         f = torch.exp(1j*(xa + yb)).mean() - torch.exp(1j*xa).mean() * torch.exp(1j*yb).mean()
@@ -40,10 +53,10 @@ class KacIndependenceMeasure(nn.Module):
         return kim
 
 if __name__ == "__main__":    
-    n_batch = 256
+    n_batch = 2048 #1024
     dim_x = 1024
     dim_y = 4
-    num_iter = 1000
+    num_iter = 1300 #1300
 
     model = KacIndependenceMeasure(dim_x, dim_y, lr=0.05, num_iter = num_iter)
     
@@ -55,9 +68,10 @@ if __name__ == "__main__":
         y = torch.randn(n_batch, dim_y)
         dep = model(x,y)
         history_indep.append(dep.detach().numpy())
-        print("{} {}".format(i, dep))
+        #print("{} {}".format(i, dep))
     plt.plot(history_indep)
     plt.show()
+
     
 
     model.reset()    
@@ -70,12 +84,17 @@ if __name__ == "__main__":
         x = torch.randn(n_batch, dim_x)
         proj_x = random_proj(x)
         noise = torch.randn(n_batch, dim_y)
-        y = torch.sin(proj_x) + torch.cos(proj_x) + noise
+        y = (torch.sin(proj_x) + torch.cos(proj_x))*noise    
+        #y = torch.log(1.0 + torch.abs(proj_x))
+
         dep = model(x,y)
         history_dep.append(dep.detach().numpy())
-        print("{} {}".format(i, dep))
-    plt.plot(history_dep)        
+        #print("{} {}".format(i, dep))
+    plt.plot(history_dep)
     plt.show()
+
+    
+    
 
 
 
