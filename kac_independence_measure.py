@@ -8,6 +8,10 @@ from torch.autograd import Variable
 import itertools
 from torch.nn.utils import weight_norm
 
+from sklearn.datasets import load_boston
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split
+
 # Kac independence measure, preprint/article will be added further.
 # Author: Dr. Povilas Daniušis, ORCID 0000-0001-5977-827X
 # Special thanks to Neurotechnology (www.neurotechnology.com)
@@ -60,19 +64,16 @@ class KacIndependenceMeasure(nn.Module):
 
 
 
-
-
-
 if __name__ == "__main__":    
     n_batch = 1024 #1024
-    dim_x = 1024
+    dim_x = 512
     dim_y = 4
     num_iter = 2000 #1300
-    input_proj_dim = 0
+    input_proj_dim = 64
 
     model = KacIndependenceMeasure(dim_x, dim_y, lr=0.05, num_iter = num_iter, input_projection_dim = input_proj_dim)
     
-    
+  
     # inedependent data
     print("Independent data")
     history_indep = []
@@ -84,7 +85,7 @@ if __name__ == "__main__":
         #print("{} {}".format(i, dep))
     plt.plot(history_indep)
     plt.show()
-
+    
     
 
     model.reset()    
@@ -100,7 +101,7 @@ if __name__ == "__main__":
         noise = torch.randn(n_batch, dim_y)
         #y = (torch.sin(proj_x) + torch.cos(proj_x))*noise    
         #y = torch.log(1.0 + torch.abs(proj_x))
-        y = torch.sin(proj_x) + torch.cos(proj_x) + 0.7*noise
+        y = torch.sin(proj_x) + torch.cos(proj_x)  + 0.15*noise
         dep = model(x,y)
         history_dep.append(dep.detach().numpy())
         #print("{} {}".format(i, dep))
