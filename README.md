@@ -7,6 +7,10 @@ This repository includes basic implementation of KacIM, and one very basic demon
 
 Article/preprint is currently being prepared.
 
+This how KacIM looks like for independent data:
+![Alt text](./independent.png?raw=true "Title")
+
+And here how it looks like for dependent data:
 ![Alt text](./dependent.png?raw=true "Title")
 
 
