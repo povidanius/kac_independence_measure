@@ -125,8 +125,8 @@ if __name__ == "__main__":
             noise = torch.randn(n_batch, dim_y)
             #y = (torch.sin(proj_x) + torch.cos(proj_x))*noise    
             #y = torch.log(1.0 + torch.abs(proj_x))
-            y = torch.sin(proj_x) + torch.cos(proj_x)  + noise_level*noise
-            #y = x
+            y = torch.sin(proj_x) + torch.cos(proj_x)  + noise_level*noise            
+            #y = x + noise_level*noise
             dep = model(x,y)
             history_dep.append(dep.detach().numpy())
             #print("{} {}".format(i, dep))
@@ -134,13 +134,13 @@ if __name__ == "__main__":
         file_object.write(str(history_dep[-1]))    
         file_object.write('\n')
         plt.plot(history_dep, label="Dependent")
-        plt.savefig('./additive_noise_effect_{}.png'.format(step))
+        plt.savefig('./x_additive_noise_effect_{}.png'.format(step))
         step = step + 1
         plt.clf()
 
     breakpoint()
     plt.plot(np.arange(0, 2.5, 0.1), to_plot)    
-    plt.savefig('./additive_noise_effects.png')
+    plt.savefig('./x_additive_noise_effects.png')
 
     file_object.close()
 

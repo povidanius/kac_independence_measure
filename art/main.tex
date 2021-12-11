@@ -21,12 +21,17 @@
 \end{abstract}
 
 \section{Introduction}
+Estimation of statistical dependence, both qualitatively and quantitatively, plays important role in various statistical and machine learning methods (e.g. hypothesis testing, feature selection and extraction~\cite{?}, information bottleneck methods \cite{?}, cost function / reinforcement learning reward design, causal inference~\cite{?}, among others). Therefore, earliest statistical dependence estimation ideas (e.g. conditional probability) likely share nearly-common origin with the beginning of formal statistical reasoning itself. During last two centuries ideas of correlation and (relative) entropy (including various generalizations) were proposed and became very popular in numerous applications and theoretical developments. However, with the increasing popularity of statistical machine learning, new statistical dependence estimation methods, that are robust, applicable to noisy, high-dimensional data, and can be efficiently integrated with modern machine learning methods are helpful for the development both of the theory and application.
+
+In this study we will review some important previous dependence estimation approaches (Section~\ref{section:previous_work}), devoting special attention to ones based on characteristic functions (Section~\ref{section:previous_work_cf}). Afterwards we formulate new characteristic function-based statistical dependence measure and its empirical estimator (Section~\ref{section:proposed_method}). Section~\ref{section:experiments} is devoted to experiments with simulated and real data sets, and finalizing Section~\ref{section:discussion} concludes this article.
 
 \section{Previous work}
+\label{section:previous_work}
 \subsection{Characteristic-function-based methods}
-
+\label{section:previous_work_cf}
+\cite{Feuerverger}
 \section{Proposed Method}
-
+\label{section:proposed_method}
 We will derive independence measure relying on property of characteristic functions (also known as Kac theorem~\cite{KacTheorem}), that independence of two random vectors $X \in R^{d_{x}}$ and $Y \in R^{d_{y}}$ is equivalent to $\forall \alpha \in R^{d_x}, \beta \in R^{d_y} $, \begin{equation}
 \mathbb{E}_{X,Y} e^{i <\alpha, X> + i <\beta, Y>} = \mathbb{E}_{X} e^{i <\alpha, X>} \mathbb{E}_{Y} e^{i <\beta, Y>},
 \end{equation}
@@ -61,6 +66,7 @@ Having i.i.d. data $(x_{j}, y_{j})$, $j = 1,2,...,n$ an empirical estimator of K
 \end{algorithm}
 
 \section{Experiments}
+\label{section:experiments}
 Dependence measures have board area of applications. For example, regularization~\cite{?,?}, feature selection and extraction~\cite{?}, information bottleneck methods \cite{?}, causal inference~\cite{?}, among others. Further we will conduct empirical investigation of KacIM. Starting with simple illustrative simulations, we will reformulate some key ideas in aforementioned topics for KacIM, and experimentally investigate corresponding empirical scenarios.
 
 
@@ -111,6 +117,7 @@ W^{*} = arg \max_{W} \kappa(Wx, y).
 
 \section{Discussion} 
 
+\label{section:discussion}
 
 %\subsection{KacIM for information bottleneck}
 %\subsection{Canonical component analysis, independent component analysis}
@@ -119,8 +126,16 @@ W^{*} = arg \max_{W} \kappa(Wx, y).
 %\section{Notes}
 %Compare with  mutual information.
 
-\begin{thebibliography}{}
-\bibitem{KacTheorem} David Applebaum, B.V. Rajarama Bhat, Johan Kustermans, J. Martin Lindsay, Michael Schuermann, Uwe Franz: Quantum Independent Increment Processes I: From Classical Probability to Quantum Stochastic Calculus
 
-\end{thebibliography}
+%\bibliographystyle{apalike}
+\bibliographystyle{unsrt}
+
+{\footnotesize
+\bibliography{bibliography}}
+
+
+%\begin{thebibliography}{}
+%\bibitem{KacTheorem} David Applebaum, B.V. Rajarama Bhat, Johan Kustermans, J. Martin Lindsay, Michael Schuermann, Uwe Franz: Quantum Independent Increment Processes I: From Classical Probability to Quantum Stochastic Calculus
+%\end{thebibliography}
+
 \end{document}
