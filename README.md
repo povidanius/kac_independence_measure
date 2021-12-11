@@ -11,7 +11,7 @@ This repository includes basic implementation of KacIM, and one very basic demon
 
 Article/preprint is currently being prepared.
 
-This how KacIM looks like for independent data:
+This how KacIM evaluations during gradient optimization looks like for independent data (2000 iterations):
 
 ![Alt text](./independent.png?raw=true "Title")
 
