@@ -4,6 +4,9 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
 \newtheorem{theorem}{Theorem}
 
 \title{Multivariate statistical dependence measure based on characteristic functions}
@@ -14,10 +17,13 @@
 \maketitle
 
 \begin{abstract}
-    In this paper we propose  multivariate statistical dependence measure based on difference between joint and marginal characteristic functions. We discuss simulated examples, and applications for feature selection/extraction, causal inference and conduct corresponding experiments with diverse collection of multivariate data sets.
+    In this paper we propose  multivariate statistical dependence measure based on the difference between joint and product of marginal characteristic functions. We discuss simulated examples, and applications for feature selection/extraction, causal inference and conduct corresponding experiments with diverse collection of multivariate data sets.
 \end{abstract}
+
 \section{Introduction}
+
 \section{Previous work}
+\subsection{Characteristic-function-based methods}
 
 \section{Proposed Method}
 
@@ -42,10 +48,20 @@ Having i.i.d. data $(x_{j}, y_{j})$, $j = 1,2,...,n$ an empirical estimator of K
     \hat{\kappa}(X,Y) = \max_{\|\alpha\| = \|\beta\| = 1} \vert \frac{1}{n} \sum_{j=1}^{n} e^{i(<\alpha, x_{j}> + <\beta, y_{j}>) } - \frac{1}{n^2} \sum_{j=1}^{n} e^{i <\alpha, x_{j}>}\sum_{k=1}^{n} e^{i<\beta, y_{k}>}\vert.
 \end{equation}
 
-\noindent Empirical estimator also admits $0 \leq \hat{\kappa}(X,Y) \leq 1$. Normalisation of parameters $\alpha$ and $\beta$ on to unit sphere is included due to stability issues. The  estimator~\eqref{eq:estimator} can be calculated by using gradient ascend.
+\noindent Empirical estimator also admits $0 \leq \hat{\kappa}(X,Y) \leq 1$. Normalisation of parameters $\alpha$ and $\beta$ on to unit sphere is included due to stability issues. The  estimator~\eqref{eq:estimator} can be calculated by using Algorithm~\ref{alg:estimator_computation}.
+
+\begin{algorithm}
+\caption{KacIM estimator computation algorithm}\label{alg:estimator_computation}
+\begin{algorithmic}
+\Require data batch $(x,y)$, gradient-based optimiser $GradOpt(loss)$
+%\Ensure $y = x^n$
+\State Calculate KacIM estimator $\hat{\kappa}(x,y)$, without maximization step (i.e. using current $\alpha, \beta$).
+\State Perform one maximization iteration of computed $\hat{\kappa}(x,y)$ via $\alpha, \beta \rightarrow GradOpt(\hat{\kappa}(x,y))$.
+\end{algorithmic}
+\end{algorithm}
 
 \section{Experiments}
-Dependence measures have board area of applications. For example, regularization~\cite{?,?}, feature selection and extraction~\cite{?}, information bottleneck methods \cite{?}, causal inference~\cite{?}, among others. Further we will reformulate some key ideas in these topics for KacIM, and experimentally investigate corresponding empirical scenarios.
+Dependence measures have board area of applications. For example, regularization~\cite{?,?}, feature selection and extraction~\cite{?}, information bottleneck methods \cite{?}, causal inference~\cite{?}, among others. Further we will conduct empirical investigation of KacIM. Starting with simple illustrative simulations, we will reformulate some key ideas in aforementioned topics for KacIM, and experimentally investigate corresponding empirical scenarios.
 
 
 \subsection{Generated data}
@@ -71,7 +87,7 @@ Figure~\ref{fig:experiments_noise_level_effect} empirically shows that value of 
 \label{fig:experiments_noise_level_effect}
 \centering
 \includegraphics[scale=0.50]{./noise_level_effect_to_kacim.png}
-\caption{Noise level ($x$ axis) vs final iteration KacIM value ($y$ axis). KacIM values for larger noise levels saturates to the level similar to its final values.}
+\caption{Noise level ($x$ axis) vs final iteration KacIM value ($y$ axis). KacIM values for larger noise levels saturates as in tail of graph.}
 \end{figure}
 
 
