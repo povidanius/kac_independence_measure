@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.6.4)  11 DEC 2021 17:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.6.4)  11 DEC 2021 21:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**main.tex
+**./main.tex
 (./main.tex
 LaTeX2e <2017-04-15>
 Babel <3.18> and hyphenation patterns for 84 language(s) loaded.
@@ -566,63 +566,80 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 17.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
+)
+
+LaTeX Warning: Citation `?' on page 1 undefined on input line 24.
+
+
+LaTeX Warning: Citation `?' on page 1 undefined on input line 24.
+
+
+LaTeX Warning: Citation `?' on page 1 undefined on input line 24.
+
+
+Overfull \hbox (0.52855pt too wide) in paragraph at lines 24--25
+\OT1/cmr/m/n/10 Estimation of sta-tis-ti-cal de-pen-dence, both qual-i-ta-tivel
+y and quan-ti-ta-tively, plays
+ []
+
+
+LaTeX Warning: Citation `Feuerverger' on page 1 undefined on input line 32.
+
+[1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 
-LaTeX Warning: Reference `alg:estimator_computation' on page 2 undefined on inp
-ut line 51.
+LaTeX Warning: Citation `KacTheorem' on page 2 undefined on input line 35.
 
 
-Underfull \hbox (badness 1418) in paragraph at lines 59--60
+Underfull \hbox (badness 1418) in paragraph at lines 64--65
 []\OT1/cmr/m/n/10 Per-form one max-i-miza-tion it-er-a-tion of com-puted $[](\O
 ML/cmm/m/it/10 x; y\OT1/cmr/m/n/10 )$ via $\OML/cmm/m/it/10 ; ^^L \OMS/cmsy/m/
 n/10 !
  []
 
 
-LaTeX Warning: Citation `?' on page 2 undefined on input line 64.
+LaTeX Warning: Citation `?' on page 2 undefined on input line 70.
 
 
-LaTeX Warning: Citation `?' on page 2 undefined on input line 64.
+LaTeX Warning: Citation `?' on page 2 undefined on input line 70.
 
 
-LaTeX Warning: Citation `?' on page 2 undefined on input line 64.
+LaTeX Warning: Citation `?' on page 2 undefined on input line 70.
 
 
-LaTeX Warning: Citation `?' on page 2 undefined on input line 64.
+LaTeX Warning: Citation `?' on page 2 undefined on input line 70.
 
 
-LaTeX Warning: Citation `?' on page 2 undefined on input line 64.
+LaTeX Warning: Citation `?' on page 2 undefined on input line 70.
 
-<./out.png, id=18, 1284.8pt x 481.8pt>
+[2]
+<./out.png, id=24, 1284.8pt x 481.8pt>
 File: ./out.png Graphic file (type png)
 <use ./out.png>
-Package pdftex.def Info: ./out.png  used on input line 74.
+Package pdftex.def Info: ./out.png  used on input line 80.
 (pdftex.def)             Requested size: 321.19922pt x 120.44969pt.
-[2]
 <./noise_level_effect_to_kacim.png, id=25, 462.528pt x 346.896pt>
 File: ./noise_level_effect_to_kacim.png Graphic file (type png)
 <use ./noise_level_effect_to_kacim.png>
 Package pdftex.def Info: ./noise_level_effect_to_kacim.png  used on input line 
-89.
+95.
 (pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
- [3 <./out.png> <./noise_level_effect_to_kacim.png>] [4] (./main.aux)
+ [3 <./out.png>]
+No file main.bbl.
+[4 <./noise_level_effect_to_kacim.png>] (./main.aux)
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 3279 strings out of 492982
- 42274 string characters out of 6134897
- 106036 words of memory out of 5000000
- 6780 multiletter control sequences out of 15000+600000
+ 3286 strings out of 492982
+ 42408 string characters out of 6134897
+ 104083 words of memory out of 5000000
+ 6786 multiletter control sequences out of 15000+600000
  12110 words of font info for 47 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,6n,25p,718b,246s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,6n,25p,1087b,246s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texli
@@ -638,7 +655,7 @@ mr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb
 hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/t
 exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/
 texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (4 pages, 268800 bytes).
+Output written on main.pdf (4 pages, 268039 bytes).
 PDF statistics:
  85 PDF objects out of 1000 (max. 8388607)
  59 compressed objects within 1 object stream
