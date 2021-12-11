@@ -9,7 +9,7 @@ between joint and product marginal characteristic functions (two complex random 
 This repository includes basic implementation of KacIM, and one very basic demonstration, which show that KacIM works for high-dimensional data.
 
 
-Article/preprint is currently being prepared: ![Alt text](./art/main.pdf?raw=true "Article")
+Article/preprint is currently being prepared: ![Article](./art/main.pdf "Article")
 
 
 This how KacIM evaluations during gradient optimization looks like for independent data (2000 iterations):
