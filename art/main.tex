@@ -6,10 +6,12 @@
 \usepackage{graphicx}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+\usepackage{blindtext}
+\usepackage{hyperref}
 
 \newtheorem{theorem}{Theorem}
 
-\title{Multivariate statistical dependence measure based on characteristic functions}
+\title{Statistical dependence measure based on characteristic functions}
 \author{povilas.daniusis, povilasd@neurotechnology.com}
 \date{November 2021}
 
@@ -23,24 +25,37 @@
 \section{Introduction}
 Estimation of statistical dependence, both qualitatively and quantitatively, plays important role in various statistical and machine learning methods (e.g. hypothesis testing, feature selection and extraction~\cite{?}, information bottleneck methods \cite{?}, cost function / reinforcement learning reward design, causal inference~\cite{?}, among others). Therefore, earliest statistical dependence estimation ideas (e.g. conditional probability) likely share nearly-common origin with the beginning of formal statistical reasoning itself. During last two centuries ideas of correlation and (relative) entropy (including various generalizations) were proposed and became very popular in numerous applications and theoretical developments. However, with the increasing popularity of statistical machine learning, new statistical dependence estimation methods, that are robust, applicable to noisy, high-dimensional data, and can be efficiently integrated with modern machine learning methods are helpful for the development both of the theory and application.
 
-In this study we will review some important previous dependence estimation approaches (Section~\ref{section:previous_work}), devoting special attention to ones based on characteristic functions (Section~\ref{section:previous_work_cf}). Afterwards we formulate new characteristic function-based statistical dependence measure and its empirical estimator (Section~\ref{section:proposed_method}). Section~\ref{section:experiments} is devoted to experiments with simulated and real data sets, and finalizing Section~\ref{section:discussion} concludes this article.
+In this study we will begin with the short review of some important previous dependence estimation approaches (Section~\ref{section:previous_work}), devoting special attention to ones based on characteristic functions (Section~\ref{section:previous_work_cf}). Afterwards we formulate new characteristic function-based statistical dependence measure and its empirical estimator (Section~\ref{section:proposed_method}), which is the main theoretical contribution of our paper. Section~\ref{section:experiments} is devoted to experiments with simulated and real data sets, and finalizing Section~\ref{section:discussion} concludes this article.
 
 \section{Previous work}
 \label{section:previous_work}
+Shannon mutual information \cite{?} and generalizations \cite{?},  Hilbert-Schmidt independence criterion \cite{?}, distance correlation\cite{?}. Survey \cite{?}.
+
 \subsection{Characteristic-function-based methods}
 \label{section:previous_work_cf}
-\cite{Feuerverger}
+\cite{Feuerverger} (...) 
+~\cite{Bottcher} proposes dependence measures for $n$ random variables of arbitrary dimesnions \textit{distance multivariance} and derive from it another dependence measure, called  \textit{total distance multivariance}. Both measure rely (...)
+\cite{Belu2012MultivariateMO}
 \section{Proposed Method}
 \label{section:proposed_method}
-We will derive independence measure relying on property of characteristic functions (also known as Kac theorem~\cite{KacTheorem}), that independence of two random vectors $X \in R^{d_{x}}$ and $Y \in R^{d_{y}}$ is equivalent to $\forall \alpha \in R^{d_x}, \beta \in R^{d_y} $, \begin{equation}
-\mathbb{E}_{X,Y} e^{i <\alpha, X> + i <\beta, Y>} = \mathbb{E}_{X} e^{i <\alpha, X>} \mathbb{E}_{Y} e^{i <\beta, Y>},
+Characteristic function of random vector $X$ is defined as 
+\begin{equation}
+    \label{eq:characteristic_function}
+    \phi_{X}(\alpha) = \mathbb{E_{X}} e^{i\alpha^{T}X}, 
 \end{equation}
-where $i = \sqrt{-1}$, $d_{x}$ and $d_{y}$ are dimensions of $X$ and $Y$, respectively.
+where $i=\sqrt{-1}$.
 
-\noindent This motivates the construction of a novel statistical dependence measure, which we further refer to as Kac independence measure (KacIM):
+We will derive independence measure relying on property of characteristic functions (also known as Kac theorem~\cite{KacTheorem}), that independence of two random vectors $X \in R^{d_{x}}$ and $Y \in R^{d_{y}}$ is equivalent to $\forall \alpha \in R^{d_x}, \beta \in R^{d_y} $, \begin{equation}
+%\mathbb{E}_{X,Y} e^{i <\alpha, X> + i <\beta, Y>} = \mathbb{E}_{X} e^{i <\alpha, X>} \mathbb{E}_{Y} e^{i <\beta, Y>},
+\phi_{X,Y}(\alpha + \beta) = \phi_{X}(\alpha) \phi_{Y}(\beta),
+\end{equation}
+where $d_{y}$ are dimensions of $X$ and $Y$, respectively.
+
+\noindent This motivates the construction of a novel statistical measure, which we further refer to as Kac independence measure (KacIM):
 \begin{equation}
 \label{eq:kim}
-    \kappa(X,Y) = \max_{\alpha, \beta} \vert \mathbb{E}_{X,Y} e^{i <\alpha, X> + i <\beta, Y>} -\mathbb{E}_{X} e^{i <\alpha, X>} \mathbb{E}_{Y} e^{i <\beta, Y>} \vert
+%    \kappa(X,Y) = \max_{\alpha, \beta} \vert \mathbb{E}_{X,Y} e^{i <\alpha, X> + i <\beta, Y>} -\mathbb{E}_{X} e^{i <\alpha, X>} \mathbb{E}_{Y} e^{i <\beta, Y>} \vert
+    \kappa(X,Y) = \max_{\alpha, \beta} \vert \phi_{X,Y}(\alpha + \beta)  -\phi_{X}(\alpha) \phi_{Y}(\beta) \vert
 \end{equation}
 
 \noindent It is easy to see that $0 \leq \kappa(X,Y) \leq 1$, $\kappa(X,Y) = \kappa(Y,X)$. 
@@ -53,7 +68,7 @@ Having i.i.d. data $(x_{j}, y_{j})$, $j = 1,2,...,n$ an empirical estimator of K
     \hat{\kappa}(X,Y) = \max_{\|\alpha\| = \|\beta\| = 1} \vert \frac{1}{n} \sum_{j=1}^{n} e^{i(<\alpha, x_{j}> + <\beta, y_{j}>) } - \frac{1}{n^2} \sum_{j=1}^{n} e^{i <\alpha, x_{j}>}\sum_{k=1}^{n} e^{i<\beta, y_{k}>}\vert.
 \end{equation}
 
-\noindent Empirical estimator also admits $0 \leq \hat{\kappa}(X,Y) \leq 1$. Normalisation of parameters $\alpha$ and $\beta$ on to unit sphere is included due to stability issues. The  estimator~\eqref{eq:estimator} can be calculated by using Algorithm~\ref{alg:estimator_computation}.
+\noindent Empirical estimator also admits $0 \leq \hat{\kappa}(X,Y) \leq 1$. Normalisation of parameters $\alpha$ and $\beta$ on to unit sphere is included due to stability issues. The  estimator~\eqref{eq:estimator} can be calculated by using Algorithm~\ref{alg:estimator_computation}. Pytorch~\cite{Pytorch} implementation of corresponding procedure can be accessed from \url{https://github.com/povidanius/kac_independence_measure}.
 
 \begin{algorithm}
 \caption{KacIM estimator computation algorithm}\label{alg:estimator_computation}
@@ -118,6 +133,12 @@ W^{*} = arg \max_{W} \kappa(Wx, y).
 \section{Discussion} 
 
 \label{section:discussion}
+In this article we propose statistical dependence measure, KacIM, which relies on simple fact that statistical independence is equivalent to the decomposability of joint characteristic function  into the product of marginal ones. Although we formulated and analysed KacIM for bivariate vectorial case, similarly it can be generalised for multivariate case. In addition, since characteristic functions are defined for matrices, graphs, and other objects \cite{?}, likely KacIM can be extended to those objects as well, which is potential direction of future research of KacIM.
+
+Empirical analysis show, that KacIM can detect and measure statistical independence for non-linearly related, high-dimensional data. (...)
+
+\section{Acknowledgements}
+
 
 %\subsection{KacIM for information bottleneck}
 %\subsection{Canonical component analysis, independent component analysis}
@@ -133,6 +154,7 @@ W^{*} = arg \max_{W} \kappa(Wx, y).
 {\footnotesize
 \bibliography{bibliography}}
 
+% https://arxiv.org/pdf/2104.06612.pdf
 
 %\begin{thebibliography}{}
 %\bibitem{KacTheorem} David Applebaum, B.V. Rajarama Bhat, Johan Kustermans, J. Martin Lindsay, Michael Schuermann, Uwe Franz: Quantum Independent Increment Processes I: From Classical Probability to Quantum Stochastic Calculus
