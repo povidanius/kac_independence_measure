@@ -1,5 +1,5 @@
 # Kac independence measure 
-Kac independence measure (KacIM) is multivariate statistical independence measure, 
+Kac independence measure (KacIM) is bivariate statistical independence measure, 
 which can detect arbitrary statistical dependence between two random vectors (similar to mutual information, Hilbert-Schmidt independence criterion (HSIC), etc.). The idea of KacIM is to maximimize lenght of difference 
 between joint and product marginal characteristic functions (two complex random variables):
 
