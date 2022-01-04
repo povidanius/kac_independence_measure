@@ -51,11 +51,8 @@ class KacIndependenceMeasure(nn.Module):
             y = (y - y.mean(axis=1, keepdim=True))/y.std(axis=1, keepdim=True)
    
         # batch norm?
-        #if self.input_projection_dim > 0:
-        #        x = self.projection(x)
-
-        #x = (x - x.mean(axis=1, keepdim=True))/x.std(axis=1, keepdim=True)
-        #y = (y - y.mean(axis=1, keepdim=True))/y.std(axis=1, keepdim=True)
+        if self.input_projection_dim > 0:
+                x = self.projection(x)
 
 
         xa = (x @ (self.a/torch.norm(self.a)))
@@ -78,10 +75,10 @@ if __name__ == "__main__":
     dim_x = 512 # 1024
     dim_y = 4 # 32
     num_iter = 500 #500
-    input_proj_dim = 64 #0
+    input_proj_dim = 0 #0
 
     #model = KacIndependenceMeasure(dim_x, dim_y, lr=0.05, num_iter = num_iter, input_projection_dim = input_proj_dim)
-    model = KacIndependenceMeasure(dim_x, dim_y, lr=0.001, num_iter = num_iter, input_projection_dim = input_proj_dim)
+    model = KacIndependenceMeasure(dim_x, dim_y, lr=0.05, num_iter = num_iter, input_projection_dim = input_proj_dim)
 
     
    
@@ -137,38 +134,3 @@ if __name__ == "__main__":
 
     plt.savefig('./independent_dependent.png')
 
-    """
-    file_object = open('scale_effect.txt', 'w')
-
-    to_plot = []
-    step = 0
-    for noise_level in np.arange(0.1, 2.5, 0.1):
-        print("scale_level: {}".format(noise_level))
-        history_dep = []
-        random_proj = nn.Linear(dim_x, dim_y)
-        model.reset()
-        for i in range(num_iter):
-            x = torch.randn(n_batch, dim_x)
-            proj_x = noise_level*random_proj(x)
-            noise = torch.randn(n_batch, dim_y)
-            #y = (torch.sin(proj_x) + torch.cos(proj_x))*noise    
-            #y = torch.log(1.0 + torch.abs(proj_x))
-            y = noise_level*(torch.sin(proj_x) + torch.cos(proj_x)) #  + 1.0*noise)           
-            #y = x + noise_level*noise
-            dep = model(x,y)
-            history_dep.append(dep.detach().numpy())
-            #print("{} {}".format(i, dep))
-        to_plot.append(history_dep[-1])
-        file_object.write(str(history_dep[-1]))    
-        file_object.write('\n')
-        plt.plot(history_dep, label="Scale: ".format(str(noise_level)))
-        plt.savefig('./scale_x_additive_noise_effect_{}.png'.format(step))
-        step = step + 1
-        plt.clf()
-
-    breakpoint()
-    plt.plot(np.arange(0.1, 2.5, 0.1), to_plot)    
-    plt.savefig('./scale_x_additive_noise_effects.png')
-
-    file_object.close()
-    """
