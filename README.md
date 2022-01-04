@@ -12,7 +12,7 @@ This repository includes basic implementation of KacIM, and one very basic demon
 Article/preprint is currently being prepared: ![Article](https://github.com/povidanius/kac_independence_measure/tree/main/art/main.pdf?raw=false "Article")
 
 
-This how KacIM evaluations during gradient optimization looks like for independent data, dependent data with additive and multiplicative noise (500 iterations):
+This how KacIM evaluations during gradient optimization looks like for independent data (blue), dependent data with additive (orange) and multiplicative noise (green) (500 iterations):
 
 ![Alt text](./independent_dependent.png?raw=true "Title")
 
