@@ -28,53 +28,63 @@ class KacIndependenceMeasure(nn.Module):
         self.lr = lr
         self.input_projection_dim = input_projection_dim
 
-        if self.input_projection_dim > 0: # MNN: 
-            self.projection = weight_norm(nn.Linear(self.dim_x, self.input_projection_dim))
-            self.dim_x = self.input_projection_dim
-
         self.reset()
 
     def reset(self):
-        self.a = Variable(torch.randn(self.dim_x), requires_grad=True)
         self.b = Variable(torch.randn(self.dim_y), requires_grad=True)
 
         if self.input_projection_dim > 0:
-            self.optimizer = torch.optim.AdamW(list(self.projection.parameters()) + [self.a, self.b], lr=self.lr, weight_decay=0.0) 
+            self.a = Variable(torch.randn(self.input_projection_dim), requires_grad=True)
+            self.projection = weight_norm(nn.Linear(self.dim_x, self.input_projection_dim))
+            self.optimizer = torch.optim.AdamW(list(self.projection.parameters()) + [self.a, self.b], lr=self.lr, weight_decay=0.1) 
         else:
-            self.optimizer = torch.optim.AdamW([self.a, self.b], lr=self.lr, weight_decay=0.0) 
+            self.a = Variable(torch.randn(self.dim_x), requires_grad=True)
+            self.optimizer = torch.optim.AdamW([self.a, self.b], lr=self.lr, weight_decay=0.1) 
 
    
-    
-    def forward(self, x, y):
+
+
+
+    def forward(self, x, y, update = True, normalize=True):
+        if normalize:
+            x = (x - x.mean(axis=1, keepdim=True))/x.std(axis=1, keepdim=True)
+            y = (y - y.mean(axis=1, keepdim=True))/y.std(axis=1, keepdim=True)
+   
         # batch norm?
-        if self.input_projection_dim > 0:
-                x = self.projection(x)
+        #if self.input_projection_dim > 0:
+        #        x = self.projection(x)
+
+        #x = (x - x.mean(axis=1, keepdim=True))/x.std(axis=1, keepdim=True)
+        #y = (y - y.mean(axis=1, keepdim=True))/y.std(axis=1, keepdim=True)
 
 
-        xa = (x @ self.a/torch.norm(self.a))
-        yb = (y @ self.b/torch.norm(self.b))
+        xa = (x @ (self.a/torch.norm(self.a)))
+        yb = (y @ (self.b/torch.norm(self.b)))
         f = torch.exp(1j*(xa + yb)).mean() - torch.exp(1j*xa).mean() * torch.exp(1j*yb).mean()
         kim = torch.norm(f)
 
-        loss = -kim # maximise => negative
-        self.optimizer.zero_grad()
-        loss.backward()
-        self.optimizer.step()   
+        if update:
+            loss = -kim # maximise => negative
+            self.optimizer.zero_grad()
+            loss.backward()
+            self.optimizer.step()   
 
         return kim
 
 
 
 if __name__ == "__main__":    
-    n_batch = 2048 #1024
-    dim_x = 1024
-    dim_y = 32
-    num_iter = 500 #1300
-    input_proj_dim = 0
+    n_batch = 2048 #2048
+    dim_x = 512 # 1024
+    dim_y = 4 # 32
+    num_iter = 500 #500
+    input_proj_dim = 64 #0
 
-    model = KacIndependenceMeasure(dim_x, dim_y, lr=0.05, num_iter = num_iter, input_projection_dim = input_proj_dim)
+    #model = KacIndependenceMeasure(dim_x, dim_y, lr=0.05, num_iter = num_iter, input_projection_dim = input_proj_dim)
+    model = KacIndependenceMeasure(dim_x, dim_y, lr=0.001, num_iter = num_iter, input_projection_dim = input_proj_dim)
+
     
-    """
+   
     # inedependent data
     print("Independent data")
     history_indep = []
@@ -91,8 +101,7 @@ if __name__ == "__main__":
     model.reset()    
     
 
-    # dependent data
-    print("Dependent data")
+    # dependent data (additive noise)
     history_dep = []
     random_proj = nn.Linear(dim_x, dim_y)
     for i in range(num_iter):
@@ -101,31 +110,50 @@ if __name__ == "__main__":
         noise = torch.randn(n_batch, dim_y)
         #y = (torch.sin(proj_x) + torch.cos(proj_x))*noise    
         #y = torch.log(1.0 + torch.abs(proj_x))
-        y = torch.sin(proj_x) + torch.cos(proj_x)  + 0.2*noise
+        y = torch.sin(proj_x) + torch.cos(proj_x)  + 1.0*noise
         #y = x
         dep = model(x,y)
         history_dep.append(dep.detach().numpy())
         #print("{} {}".format(i, dep))
-    plt.plot(history_dep, label="Dependent")
-    plt.savefig('./additive_noise_effect_0.1.png')
-    """
+    plt.plot(history_dep, label="Dependent_additive")
 
-    file_object = open('noise_effect.txt', 'w')
+    model.reset()
+
+    history_dep = []
+    random_proj = nn.Linear(dim_x, dim_y)
+    for i in range(num_iter):
+        x = torch.randn(n_batch, dim_x)
+        proj_x = random_proj(x)
+        noise = torch.randn(n_batch, dim_y)
+        y = (torch.sin(proj_x) + torch.cos(proj_x))*noise    
+        #y = torch.log(1.0 + torch.abs(proj_x))
+        #y = torch.sin(proj_x) + torch.cos(proj_x)  + 1.0*noise
+        #y = x
+        dep = model(x,y)
+        history_dep.append(dep.detach().numpy())
+        #print("{} {}".format(i, dep))
+    plt.plot(history_dep, label="Dependent_multiplicative")
+
+
+    plt.savefig('./independent_dependent.png')
+
+    """
+    file_object = open('scale_effect.txt', 'w')
 
     to_plot = []
     step = 0
-    for noise_level in np.arange(0, 2.5, 0.1):
-        print("Noise level: {}".format(noise_level))
+    for noise_level in np.arange(0.1, 2.5, 0.1):
+        print("scale_level: {}".format(noise_level))
         history_dep = []
         random_proj = nn.Linear(dim_x, dim_y)
         model.reset()
         for i in range(num_iter):
             x = torch.randn(n_batch, dim_x)
-            proj_x = random_proj(x)
+            proj_x = noise_level*random_proj(x)
             noise = torch.randn(n_batch, dim_y)
             #y = (torch.sin(proj_x) + torch.cos(proj_x))*noise    
             #y = torch.log(1.0 + torch.abs(proj_x))
-            y = torch.sin(proj_x) + torch.cos(proj_x)  + noise_level*noise            
+            y = noise_level*(torch.sin(proj_x) + torch.cos(proj_x)) #  + 1.0*noise)           
             #y = x + noise_level*noise
             dep = model(x,y)
             history_dep.append(dep.detach().numpy())
@@ -133,25 +161,14 @@ if __name__ == "__main__":
         to_plot.append(history_dep[-1])
         file_object.write(str(history_dep[-1]))    
         file_object.write('\n')
-        plt.plot(history_dep, label="Dependent")
-        plt.savefig('./x_additive_noise_effect_{}.png'.format(step))
+        plt.plot(history_dep, label="Scale: ".format(str(noise_level)))
+        plt.savefig('./scale_x_additive_noise_effect_{}.png'.format(step))
         step = step + 1
         plt.clf()
 
     breakpoint()
-    plt.plot(np.arange(0, 2.5, 0.1), to_plot)    
-    plt.savefig('./x_additive_noise_effects.png')
+    plt.plot(np.arange(0.1, 2.5, 0.1), to_plot)    
+    plt.savefig('./scale_x_additive_noise_effects.png')
 
     file_object.close()
-
-
-
-
-
-
-
-
-
-
-
-
+    """
