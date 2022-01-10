@@ -53,5 +53,9 @@ if __name__ == "__main__":
     )
     breakpoint()
 
-    model.forward(Xb, Yb)
+    num_iter = 1024
+
+    #for i in range(num_iter):
+    #    model.forward(Xb, Yb)
+
     
