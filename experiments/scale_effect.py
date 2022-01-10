@@ -13,9 +13,13 @@ sys.path.insert(0, "../")
 from scipy.signal import medfilt as mf
 
 from kac_independence_measure import KacIndependenceMeasure
+import os
 
 
 if __name__ == "__main__":
+
+    if not os.path.exists('scale_effect'):
+        os.makedirs('scale_effect')
 
     n_batch = 2048 #2048
     dim_x = 512 # 1024

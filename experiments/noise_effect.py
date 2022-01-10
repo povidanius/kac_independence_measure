@@ -12,9 +12,13 @@ import sys
 sys.path.insert(0, "../")
 
 from kac_independence_measure import KacIndependenceMeasure
+import os
 
 
 if __name__ == "__main__":
+
+    if not os.path.exists('noise_effect'):
+        os.makedirs('noise_effect')
 
     n_batch = 2048 #2048
     dim_x = 512 # 1024
