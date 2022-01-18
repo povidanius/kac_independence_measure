@@ -43,16 +43,13 @@ if __name__ == "__main__":
         history_dep = []
         #model.reset()
 
-        model = KacIndependenceMeasure(dim_x, dim_y, lr=0.01, num_iter = num_iter, input_projection_dim = input_proj_dim)
+        model = KacIndependenceMeasure(dim_x, dim_y, lr=0.01,  input_projection_dim = input_proj_dim, weight_decay=0.001)
 
         for i in range(num_iter):
             x = torch.randn(n_batch, dim_x)
             proj_x = random_proj(x)
             noise = torch.randn(n_batch, dim_y)
-            #y = (torch.sin(proj_x) + torch.cos(proj_x))*noise    
-            #y = torch.log(1.0 + torch.abs(proj_x))
             y = torch.sin(proj_x) + torch.cos(proj_x)  + noise_level*noise           
-            #y = noise*x #+ noise_level*noise
             dep = model(x,y)
             history_dep.append(dep.detach().numpy())
             #print("{} {}".format(i, dep))
