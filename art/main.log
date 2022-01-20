@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.6.4)  20 JAN 2022 11:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.6.4)  20 JAN 2022 11:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -610,38 +610,50 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip49
 )
+(/usr/share/texlive/texmf-dist/tex/latex/amscls/amsthm.sty
+Package: amsthm 2017/10/31 v2.20.4
+\thm@style=\toks25
+\thm@bodyfont=\toks26
+\thm@headfont=\toks27
+\thm@notefont=\toks28
+\thm@headpunct=\toks29
+\thm@preskip=\skip50
+\thm@postskip=\skip51
+\thm@headsep=\skip52
+\dth@everypar=\toks30
+)
 \c@theorem=\count136
-
-(./main.aux)
+ (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
- (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count137
 \scratchdimen=\dimen118
 \scratchbox=\box30
 \nofMPsegments=\count138
 \nofMParguments=\count139
-\everyMPshowfont=\toks25
+\everyMPshowfont=\toks31
 \MPscratchCnt=\count140
 \MPscratchDim=\dimen119
 \MPnumerator=\count141
 \makeMPintoPDFobject=\count142
-\everyMPtoPDFconversion=\toks26
+\everyMPtoPDFconversion=\toks32
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -660,7 +672,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 \AtBeginShipoutBox=\box31
-Package hyperref Info: Link coloring OFF on input line 18.
+Package hyperref Info: Link coloring OFF on input line 19.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -670,159 +682,148 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count143
 )
-LaTeX Info: Redefining \ref on input line 18.
-LaTeX Info: Redefining \pageref on input line 18.
-LaTeX Info: Redefining \nameref on input line 18.
+LaTeX Info: Redefining \ref on input line 19.
+LaTeX Info: Redefining \pageref on input line 19.
+LaTeX Info: Redefining \nameref on input line 19.
 
 (./main.out) (./main.out)
 \@outlinefile=\write3
 \openout3 = `main.out'.
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 20.
+LaTeX Font Info:    Try loading font information for U+msa on input line 21.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 20.
+LaTeX Font Info:    Try loading font information for U+msb on input line 21.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 
-LaTeX Warning: Citation `?' on page 1 undefined on input line 26.
+LaTeX Warning: Citation `?' on page 1 undefined on input line 31.
 
 
-LaTeX Warning: Citation `?' on page 1 undefined on input line 26.
+LaTeX Warning: Citation `?' on page 1 undefined on input line 31.
 
 
-LaTeX Warning: Citation `?' on page 1 undefined on input line 26.
-
-
-Overfull \hbox (0.52855pt too wide) in paragraph at lines 26--27
-\OT1/cmr/m/n/10 Estimation of sta-tis-ti-cal de-pen-dence, both qual-i-ta-tivel
-y and quan-ti-ta-tively, plays
- []
-
-
-LaTeX Warning: Citation `?' on page 1 undefined on input line 32.
-
-
-LaTeX Warning: Citation `?' on page 1 undefined on input line 32.
-
-
-LaTeX Warning: Citation `?' on page 1 undefined on input line 32.
-
-
-LaTeX Warning: Citation `?' on page 1 undefined on input line 32.
-
-
-LaTeX Warning: Citation `?' on page 1 undefined on input line 32.
+LaTeX Warning: Citation `?' on page 1 undefined on input line 31.
 
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 
-LaTeX Warning: Citation `Pytorch' on page 2 undefined on input line 71.
+LaTeX Warning: Citation `?' on page 2 undefined on input line 37.
+
+[2]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 100.
+
+ (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 100.
+
+Overfull \hbox (1.45137pt too wide) in paragraph at lines 121--122
+\OT1/cmr/m/n/10 Having i.i.d. stan-dar-tized data $(\OML/cmm/m/it/10 x[]; y[]\O
+T1/cmr/m/n/10 )$, $\OML/cmm/m/it/10 j \OT1/cmr/m/n/10 = 1\OML/cmm/m/it/10 ; \OT
+1/cmr/m/n/10 2\OML/cmm/m/it/10 ; :::; n$ \OT1/cmr/m/n/10 an em-pir-i-cal scale-
+invariant
+ []
 
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 74.
+put line 130.
 
-Underfull \hbox (badness 1418) in paragraph at lines 79--80
+Underfull \hbox (badness 1418) in paragraph at lines 136--137
 []\OT1/cmr/m/n/10 Per-form one max-i-miza-tion it-er-a-tion of com-puted $[](\O
 ML/cmm/m/it/10 x; y\OT1/cmr/m/n/10 )$ via $\OML/cmm/m/it/10 ; ^^L \OMS/cmsy/m/
 n/10 !
  []
 
 
-LaTeX Warning: Citation `?' on page 2 undefined on input line 85.
+LaTeX Warning: Command \l invalid in math mode on input line 143.
 
 
-LaTeX Warning: Citation `?' on page 2 undefined on input line 85.
+LaTeX Warning: Command \l invalid in math mode on input line 143.
+
+[3]
+
+LaTeX Warning: Citation `?' on page 4 undefined on input line 149.
 
 
-LaTeX Warning: Citation `?' on page 2 undefined on input line 85.
+LaTeX Warning: Citation `?' on page 4 undefined on input line 160.
 
 
-LaTeX Warning: Citation `?' on page 2 undefined on input line 85.
+LaTeX Warning: Citation `?' on page 4 undefined on input line 160.
 
-
-LaTeX Warning: Citation `?' on page 2 undefined on input line 85.
-
-[2]
-<./out.png, id=98, 1284.8pt x 481.8pt>
+<./out.png, id=143, 1284.8pt x 481.8pt>
 File: ./out.png Graphic file (type png)
 <use ./out.png>
-Package pdftex.def Info: ./out.png  used on input line 95.
+Package pdftex.def Info: ./out.png  used on input line 170.
 (pdftex.def)             Requested size: 321.19922pt x 120.44969pt.
- [3 <./out.png>]
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 103.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\lambda' on input line 103.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 103.
-
-<./noise_level_effect_to_kacim.png, id=108, 462.528pt x 346.896pt>
-File: ./noise_level_effect_to_kacim.png Graphic file (type png)
-<use ./noise_level_effect_to_kacim.png>
-Package pdftex.def Info: ./noise_level_effect_to_kacim.png  used on input line 
-110.
+[4]
+<./summary_noise_effect.png, id=158, 462.528pt x 346.896pt>
+File: ./summary_noise_effect.png Graphic file (type png)
+<use ./summary_noise_effect.png>
+Package pdftex.def Info: ./summary_noise_effect.png  used on input line 188.
 (pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
 
-LaTeX Warning: Citation `?' on page 4 undefined on input line 136.
+Overfull \hbox (13.56017pt too wide) in paragraph at lines 192--193
+ []\OT1/cmr/bx/n/10 Scale in-vari-ance[] \OT1/cmr/m/n/10 In data scale ex-per-i
+-ments we in-ves-ti-gate be-haviour of $\OML/cmm/m/it/10 ^^T\OT1/cmr/m/n/10 (\O
+ML/cmm/m/it/10 rx; ry\OT1/cmr/m/n/10 )$,
+ []
 
-[4 <./noise_level_effect_to_kacim.png>] (./main.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 163.
- [5]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 163.
+
+LaTeX Warning: Citation `?' on page 5 undefined on input line 217.
+
+[5 <./out.png>] (./main.bbl [6 <./summary_noise_effect.png>])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 244.
+ [7]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 244.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 163.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 163.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 244.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 244.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 05AFB355BD3AE5B670B67CE2D74B1482;666.
+(rerunfilecheck)             Checksum: 1994FBF429811FF05C9A56FA133AB374;793.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 163.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 244.
  ) 
 Here is how much of TeX's memory you used:
- 7058 strings out of 492982
- 99534 string characters out of 6134897
- 190007 words of memory out of 5000000
- 10497 multiletter control sequences out of 15000+600000
+ 7174 strings out of 492982
+ 101154 string characters out of 6134897
+ 192909 words of memory out of 5000000
+ 10583 multiletter control sequences out of 15000+600000
  12976 words of font info for 50 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 28i,6n,31p,1085b,331s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 28i,8n,30p,1192b,480s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb
-></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmti8.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
-ic/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/symbols/msbm7.pfb>
-Output written on main.pdf (5 pages, 326047 bytes).
+t/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+r6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmti8.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmtt8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/symbols/msbm7.pfb>
+Output written on main.pdf (7 pages, 345674 bytes).
 PDF statistics:
- 199 PDF objects out of 1000 (max. 8388607)
- 166 compressed objects within 2 object streams
- 30 named destinations out of 1000 (max. 500000)
- 99 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 263 PDF objects out of 1000 (max. 8388607)
+ 227 compressed objects within 3 object streams
+ 53 named destinations out of 1000 (max. 500000)
+ 115 words of extra memory for PDF output out of 10000 (max. 10000000)
 

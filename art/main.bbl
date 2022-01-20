@@ -1,4 +1,25 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{Cover2006}
+Thomas~M. Cover and Joy~A. Thomas.
+\newblock {\em Elements of Information Theory 2nd Edition (Wiley Series in
+  Telecommunications and Signal Processing)}.
+\newblock Wiley-Interscience, July 2006.
+
+\bibitem{e20110813}
+José~M. Amigó, Sámuel~G. Balogh, and Sergio Hernández.
+\newblock A brief review of generalized entropies.
+\newblock {\em Entropy}, 20(11), 2018.
+
+\bibitem{Gretton2005MeasuringSD}
+Arthur Gretton, Olivier Bousquet, Alex Smola, and Bernhard Sch{\"o}lkopf.
+\newblock Measuring statistical dependence with hilbert-schmidt norms.
+\newblock In {\em ALT}, 2005.
+
+\bibitem{Pczos2012CopulabasedKD}
+Barnab{\'a}s P{\'o}czos, Zoubin Ghahramani, and Jeff~G. Schneider.
+\newblock Copula-based kernel dependency measures.
+\newblock {\em ArXiv}, abs/1206.4682, 2012.
 
 \bibitem{Feuerverger}
 Andrey Feuerverger.
@@ -6,18 +27,61 @@ Andrey Feuerverger.
 \newblock {\em International Statistical Review / Revue Internationale de
   Statistique}, 61(3):419--433, 1993.
 
+\bibitem{Szekely}
+Gábor~J. Székely, Maria~L. Rizzo, and Nail~K. Bakirov.
+\newblock {Measuring and testing dependence by correlation of distances}.
+\newblock {\em The Annals of Statistics}, 35(6):2769 -- 2794, 2007.
+
 \bibitem{Bottcher}
 Björn Böttcher, Martin Keller-Ressel, and René Schilling.
 \newblock Distance multivariance: New dependence measures for random vectors,
   10 2018.
 
-\bibitem{Belu2012MultivariateMO}
-Alexandru Belu.
-\newblock Multivariate measures of dependence for random variables and levy
-  processes.
-\newblock 2012.
+\bibitem{Szkely2013PartialDC}
+G{\'a}bor~J. Sz{\'e}kely and Maria~L. Rizzo.
+\newblock Partial distance correlation with methods for dissimilarities.
+\newblock {\em arXiv: Methodology}, 2013.
 
-\bibitem{KacTheorem}
+\bibitem{NEURIPS2019_9015}
+Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory
+  Chanan, Trevor Killeen, Zeming Lin, Natalia Gimelshein, Luca Antiga, Alban
+  Desmaison, Andreas Kopf, Edward Yang, Zachary DeVito, Martin Raison, Alykhan
+  Tejani, Sasank Chilamkurthy, Benoit Steiner, Lu~Fang, Junjie Bai, and Soumith
+  Chintala.
+\newblock Pytorch: An imperative style, high-performance deep learning library.
+  Alch\'{e}-Buc, E.~Fox, and R.~Garnett, editors, {\em Advances in Neural
+  Information Processing Systems 32}, pages 8024--8035. Curran Associates,
+  Inc., 2019.
 
+\bibitem{Loshchilov2019DecoupledWD}
+Ilya Loshchilov and Frank Hutter.
+\newblock Decoupled weight decay regularization.
+\newblock In {\em ICLR}, 2019.
+
+\bibitem{10.5555/3279302}
+Bernhard Schlkopf, Alexander~J. Smola, and Francis Bach.
+\newblock {\em Learning with Kernels: Support Vector Machines, Regularization,
+  Optimization, and Beyond}.
+\newblock The MIT Press, 2018.
+
+\bibitem{EigenHSIC}
+P.~Daniu{\v{s}}is and P.~Vaitkus.
+\newblock Supervised feature extraction using hilbert-schmidt norms.
+\newblock In Emilio Corchado and Hujun Yin, editors, {\em Intelligent Data
+  Engineering and Automated Learning - IDEAL 2009}, pages 25--33, Berlin,
+  Heidelberg, 2009. Springer Berlin Heidelberg.
+
+\bibitem{Ma2020TheHB}
+Kurt Wan-Duo Ma, J.~P. Lewis, and W.~Kleijn.
+\newblock The hsic bottleneck: Deep learning without back-propagation.
+\newblock {\em ArXiv}, abs/1908.01580, 2020.
+
+\bibitem{NIPS2008_f7664060}
+Patrik Hoyer, Dominik Janzing, Joris~M Mooij, Jonas Peters, and Bernhard
+  Sch\"{o}lkopf.
+\newblock Nonlinear causal discovery with additive noise models.
+\newblock In D.~Koller, D.~Schuurmans, Y.~Bengio, and L.~Bottou, editors, {\em
+  Advances in Neural Information Processing Systems}, volume~21. Curran
+  Associates, Inc., 2009.
 
 \end{thebibliography}

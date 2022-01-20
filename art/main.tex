@@ -8,6 +8,7 @@
 \usepackage{algpseudocode}
 \usepackage{blindtext}
 \usepackage{hyperref}
+\usepackage{amsthm}
 
 \newtheorem{theorem}{Theorem}
 
@@ -42,7 +43,7 @@ Characteristic function of $d_{X}$-dimensional random vector $X$ defined in some
     \label{eq:characteristic_function}
     \phi_{X}(\alpha) = \mathbb{E}_{X} e^{i\alpha^{T}X}, 
 \end{equation}
-where $i=\sqrt{-1}$, $\alpha \in R^{d_{X}$. Having $n$ i.i.d. realisations of $X$, corresponding empirical characteristic function is defined as
+where $i=\sqrt{-1}$, $\alpha \in R^{d_{X}}$. Having $n$ i.i.d. realisations of $X$, corresponding empirical characteristic function is defined as
 \begin{equation}
     \label{eq:ecf}
   \widehat{\phi_{X}}(\alpha) = \frac{1}{n} \sum_{j=1}^{n} e^{i <\alpha, x_{j}>}.
@@ -105,12 +106,11 @@ In contrary to~\cite{Szekely} the proposed~\eqref{eq:kim} measure relies on maxi
 \begin{proof}
 \textit{Proof}
 Symmetry is obvious from definition~\eqref{eq:kim} (commutativity of addition and multiplication), and second property directly follows from Cauchy inequality and that absolute value of characteristic function is bounded by $1$:
-$$
+\begin{multline*}
 |\phi_{X,Y}(\alpha, \beta)  -\phi_{X}(\alpha) \phi_{Y}(\beta)|^{2} =
-\mathbb{E}_{X,Y} |( e^{i\alpha^{T}X} - \phi_{X}(\alpha) )(e^{i\beta^{T}Y}- \phi_{Y}(\beta) )|^{2} = 
-
+\mathbb{E}_{X,Y} |( e^{i\alpha^{T}X} - \phi_{X}(\alpha) )(e^{i\beta^{T}Y}- \phi_{Y}(\beta) )|^{2} = \\
 \mathbb{E}_{X,Y} |( e^{i\alpha^{T}X} - \phi_{X}(\alpha) )|^{2} |(e^{i\beta^{T}Y}- \phi_{Y}(\beta) )|^{2}  = (1 - |\phi_{X}(\alpha)|^{2}) (1 - |\phi_{Y}(\beta)|^{2}).
-$$
+\end{multline*}
 \end{proof}
 
 %\paragraph{Scale invariance}
