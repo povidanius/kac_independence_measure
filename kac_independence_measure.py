@@ -16,14 +16,14 @@ import numpy as np
 
 class KacIndependenceMeasure(nn.Module):
 
-    def __init__(self, dim_x, dim_y, lr = 0.005,  input_projection_dim = 0, weight_decay=0.01):
+    def __init__(self, dim_x, dim_y, lr = 0.005,  input_projection_dim = 0, weight_decay=0.01, orthogonality_enforcer = 1.0):
         super(KacIndependenceMeasure, self).__init__()
         self.dim_x = dim_x
         self.dim_y = dim_y
         self.lr = lr
         self.input_projection_dim = input_projection_dim
         self.weight_decay = weight_decay
-
+        self.orthogonality_enforcer = orthogonality_enforcer
         self.reset()
 
     def reset(self):
@@ -40,7 +40,11 @@ class KacIndependenceMeasure(nn.Module):
 
    
 
-
+    def project(self, x, normalize=True):
+        if normalize:
+            x = (x - x.mean(axis=1, keepdim=True))/x.std(axis=1, keepdim=True)
+        proj = self.projection(x)            
+        return proj
 
     def forward(self, x, y, update = True, normalize=True):
         if normalize:
@@ -67,7 +71,7 @@ class KacIndependenceMeasure(nn.Module):
         if update:
             loss = -kim 
             if self.input_projection_dim > 0.0:
-             loss = loss + torch.norm(torch.matmul(self.projection.weight,self.projection.weight.T) - torch.eye(self.input_projection_dim)) # maximise => negative
+                loss = loss + self.orthogonality_enforcer*torch.norm(torch.matmul(self.projection.weight,self.projection.weight.T) - torch.eye(self.input_projection_dim)) # maximise => negative
 
             self.optimizer.zero_grad()
             loss.backward()
