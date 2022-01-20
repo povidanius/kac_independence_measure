@@ -1,0 +1,23 @@
+\begin{thebibliography}{1}
+
+\bibitem{Feuerverger}
+Andrey Feuerverger.
+\newblock A consistent test for bivariate dependence.
+\newblock {\em International Statistical Review / Revue Internationale de
+  Statistique}, 61(3):419--433, 1993.
+
+\bibitem{Bottcher}
+Björn Böttcher, Martin Keller-Ressel, and René Schilling.
+\newblock Distance multivariance: New dependence measures for random vectors,
+  10 2018.
+
+\bibitem{Belu2012MultivariateMO}
+Alexandru Belu.
+\newblock Multivariate measures of dependence for random variables and levy
+  processes.
+\newblock 2012.
+
+\bibitem{KacTheorem}
+
+
+\end{thebibliography}

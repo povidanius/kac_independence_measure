@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.6.4)  20 DEC 2021 09:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.6.4)  20 JAN 2022 11:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -673,6 +673,8 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 18.
 LaTeX Info: Redefining \pageref on input line 18.
 LaTeX Info: Redefining \nameref on input line 18.
+
+(./main.out) (./main.out)
 \@outlinefile=\write3
 \openout3 = `main.out'.
 
@@ -701,14 +703,6 @@ Overfull \hbox (0.52855pt too wide) in paragraph at lines 26--27
 y and quan-ti-ta-tively, plays
  []
 
-Runaway argument?
-{\@firstoffive }\fi ), devoting special attention to ones based on ch\ETC.
-! Paragraph ended before \Hy@setref@link was complete.
-<to be read again> 
-                   \par 
-l.29 
-     
-? 
 
 LaTeX Warning: Citation `?' on page 1 undefined on input line 32.
 
@@ -723,63 +717,13 @@ LaTeX Warning: Citation `?' on page 1 undefined on input line 32.
 
 
 LaTeX Warning: Citation `?' on page 1 undefined on input line 32.
-
-
-LaTeX Warning: Citation `Feuerverger' on page 1 undefined on input line 36.
-
-
-LaTeX Warning: Citation `Bottcher' on page 1 undefined on input line 37.
-
-
-LaTeX Warning: Citation `Belu2012MultivariateMO' on page 1 undefined on input l
-ine 38.
 
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 
-LaTeX Warning: Citation `KacTheorem' on page 2 undefined on input line 48.
+LaTeX Warning: Citation `Pytorch' on page 2 undefined on input line 71.
 
-! Argument of \Hy@setref@link has an extra }.
-<inserted text> 
-                \par 
-l.65 ...mpirical estimator of KacIM~\eqref{eq:kim}
-                                                   is defined via correspond...
-
-? 
-Runaway argument?
-{\@firstoffive }\fi \unskip \@@italiccorr )
-! Paragraph ended before \Hy@setref@link was complete.
-<to be read again> 
-                   \par 
-l.65 ...mpirical estimator of KacIM~\eqref{eq:kim}
-                                                   is defined via correspond...
-
-? 
-! Argument of \Hy@setref@link has an extra }.
-<inserted text> 
-                \par 
-l.71 ...ssues. The  estimator~\eqref{eq:estimator}
-                                                   can be calculated by usin...
-
-? 
-Runaway argument?
-{\@firstoffive }\fi \unskip \@@italiccorr )
-! Paragraph ended before \Hy@setref@link was complete.
-<to be read again> 
-                   \par 
-l.71 ...ssues. The  estimator~\eqref{eq:estimator}
-                                                   can be calculated by usin...
-
-? 
-Runaway argument?
-{\@firstoffive }\fi . Pytorch~\cite {Pytorch} implementation of corre\ETC.
-! Paragraph ended before \Hy@setref@link was complete.
-<to be read again> 
-                   \par 
-l.72 
-     
-? 
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
 put line 74.
 
@@ -805,50 +749,12 @@ LaTeX Warning: Citation `?' on page 2 undefined on input line 85.
 LaTeX Warning: Citation `?' on page 2 undefined on input line 85.
 
 [2]
-<./out.png, id=40, 1284.8pt x 481.8pt>
+<./out.png, id=98, 1284.8pt x 481.8pt>
 File: ./out.png Graphic file (type png)
 <use ./out.png>
 Package pdftex.def Info: ./out.png  used on input line 95.
 (pdftex.def)             Requested size: 321.19922pt x 120.44969pt.
-
-Runaway argument?
-{\@firstoffive }\fi  reflects KacIM values during iterative adaptatio\ETC.
-! Paragraph ended before \Hy@setref@link was complete.
-<to be read again> 
-                   \par 
-l.100 
-      
-? 
-! Argument of \Hy@setref@link has an extra }.
-<inserted text> 
-                \par 
-l.101 ...ependence, estimator~\eqref{eq:estimator}
-                                                   is resistant to maximizat...
-
-? 
-Runaway argument?
-{\@firstoffive }\fi \unskip \@@italiccorr )
-! Paragraph ended before \Hy@setref@link was complete.
-<to be read again> 
-                   \par 
-l.101 ...ependence, estimator~\eqref{eq:estimator}
-                                                   is resistant to maximizat...
-
-? 
-! Argument of \Hy@setref@link has an extra }.
-<inserted text> 
-                \par 
-l.101 ...ization of estimator~\eqref{eq:estimator}
-                                                   is possible.
-? 
-Runaway argument?
-{\@firstoffive }\fi \unskip \@@italiccorr )
-! Paragraph ended before \Hy@setref@link was complete.
-<to be read again> 
-                   \par 
-l.101 ...ization of estimator~\eqref{eq:estimator}
-                                                   is possible.
-? 
+ [3 <./out.png>]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 103.
@@ -861,86 +767,62 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 103.
 
-Runaway argument?
-{\@firstoffive }\fi  empirically shows that value of KacIM correlates\ETC.
-! Paragraph ended before \Hy@setref@link was complete.
-<to be read again> 
-                   \par 
-l.106 
-      
-? 
-<./noise_level_effect_to_kacim.png, id=41, 462.528pt x 346.896pt>
+<./noise_level_effect_to_kacim.png, id=108, 462.528pt x 346.896pt>
 File: ./noise_level_effect_to_kacim.png Graphic file (type png)
 <use ./noise_level_effect_to_kacim.png>
 Package pdftex.def Info: ./noise_level_effect_to_kacim.png  used on input line 
 110.
 (pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
-[3 <./out.png>]
 
 LaTeX Warning: Citation `?' on page 4 undefined on input line 136.
 
-No file main.bbl.
+[4 <./noise_level_effect_to_kacim.png>] (./main.bbl)
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 163.
-[4 <./noise_level_effect_to_kacim.png>]
+ [5]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 163.
  (./main.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 163.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 163.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 05AFB355BD3AE5B670B67CE2D74B1482;666.
 
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  05AFB355BD3AE5B670B67CE2D74B1482;666.
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 163.
- )
-(\end occurred when \ifx on line 105 was incomplete)
-(\end occurred when \ifmmode on line 101 was incomplete)
-(\end occurred when \ifmmode on line 101 was incomplete)
-(\end occurred when \ifx on line 99 was incomplete)
-(\end occurred when \ifx on line 71 was incomplete)
-(\end occurred when \ifmmode on line 71 was incomplete)
-(\end occurred when \ifmmode on line 65 was incomplete)
-(\end occurred when \ifx on line 28 was incomplete) 
+ ) 
 Here is how much of TeX's memory you used:
- 7027 strings out of 492982
- 99180 string characters out of 6134897
- 188326 words of memory out of 5000000
- 10480 multiletter control sequences out of 15000+600000
- 12456 words of font info for 48 fonts, out of 8000000 for 9000
+ 7058 strings out of 492982
+ 99534 string characters out of 6134897
+ 190007 words of memory out of 5000000
+ 10497 multiletter control sequences out of 15000+600000
+ 12976 words of font info for 50 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 28i,6n,31p,1085b,329s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmbx9.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
-i5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
-ts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/symbols/msbm7.pfb>
-Output written on main.pdf (4 pages, 281348 bytes).
+ 28i,6n,31p,1085b,331s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmti8.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/symbols/msbm7.pfb>
+Output written on main.pdf (5 pages, 326047 bytes).
 PDF statistics:
- 124 PDF objects out of 1000 (max. 8388607)
- 96 compressed objects within 1 object stream
- 24 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 199 PDF objects out of 1000 (max. 8388607)
+ 166 compressed objects within 2 object streams
+ 30 named destinations out of 1000 (max. 500000)
+ 99 words of extra memory for PDF output out of 10000 (max. 10000000)
 
