@@ -17,8 +17,10 @@ class UCIDatasets():
             "concrete": "https://archive.ics.uci.edu/ml/machine-learning-databases/concrete/compressive/Concrete_Data.xls",
             "energy": "http://archive.ics.uci.edu/ml/machine-learning-databases/00242/ENB2012_data.xlsx",
             "power": "https://archive.ics.uci.edu/ml/machine-learning-databases/00294/CCPP.zip",
-            "wine": "https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv",
-            "yacht": "http://archive.ics.uci.edu/ml/machine-learning-databases/00243/yacht_hydrodynamics.data"}
+            "winequality": "https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv",
+            "yacht": "http://archive.ics.uci.edu/ml/machine-learning-databases/00243/yacht_hydrodynamics.data",
+            "wine": "https://archive.ics.uci.edu/ml/machine-learning-databases/wine/wine.data"
+            }
         self.data_path = data_path
         self.name = name
         self.n_splits = n_splits
@@ -57,7 +59,7 @@ class UCIDatasets():
             data = pd.read_excel(self.data_path+'UCI/CCPP/Folds5x2_pp.xlsx', header=0).values
             np.random.shuffle(data)
             self.data = data
-        elif self.name == "wine":
+        elif self.name == "winequality":
             data = pd.read_csv(self.data_path + 'UCI/winequality-red.csv',
                                header=1, delimiter=';').values
             self.data = data[np.random.permutation(np.arange(len(data)))]
@@ -66,7 +68,10 @@ class UCIDatasets():
             data = pd.read_csv(self.data_path + 'UCI/yacht_hydrodynamics.data',
                                header=1, delimiter='\s+').values
             self.data = data[np.random.permutation(np.arange(len(data)))]
-            
+        elif self.name == "winequality":
+            data = pd.read_csv(self.data_path + 'UCI/winequality-red.csv',
+                               header=1, delimiter=';').values
+            self.data = data[np.random.permutation(np.arange(len(data)))]    
         kf = KFold(n_splits=self.n_splits)
         self.in_dim = data.shape[1] - 1
         self.out_dim = 1
@@ -80,12 +85,13 @@ class UCIDatasets():
             x_train, y_train = self.data[train_index,
                                     :self.in_dim], self.data[train_index, self.in_dim:]
             x_test, y_test = self.data[test_index, :self.in_dim], self.data[test_index, self.in_dim:]
+            breakpoint()
             x_means, x_stds = x_train.mean(axis=0), x_train.var(axis=0)**0.5
-            y_means, y_stds = y_train.mean(axis=0), y_train.var(axis=0)**0.5
+            #y_means, y_stds = y_train.mean(axis=0), y_train.var(axis=0)**0.5
             x_train = (x_train - x_means)/x_stds
-            y_train = (y_train - y_means)/y_stds
+            #y_train = (y_train - y_means)/y_stds
             x_test = (x_test - x_means)/x_stds
-            y_test = (y_test - y_means)/y_stds
+            #y_test = (y_test - y_means)/y_stds
             if train:
                 inps = torch.from_numpy(x_train).float()
                 tgts = torch.from_numpy(y_train).float()

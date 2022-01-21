@@ -26,7 +26,7 @@ if __name__ == "__main__":
     n_batch = 2048 #2048
     dim_x = 512 # 1024
     dim_y = 4 # 32
-    num_iter = 500 #500
+    num_iter = 200 #500
     input_proj_dim = 0 #dim_x #0
     lr = 0.05
 
