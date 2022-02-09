@@ -41,13 +41,17 @@ class KacIndependenceMeasure(nn.Module):
    
 
     def project(self, x, normalize=True):
+        print(x.shape)
         if normalize:
+            #x = (x - x.mean(axis=1, keepdim=True))/x.std(axis=1, keepdim=True)
             x = (x - x.mean(axis=1, keepdim=True))/x.std(axis=1, keepdim=True)
+
         proj = self.projection(x)            
         return proj
 
     def forward(self, x, y, update = True, normalize=True):
         if normalize:
+            #print(normalize)
             x = (x - x.mean(axis=1, keepdim=True))/x.std(axis=1, keepdim=True)
             if self.dim_y > 1:
                 y = (y - y.mean(axis=1, keepdim=True))/y.std(axis=1, keepdim=True)
