@@ -1,12 +1,13 @@
 # Kac independence measure 
 Kac independence measure (KacIM) is bivariate statistical independence measure, 
-which can detect arbitrary statistical dependence between two random vectors (similar to mutual information, Hilbert-Schmidt independence criterion (HSIC), etc.). The idea of KacIM is to maximimize lenght of difference 
+which can detect arbitrary statistical dependence between two random vectors (similar to mutual information, Hilbert-Schmidt independence criterion (HSIC), distance covariance/correlation, etc.). The idea of KacIM is to maximimize lenght of difference 
 between joint and product marginal characteristic functions (two complex random variables):
 
 ![Alt text](./kac_im.png?raw=true "KacIM")
 
 
-This repository includes basic implementation of KacIM, and one very basic demonstration, which show that KacIM works for high-dimensional data (e.g. 512-dimensional input, 4-dimensional output or similar).
+This repository includes basic implementation of KacIM, toy-data demonstrations, which show that KacIM works for high-dimensional data (e.g. 512-dimensional input, 4-dimensional output or similar), and feature extraction example, which demonstrates, that KacIM allows to improve classification accuracy on real data.
+
 
 
 Article/preprint is currently being prepared: [Article draft](https://github.com/povidanius/kac_independence_measure/tree/main/art/main.pdf?raw=false "Article draft")
