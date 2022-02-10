@@ -65,12 +65,12 @@ if __name__ == "__main__":
 
 
     n_batch = 1024 #2048
-    num_epochs = 200 #500
+    num_epochs = 300 #500
     num_classes = 2
     dim_x = 34 # 1024
     dim_y = num_classes # 32
     train_frac = 0.5
-    normalize = True
+    normalize = False
 
     #feature_frac =     
     input_proj_dim = int(0.5*dim_x) #0
