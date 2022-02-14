@@ -1,5 +1,30 @@
 \begin{thebibliography}{10}
 
+\bibitem{Gretton2005MeasuringSD}
+Arthur Gretton, Olivier Bousquet, Alex Smola, and Bernhard Sch{\"o}lkopf.
+\newblock Measuring statistical dependence with hilbert-schmidt norms.
+\newblock In {\em ALT}, 2005.
+
+\bibitem{EigenHSIC}
+P.~Daniu{\v{s}}is and P.~Vaitkus.
+\newblock Supervised feature extraction using hilbert-schmidt norms.
+\newblock In Emilio Corchado and Hujun Yin, editors, {\em Intelligent Data
+  Engineering and Automated Learning - IDEAL 2009}, pages 25--33, Berlin,
+  Heidelberg, 2009. Springer Berlin Heidelberg.
+
+\bibitem{Ma2020TheHB}
+Kurt Wan-Duo Ma, J.~P. Lewis, and W.~Kleijn.
+\newblock The hsic bottleneck: Deep learning without back-propagation.
+\newblock {\em ArXiv}, abs/1908.01580, 2020.
+
+\bibitem{NIPS2008_f7664060}
+Patrik Hoyer, Dominik Janzing, Joris~M Mooij, Jonas Peters, and Bernhard
+  Sch\"{o}lkopf.
+\newblock Nonlinear causal discovery with additive noise models.
+\newblock In D.~Koller, D.~Schuurmans, Y.~Bengio, and L.~Bottou, editors, {\em
+  Advances in Neural Information Processing Systems}, volume~21. Curran
+  Associates, Inc., 2009.
+
 \bibitem{Cover2006}
 Thomas~M. Cover and Joy~A. Thomas.
 \newblock {\em Elements of Information Theory 2nd Edition (Wiley Series in
@@ -10,11 +35,6 @@ Thomas~M. Cover and Joy~A. Thomas.
 José~M. Amigó, Sámuel~G. Balogh, and Sergio Hernández.
 \newblock A brief review of generalized entropies.
 \newblock {\em Entropy}, 20(11), 2018.
-
-\bibitem{Gretton2005MeasuringSD}
-Arthur Gretton, Olivier Bousquet, Alex Smola, and Bernhard Sch{\"o}lkopf.
-\newblock Measuring statistical dependence with hilbert-schmidt norms.
-\newblock In {\em ALT}, 2005.
 
 \bibitem{Pczos2012CopulabasedKD}
 Barnab{\'a}s P{\'o}czos, Zoubin Ghahramani, and Jeff~G. Schneider.
@@ -37,11 +57,6 @@ Björn Böttcher, Martin Keller-Ressel, and René Schilling.
 \newblock Distance multivariance: New dependence measures for random vectors,
   10 2018.
 
-\bibitem{Szkely2013PartialDC}
-G{\'a}bor~J. Sz{\'e}kely and Maria~L. Rizzo.
-\newblock Partial distance correlation with methods for dissimilarities.
-\newblock {\em arXiv: Methodology}, 2013.
-
 \bibitem{NEURIPS2019_9015}
 Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory
   Chanan, Trevor Killeen, Zeming Lin, Natalia Gimelshein, Luca Antiga, Alban
@@ -49,6 +64,7 @@ Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory
   Tejani, Sasank Chilamkurthy, Benoit Steiner, Lu~Fang, Junjie Bai, and Soumith
   Chintala.
 \newblock Pytorch: An imperative style, high-performance deep learning library.
+\newblock In H.~Wallach, H.~Larochelle, A.~Beygelzimer, F.~d\textquotesingle
   Alch\'{e}-Buc, E.~Fox, and R.~Garnett, editors, {\em Advances in Neural
   Information Processing Systems 32}, pages 8024--8035. Curran Associates,
   Inc., 2019.
@@ -64,24 +80,9 @@ Bernhard Schlkopf, Alexander~J. Smola, and Francis Bach.
   Optimization, and Beyond}.
 \newblock The MIT Press, 2018.
 
-\bibitem{EigenHSIC}
-P.~Daniu{\v{s}}is and P.~Vaitkus.
-\newblock Supervised feature extraction using hilbert-schmidt norms.
-\newblock In Emilio Corchado and Hujun Yin, editors, {\em Intelligent Data
-  Engineering and Automated Learning - IDEAL 2009}, pages 25--33, Berlin,
-  Heidelberg, 2009. Springer Berlin Heidelberg.
-
-\bibitem{Ma2020TheHB}
-Kurt Wan-Duo Ma, J.~P. Lewis, and W.~Kleijn.
-\newblock The hsic bottleneck: Deep learning without back-propagation.
-\newblock {\em ArXiv}, abs/1908.01580, 2020.
-
-\bibitem{NIPS2008_f7664060}
-Patrik Hoyer, Dominik Janzing, Joris~M Mooij, Jonas Peters, and Bernhard
-  Sch\"{o}lkopf.
-\newblock Nonlinear causal discovery with additive noise models.
-\newblock In D.~Koller, D.~Schuurmans, Y.~Bengio, and L.~Bottou, editors, {\em
-  Advances in Neural Information Processing Systems}, volume~21. Curran
-  Associates, Inc., 2009.
+\bibitem{OpenML2013}
+Joaquin Vanschoren, Jan~N. van Rijn, Bernd Bischl, and Luis Torgo.
+\newblock Openml: Networked science in machine learning.
+\newblock {\em SIGKDD Explorations}, 15(2):49--60, 2013.
 
 \end{thebibliography}
