@@ -35,10 +35,27 @@ def one_hot(x, num_classes=2):
   return np.squeeze(np.eye(num_classes)[x.reshape(-1)])
 
 def load_data(train_frac):
+    #db_name="bioresponse"
+    #db_name="ionosphere"
+    #db_name="spambase"
+    #db_name="one-hundred-plants-texture" +
+    #db_name="splice" format error
+    #db_name="mushroom" format error
+    #db_name="lsvt" #+
+    #db_name="micro-mass" #+
+    #db_name="tokyo1" #+
+    db_name="clean1"
+
     #eeg-eye-state
-    X,y = fetch_openml(name="ionosphere", as_frame=True, return_X_y=True)
-    print(X.shape)
-    #X = X.to_numpy()[:,2:]
+    #X,y = fetch_openml(name="ionosphere", as_frame=True, return_X_y=True)
+    #X,y = fetch_openml(name="spambase", as_frame=True, return_X_y=True)
+    #X,y = fetch_openml(name="one-hundred-plants-texture", as_frame=True, return_X_y=True)
+    X,y = fetch_openml(name=db_name, as_frame=True, return_X_y=True)
+
+    #print(X.shape)
+    if db_name == "ionosphere":
+        X = X.to_numpy()[:,2:] # remove constant columns
+
     #breakpoint()
     dim_x = X.shape[1]
     categories = pd.unique(y.to_numpy().ravel())
@@ -55,7 +72,7 @@ def load_data(train_frac):
     X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y, random_state=0, train_size=int(train_frac*X.shape[0])) 
     X_train = preprocessing.normalize(X_train)
     X_test = preprocessing.normalize(X_test)
-    return X_train, y_train, X_test, y_test
+    return X_train, y_train, X_test, y_test, X_train.shape[1]
 
 
 if __name__ == "__main__":
@@ -64,20 +81,22 @@ if __name__ == "__main__":
         os.makedirs('feature_extraction')
 
 
-    n_batch = 1024 #2048
-    num_epochs = 300 #500
-    num_classes = 2
-    dim_x = 34 # 1024
+    #n_batch = 2048 #2048
+    num_epochs = 200 #200
+    num_classes = 2 #2
+    #dim_x = 34 # 1024
     dim_y = num_classes # 32
     train_frac = 0.5
-    normalize = False
+    normalize = True
 
     #feature_frac =     
-    input_proj_dim = int(0.5*dim_x) #0
 
-    X_train, y_train, X_test, y_test = load_data(train_frac)
+    X_train, y_train, X_test, y_test, dim_x = load_data(train_frac)
+    input_proj_dim = int(0.5*dim_x) #0.5
 
-    kim = KacIndependenceMeasure(dim_x, dim_y, lr=0.007, input_projection_dim = input_proj_dim, weight_decay=0.01)
+    n_batch = 1024 #X_train.shape[0]
+
+    kim = KacIndependenceMeasure(dim_x, dim_y, lr=0.007, input_projection_dim = input_proj_dim, weight_decay=0.01) #0.007
     knn = KNeighborsClassifier(n_neighbors=3)
     logistic = linear_model.LogisticRegression(max_iter=1000)
     svc = SVC(kernel='poly', gamma='auto', degree=2)

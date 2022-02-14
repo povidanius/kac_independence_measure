@@ -9,48 +9,46 @@ You're missing a field part---line 16 of file bibliography.bib
 I'm skipping whatever remains of this entry
 Warning--entry type for "Bottcher" isn't style-file defined
 --line 20 of file bibliography.bib
-Warning--I didn't find a database entry for "li2021selfsupervised"
 Warning--I didn't find a database entry for "?"
-Warning--I didn't find a database entry for "Edlemann"
-You've used 14 entries,
+You've used 16 entries,
             1791 wiz_defined-function locations,
-            551 strings with 6676 characters,
-and the built_in function-call counts, 3594 in all, are:
-= -- 275
-> -- 246
+            560 strings with 7067 characters,
+and the built_in function-call counts, 4044 in all, are:
+= -- 308
+> -- 271
 < -- 3
-+ -- 85
-- -- 71
-* -- 259
-:= -- 600
-add.period$ -- 44
-call.type$ -- 14
-change.case$ -- 12
++ -- 94
+- -- 78
+* -- 293
+:= -- 672
+add.period$ -- 50
+call.type$ -- 16
+change.case$ -- 14
 chr.to.int$ -- 0
-cite$ -- 14
-duplicate$ -- 155
-empty$ -- 326
-format.name$ -- 71
-if$ -- 789
+cite$ -- 16
+duplicate$ -- 176
+empty$ -- 375
+format.name$ -- 78
+if$ -- 890
 int.to.chr$ -- 0
-int.to.str$ -- 14
-missing$ -- 15
-newline$ -- 72
-num.names$ -- 20
-pop$ -- 57
+int.to.str$ -- 16
+missing$ -- 17
+newline$ -- 82
+num.names$ -- 22
+pop$ -- 65
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 69
+skip$ -- 75
 stack$ -- 0
-substring$ -- 145
-swap$ -- 36
+substring$ -- 166
+swap$ -- 39
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 29
-width$ -- 16
-write$ -- 153
+while$ -- 32
+width$ -- 18
+write$ -- 174
 (There was 1 error message)

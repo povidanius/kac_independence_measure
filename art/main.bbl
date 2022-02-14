@@ -25,6 +25,12 @@ Patrik Hoyer, Dominik Janzing, Joris~M Mooij, Jonas Peters, and Bernhard
   Advances in Neural Information Processing Systems}, volume~21. Curran
   Associates, Inc., 2009.
 
+\bibitem{li2021selfsupervised}
+Yazhe Li, Roman Pogodin, Danica~J. Sutherland, and Arthur Gretton.
+\newblock Self-supervised learning with kernel dependence maximization.
+\newblock In {\em Thirty-Fifth Conference on Neural Information Processing
+  Systems}, 2021.
+
 \bibitem{Cover2006}
 Thomas~M. Cover and Joy~A. Thomas.
 \newblock {\em Elements of Information Theory 2nd Edition (Wiley Series in
@@ -56,6 +62,12 @@ Gábor~J. Székely, Maria~L. Rizzo, and Nail~K. Bakirov.
 Björn Böttcher, Martin Keller-Ressel, and René Schilling.
 \newblock Distance multivariance: New dependence measures for random vectors,
   10 2018.
+
+\bibitem{Edlemann}
+Dominic Edelmann, Konstantinos Fokianos, and Maria Pitsillou.
+\newblock {An Updated Literature Review of Distance Correlation and Its
+  Applications to Time Series}.
+\newblock {\em International Statistical Review}, 87(2):237--262, August 2019.
 
 \bibitem{NEURIPS2019_9015}
 Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory

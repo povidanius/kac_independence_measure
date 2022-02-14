@@ -185,7 +185,7 @@ Since in~\ref{alg:estimator_computation} we standartize data, KacIM is also scal
 
 
 \subsection{Feature Extraction}
-In feature extraction experiments we will use a set of classification data sets from OpenML~\cite{OpenML2013}. We conduct linear feature extraction by seeking 
+In feature extraction experiments we will use a set of classification data sets from OpenML~\cite{OpenML2013}. The purpose of these experiments is to provide the preliminary evaluation of the applicability of KacIM for feature extraction, hence we use rather basic comparative baselines. We conduct linear feature extraction by seeking 
 
 \begin{equation}
 \label{eq:kim_feature_extraction}    
@@ -207,13 +207,21 @@ The classification accuracies, reported in~\ref{table:classification_accuracies}
 	\hline
 	\multicolumn{5}{|c|}{Classification accuracies} \\
 	\hline
-	Dataset & KNN(3) & LR & LSVM & QSVM  \\
+	 & KNN(3) & LR & LSVM & QSVM  \\
 	\hline
 	Ionosphere   & AF    &AFG&   004 & \\	
 	\hline
 	Spambase & & & & \\
 	\hline
 	One-hundred-plants-texture   & AF    &AFG&   004 & \\
+	\hline	
+	LSVT   & AF    &AFG&   004 & \\
+	\hline
+	Micro-mass   & AF    &AFG&   004 & \\
+	\hline	
+	Tokyo1   & AF    &AFG&   004 & \\
+	\hline	
+	Clean1   & AF    &AFG&   004 & \\
 	\hline
 \end{tabular}
 \end{table}
