@@ -233,7 +233,8 @@ The classification accuracies, reported in Table~\ref{table:classification_accur
 \end{table}
 
 \subsection{Regularisation}
-In regularisation experiments we investigate mole classification task. It is represented as binary classification data set, consisting of mole images ($2639$ for training and $662$ for testing), which should be classified as benign and maligant.
+In regularisation experiments we investigate chest x-ray classification task. It is represented as binary classification data set, consisting of xray scans, which should be classified as pneumonia or normal.
+
 Let $f(x|\theta)$ be DNN classifier. We will investigate additive regularizer, which maximises depency of bottleneck feature $\phi(x)$ and target variable $y$: 
 
 \begin{equation}
