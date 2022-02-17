@@ -25,13 +25,15 @@
 %
 
 \begin{abstract}
-    In this paper we propose statistical independence measure based on the maximum norm of difference between joint and product of marginal characteristic functions. We discuss simulated examples, and applications for feature selection/extraction, causal inference and conduct corresponding empirical experiments with diverse collection of data sets from different domains.
+    In this paper we propose statistical independence measure based on the maximum norm of difference between joint and product-marginal characteristic functions, and its estimation procedure. We also extend the proposed measure to the reproducing kernel Hilbert spaces (RKHS).
+    
+    On the empirical side, we discuss simulated examples, and applications for feature selection/extraction, regularisation, and conduct corresponding experiments with diverse collection of data sets from different domains.
 \end{abstract}
 
 \section{Introduction}
 Statistical dependence measures plays important role in various statistical and machine learning methods (e.g. hypothesis testing~\cite{Gretton2005MeasuringSD}, feature selection and extraction~\cite{EigenHSIC}, information bottleneck methods \cite{Ma2020TheHB}, causal inference~\cite{NIPS2008_f7664060}, self-supervised learning~\cite{li2021selfsupervised}, causal inference~\cite{NIPS2008_f7664060}, among others).  Earliest statistical dependence estimation ideas (e.g. conditional probability) share nearly-common origin with the beginning of formal statistical reasoning itself. During last two centuries ideas of correlation and (relative) entropy (including various generalizations) were proposed and became very popular in numerous applications and theoretical developments. However, with the increasing popularity of statistical machine learning, new statistical dependence estimation methods, that are robust, applicable to noisy, high-dimensional, structured data, and which can be efficiently integrated with modern machine learning methods are helpful for the development both of the theory and application.
 
-In this article we focus on quantitative estimation of statistical independence, using characteristic functions. We begin with the short review of some important previous dependence estimation approaches (Section~\ref{section:previous_work}), devoting special attention to ones based on characteristic functions (Section~\ref{section:previous_work_cf}). Afterwards we formulate new characteristic function-based statistical dependence measure and its empirical estimator (Section~\ref{section:proposed_method}), including its extension into reproducing kernel Hilbert spaces (RKHS'es), which are the main theoretical contribution of our paper. Section~\ref{section:experiments} is devoted to experiments with simulated and real data sets, and finalizing Section~\ref{section:discussion} concludes this article.
+In this article we focus on quantitative estimation of statistical independence, using characteristic functions. We begin with the short review of some important previous dependence estimation approaches (Section~\ref{section:previous_work}), devoting special attention to ones based on characteristic functions (Section~\ref{section:previous_work_cf}). Afterwards, we formulate the proposed characteristic function-based statistical dependence measure and its empirical estimator (Section~\ref{section:proposed_method}), including an extension into reproducing kernel Hilbert spaces (RKHS'es), which are the main theoretical contribution of our paper. Section~\ref{section:experiments} is devoted to experiments with simulated and real data sets, where we apply the proposed dependence measure for feature extraction and deep neural network (DNN) regularisation,  and finalizing Section~\ref{section:discussion} concludes this article.
 
 \section{Previous work}
 \label{section:previous_work}
@@ -247,9 +249,11 @@ Cost(\theta) = CE(f(x|\theta),y) + \beta \kappa(\phi(x|\theta),y),
 \section{Discussion} 
 
 \label{section:discussion}
-In this article we propose statistical dependence measure, KacIM, which relies on simple fact that statistical independence is equivalent to the decomposability of joint characteristic function  into the product of marginal ones. Although we formulated and analysed KacIM for bivariate vectorial case, similarly it can be generalised for multivariate case. In addition, since characteristic functions are defined for matrices, graphs, and other objects \cite{?}, likely KacIM can be extended to those objects as well, which is potential direction of future research of KacIM.
+In this article we propose statistical dependence measure, KacIM, which relies on the $L^{\infty}$ norm of the difference between joint characteristic function and the product of marginal ones.
 
-Empirical analysis show, that KacIM can detect and measure statistical independence for non-linearly related, high-dimensional data. (...)
+Although we formulated and analysed KacIM for bivariate vectorial case, similarly it can be generalised for multivariate case. In addition, since characteristic functions are defined for matrices, graphs, and other objects \cite{?}, the proposed dependence measure can be extended to those objects as well, which is potential direction of future research of KacIM.
+
+Conducted empirical analysis show, that KacIM can detect and measure statistical independence for non-linearly related, high-dimensional data, and that it can be applied for feature extraction and DNN regularisation and improve model's performance on real data sets. On the other side, direct applications of the proposed statistical dependence measure in the areas of causality, information bottleneck, and other domains where not explored in this study, and left for the future work, as well as its  important properties (e.g. interpretability, limit distribution).
 
 \section{Acknowledgements}
 

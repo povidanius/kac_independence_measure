@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.6.4)  17 FEB 2022 19:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.6.4)  17 FEB 2022 23:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -703,33 +703,33 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 
-LaTeX Warning: Citation `?' on page 2 undefined on input line 38.
+LaTeX Warning: Citation `?' on page 2 undefined on input line 40.
 
 [2]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 96.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 98.
  (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 96.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 98.
+ [3]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 127.
+put line 129.
 
-Underfull \hbox (badness 1418) in paragraph at lines 133--134
+Underfull \hbox (badness 1418) in paragraph at lines 135--136
 []\OT1/cmr/m/n/10 Per-form one max-i-miza-tion it-er-a-tion of com-puted $[](\O
 ML/cmm/m/it/10 x; y\OT1/cmr/m/n/10 )$ via $\OML/cmm/m/it/10 ; ^^L \OMS/cmsy/m/
 n/10 !
  []
 
-[3]
 
-LaTeX Warning: Command \l invalid in math mode on input line 140.
-
-
-LaTeX Warning: Command \l invalid in math mode on input line 140.
+LaTeX Warning: Command \l invalid in math mode on input line 142.
 
 
-LaTeX Warning: Citation `?' on page 4 undefined on input line 146.
+LaTeX Warning: Command \l invalid in math mode on input line 142.
+
+
+LaTeX Warning: Citation `?' on page 4 undefined on input line 148.
 
 [4]
 <../experiments/basic_demonstration/dependence_detection.png, id=158, 462.528pt
@@ -738,50 +738,50 @@ File: ../experiments/basic_demonstration/dependence_detection.png Graphic file
 (type png)
 <use ../experiments/basic_demonstration/dependence_detection.png>
 Package pdftex.def Info: ../experiments/basic_demonstration/dependence_detectio
-n.png  used on input line 167.
+n.png  used on input line 169.
 (pdftex.def)             Requested size: 161.88722pt x 121.4154pt.
 <./summary_noise_effect.png, id=166, 462.528pt x 346.896pt>
 File: ./summary_noise_effect.png Graphic file (type png)
 <use ./summary_noise_effect.png>
-Package pdftex.def Info: ./summary_noise_effect.png  used on input line 182.
+Package pdftex.def Info: ./summary_noise_effect.png  used on input line 184.
 (pdftex.def)             Requested size: 138.75946pt x 104.0696pt.
  [5 <../experiments/basic_demonstration/dependence_detection.png>]
 
-LaTeX Warning: Citation `?' on page 6 undefined on input line 202.
+LaTeX Warning: Citation `?' on page 6 undefined on input line 204.
 
 
-Overfull \hbox (1.54733pt too wide) in paragraph at lines 212--213
+Overfull \hbox (1.54733pt too wide) in paragraph at lines 214--215
 []\OT1/cmr/m/n/10 QSVM| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 218--218
+Underfull \hbox (badness 10000) in paragraph at lines 220--220
 []\OT1/cmr/m/n/10 One-hundred-
  []
 
 
-Overfull \hbox (13.5275pt too wide) in paragraph at lines 208--232
+Overfull \hbox (13.5275pt too wide) in paragraph at lines 210--234
  [][] 
  []
 
 [6 <./summary_noise_effect.png>]
 
-LaTeX Warning: Citation `?' on page 7 undefined on input line 250.
+LaTeX Warning: Citation `?' on page 7 undefined on input line 254.
 
 (./main.bbl [7])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 277.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 281.
  [8]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 277.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 281.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 277.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 277.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 281.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 281.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 6989CF23FC946B737708726D2944E5AC;765.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 277.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 281.
  ) 
 Here is how much of TeX's memory you used:
  7186 strings out of 492982
@@ -790,7 +790,7 @@ Here is how much of TeX's memory you used:
  10589 multiletter control sequences out of 15000+600000
  12976 words of font info for 50 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 28i,9n,30p,1157b,477s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 28i,9n,30p,1157b,476s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texli
@@ -811,7 +811,7 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist
 public/amsfonts/cm/cmtt8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
 amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/symbols/msbm7.pfb>
-Output written on main.pdf (8 pages, 327976 bytes).
+Output written on main.pdf (8 pages, 330680 bytes).
 PDF statistics:
  281 PDF objects out of 1000 (max. 8388607)
  243 compressed objects within 3 object streams
