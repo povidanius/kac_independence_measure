@@ -38,13 +38,15 @@ def load_data(train_frac):
     #db_name="bioresponse"
     #db_name="ionosphere"
     #db_name="spambase"
-    #db_name="one-hundred-plants-texture" +
+    #db_name="one-hundred-plants-texture" #+
     #db_name="splice" format error
     #db_name="mushroom" format error
     #db_name="lsvt" #+
     #db_name="micro-mass" #+
     #db_name="tokyo1" #+
-    db_name="clean1"
+    db_name="clean1" #+
+    #db_name="tic-tac-toe"
+
 
     #eeg-eye-state
     #X,y = fetch_openml(name="ionosphere", as_frame=True, return_X_y=True)
@@ -52,7 +54,7 @@ def load_data(train_frac):
     #X,y = fetch_openml(name="one-hundred-plants-texture", as_frame=True, return_X_y=True)
     X,y = fetch_openml(name=db_name, as_frame=True, return_X_y=True)
 
-    #print(X.shape)
+    print("X shape: {}".format(X.shape))
     if db_name == "ionosphere":
         X = X.to_numpy()[:,2:] # remove constant columns
 

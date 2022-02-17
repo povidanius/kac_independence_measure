@@ -9,6 +9,7 @@
 \usepackage{blindtext}
 \usepackage{hyperref}
 \usepackage{amsthm}
+%\usepackage{prletters}
 
 \newtheorem{theorem}{Theorem}
 
@@ -198,33 +199,50 @@ where the regularisation term, controlled by multiplier $\alpha \geq 0$, enforce
 %w_{t}^{*} = arg \max_{W} \frac{\kappa(w_{t}^{T}x, y)}{\kappa(w_{t}^{T}x, W_{t}x)}.
 %\end{equation}
 
-\noindent Afterwards, feature extraction is conducted by $f = W^{*}x$ and these features are used as the inputs to several popular classifiers ($k$-nearest neighbor classifier with Euclidean distance, logistic regression, linear and quadratic support vector machine\cite{?}). We randomly split all the datasets in training and testing sets of equal size, comparing unmodified inputs $x$, and features of all possible dimensions up to $d_{x}$.  In our experiments we set $\alpha$ to $1.0$ to quickly ensure orthogonal projection matrices, and further proceed to dependence maximization stage. 
-The classification accuracies, reported in~\ref{table:classification_accuracies} demonstrate that this KacIM-based feature extraction procedure indeed allows to increase classification accuracy when applied to real data sets from various domains.
+\noindent Afterwards, feature extraction is conducted by $f = W^{*}x$ and these features are used as the inputs to several popular classifiers: $3$-nearest neighbor classifier with Euclidean distance (KNN(3)), logistic regression (LR), linear and quadratic support vector machine\cite{?} (LSVM and QSVM, respectively). We randomly split all the datasets in training and testing sets of equal size, comparing unmodified inputs $x$, and features of all possible dimensions up to $d_{x}$.  In our experiments we set $\alpha$ to $1.0$ to quickly ensure orthogonal projection matrices, and further proceed to dependence maximization stage. 
+The classification accuracies, reported in Table~\ref{table:classification_accuracies} demonstrate that this KacIM-based feature extraction procedure indeed allows to increase classification accuracy when applied to real data sets from various domains.
 
-\begin{table}
+\begin{table}	
 \label{table:classification_accuracies}	
-\begin{tabular}{ |p{2.5cm}||p{2cm}|p{1cm}|p{1cm}|p{1cm}|  }
+\centering
+\begin{tabular}{ |p{3cm}|p{2.5cm}||p{1.5cm}|p{1cm}|p{1cm}|p{1cm}|  }
 	\hline
-	\multicolumn{5}{|c|}{Classification accuracies} \\
+	\multicolumn{6}{|c|}{Classification accuracies} \\
 	\hline
-	 & KNN(3) & LR & LSVM & QSVM  \\
+	& size/dim. & KNN(3) & LR & LSVM & QSVM  \\
 	\hline
-	Ionosphere   & AF    &AFG&   004 & \\	
+	Ionosphere & (351, 34) & AF    &AFG&   004 & \\	
 	\hline
-	Spambase & & & & \\
+	Spambase & (4601, 57) & & & & \\
 	\hline
-	One-hundred-plants-texture   & AF    &AFG&   004 & \\
+	One-hundred-plants-texture   & (1599, 64)
+	  & AF    &AFG&   004 & \\
 	\hline	
-	LSVT   & AF    &AFG&   004 & \\
+	LSVT  & (126, 310) & AF    &AFG&   004 & \\
 	\hline
-	Micro-mass   & AF    &AFG&   004 & \\
+	Micro-mass  & (360, 1300)
+	 & AF    &AFG&   004 & \\
 	\hline	
-	Tokyo1   & AF    &AFG&   004 & \\
+	Tokyo1 & (959, 44) & AF    &AFG&   004 & \\
 	\hline	
-	Clean1   & AF    &AFG&   004 & \\
+	Clean1 & (476, 168)
+	 & AF    &AFG&   004 & \\
 	\hline
 \end{tabular}
+\caption{KNN}
 \end{table}
+
+\subsection{Regularisation}
+In regularisation experiments we investigate mole classification task. It is represented as binary classification data set, consisting of mole images ($2639$ for training and $662$ for testing), which should be classified as benign and maligant.
+Let $f(x|\theta)$ be DNN classifier. We will investigate additive regularizer, which maximises depency of bottleneck feature $\phi(x)$ and target variable $y$: 
+
+\begin{equation}
+Cost(\theta) = CE(f(x|\theta),y) + \beta \kappa(\phi(x|\theta),y),
+\end{equation}
+
+\noindent where $CE$ is cross-entropy loss, and $\beta \geq 0$ is regularisation parameters.
+
+
 \section{Discussion} 
 
 \label{section:discussion}
