@@ -9,6 +9,8 @@
 \usepackage{blindtext}
 \usepackage{hyperref}
 \usepackage{amsthm}
+\usepackage{subfig}
+
 %\usepackage{prletters}
 
 \newtheorem{theorem}{Theorem}
@@ -163,27 +165,26 @@ Further we will conduct empirical investigation of KacIM. We will begin with sim
 
 \paragraph{Non-linear statistical dependence detection} We begin with simple example, which demonstrates the efficiency of KacIM for simulated multivariate data with additive and multiplicative noise.
 
-\begin{figure}[t]
-\label{fig:experiments_simulation}
-\centering
-\includegraphics[scale=0.35]{../experiments/basic_demonstration/dependence_detection.png}
-\caption{Dependence detection in independent data (blue), additive (orange) and multiplicative (green) noise scenarios.}
+
+\begin{figure}%
+	\label{fig:experiments_simulation}
+	\centering
+	\subfloat{{\includegraphics[scale=0.32]{../experiments/basic_demonstration/dependence_detection.png} }}%
+	\qquad
+	\subfloat{{\includegraphics[scale=0.32]{./summary_noise_effect.png} }}%
+	\caption{Left figure: Dependence detection in independent data (blue), additive (orange) and multiplicative (green) noise scenarios. Righ figure: noise level ($x$ axis) vs final iteration KacIM value ($y$ axis). KacIM values for larger noise levels saturates as in tail of graph}%
+	\label{fig:example}%
 \end{figure}
 
 In Figure~\ref{fig:experiments_simulation} reflects KacIM values during iterative adaptation ($200$ iterations). In the case of independent data, both $x_{i}$ and $y_{i}$ ($d_{x} = 512$, $d_{y} = 4$) are sampled from gaussian distribution, independently. In the case of dependent data, an additive noise and multiplicative noise, the dependent variable is generated according to $y_{i} = sin(P x_{i}) + cos(P x_{i}) + \lambda \epsilon_{i}$ ($\lambda = 1.00$) and $y_{i} = (sin(P x_{i}) + cos(P x_{i})) \epsilon_{i}$, respectively, where $P$ is $d_{x} \times d_{y}$ random projection matrix, $\epsilon_{i} \sim N(0,1)$ and $\epsilon_{i} \perp x_{i}$.
 
 When data is independent, both in additive and multiplicative cases, due to independence, estimator~\eqref{eq:estimator} is resistant to maximisation, and oscillates near zero. On the other hand, when the data is not independent, the condition~\eqref{eq:kac_theorem} is violated and maximization of estimator~\eqref{eq:estimator} is possible.
 \paragraph{Noise variance effect} In this simulation we use the same additive noise setting as in previous paragraph, but evaluate all noise levels $\lambda \in [0.1, 3.0]$, with step $0.1$.
-Figure~\ref{fig:experiments_noise_level_effect} empirically shows that value of KacIM  negatively correlates with noise level, and therefore the proposed measure is able not only to detect whether independence is present, but also to quantitatively evaluate it, which enables to use it to derive cost functions for various learning-based algorithms. 
+Figure~\ref{fig:experiments_simulation} empirically shows that value of KacIM  negatively correlates with noise level, and therefore the proposed measure is able not only to detect whether independence is present, but also to quantitatively evaluate it, which enables to use it to derive cost functions for various learning-based algorithms. 
 
 Since in~\ref{alg:estimator_computation} we standartize data, KacIM is also scale-invariant (i.e. $\kappa(rx, ry) = \kappa(x,y)$), where $r>0$ is scale parameter.
 
-\begin{figure}[t]
-	\label{fig:experiments_noise_level_effect}
-	\centering
-	\includegraphics[scale=0.30]{./summary_noise_effect.png}
-	\caption{Noise level ($x$ axis) vs final iteration KacIM value ($y$ axis). KacIM values for larger noise levels saturates as in tail of graph.}
-\end{figure}
+
 
 
 

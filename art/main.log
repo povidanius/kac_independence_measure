@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.6.4)  17 FEB 2022 23:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.6.4)  18 FEB 2022 10:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -622,37 +622,72 @@ Package: amsthm 2017/10/31 v2.20.4
 \thm@headsep=\skip52
 \dth@everypar=\toks30
 )
-\c@theorem=\count136
+(/usr/share/texlive/texmf-dist/tex/latex/subfig/subfig.sty
+Package: subfig 2005/06/28 ver: 1.3 subfig package
+
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2016/05/22 v1.7-166 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 67.
+\captionmargin=\dimen118
+\captionmargin@=\dimen119
+\captionwidth=\dimen120
+\caption@tempdima=\dimen121
+\caption@indent=\dimen122
+\caption@parindent=\dimen123
+\caption@hangindent=\dimen124
+)
+\c@ContinuedFloat=\count136
+Package caption Info: float package is loaded.
+Package caption Info: hyperref package is loaded.
+)
+\c@KVtest=\count137
+\sf@farskip=\skip53
+\sf@captopadj=\dimen125
+\sf@capskip=\skip54
+\sf@nearskip=\skip55
+\c@subfigure=\count138
+\c@subfigure@save=\count139
+\c@lofdepth=\count140
+\c@subtable=\count141
+\c@subtable@save=\count142
+\c@lotdepth=\count143
+\sf@top=\skip56
+\sf@bottom=\skip57
+)
+\c@theorem=\count144
  (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count137
-\scratchdimen=\dimen118
+\scratchcounter=\count145
+\scratchdimen=\dimen126
 \scratchbox=\box30
-\nofMPsegments=\count138
-\nofMParguments=\count139
+\nofMPsegments=\count146
+\nofMParguments=\count147
 \everyMPshowfont=\toks31
-\MPscratchCnt=\count140
-\MPscratchDim=\dimen119
-\MPnumerator=\count141
-\makeMPintoPDFobject=\count142
+\MPscratchCnt=\count148
+\MPscratchDim=\dimen127
+\MPnumerator=\count149
+\makeMPintoPDFobject=\count150
 \everyMPtoPDFconversion=\toks32
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -672,7 +707,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 \AtBeginShipoutBox=\box31
-Package hyperref Info: Link coloring OFF on input line 20.
+Package hyperref Info: Link coloring OFF on input line 22.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -680,22 +715,25 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count143
+\c@section@level=\count151
 )
-LaTeX Info: Redefining \ref on input line 20.
-LaTeX Info: Redefining \pageref on input line 20.
-LaTeX Info: Redefining \nameref on input line 20.
+LaTeX Info: Redefining \ref on input line 22.
+LaTeX Info: Redefining \pageref on input line 22.
+LaTeX Info: Redefining \nameref on input line 22.
 
 (./main.out) (./main.out)
 \@outlinefile=\write3
 \openout3 = `main.out'.
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 22.
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: subfig package v1.3 is loaded.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    Try loading font information for U+msa on input line 24.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 22.
+LaTeX Font Info:    Try loading font information for U+msb on input line 24.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -703,33 +741,34 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 
-LaTeX Warning: Citation `?' on page 2 undefined on input line 40.
+LaTeX Warning: Citation `?' on page 2 undefined on input line 42.
 
 [2]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 98.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 100.
+
  (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 98.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 100.
  [3]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 129.
+put line 131.
 
-Underfull \hbox (badness 1418) in paragraph at lines 135--136
+Underfull \hbox (badness 1418) in paragraph at lines 137--138
 []\OT1/cmr/m/n/10 Per-form one max-i-miza-tion it-er-a-tion of com-puted $[](\O
 ML/cmm/m/it/10 x; y\OT1/cmr/m/n/10 )$ via $\OML/cmm/m/it/10 ; ^^L \OMS/cmsy/m/
 n/10 !
  []
 
 
-LaTeX Warning: Command \l invalid in math mode on input line 142.
+LaTeX Warning: Command \l invalid in math mode on input line 144.
 
 
-LaTeX Warning: Command \l invalid in math mode on input line 142.
+LaTeX Warning: Command \l invalid in math mode on input line 144.
 
 
-LaTeX Warning: Citation `?' on page 4 undefined on input line 148.
+LaTeX Warning: Citation `?' on page 4 undefined on input line 150.
 
 [4]
 <../experiments/basic_demonstration/dependence_detection.png, id=158, 462.528pt
@@ -738,59 +777,85 @@ File: ../experiments/basic_demonstration/dependence_detection.png Graphic file
 (type png)
 <use ../experiments/basic_demonstration/dependence_detection.png>
 Package pdftex.def Info: ../experiments/basic_demonstration/dependence_detectio
-n.png  used on input line 169.
-(pdftex.def)             Requested size: 161.88722pt x 121.4154pt.
-<./summary_noise_effect.png, id=166, 462.528pt x 346.896pt>
+n.png  used on input line 172.
+(pdftex.def)             Requested size: 148.01198pt x 111.00897pt.
+<./summary_noise_effect.png, id=160, 462.528pt x 346.896pt>
 File: ./summary_noise_effect.png Graphic file (type png)
 <use ./summary_noise_effect.png>
-Package pdftex.def Info: ./summary_noise_effect.png  used on input line 184.
-(pdftex.def)             Requested size: 138.75946pt x 104.0696pt.
- [5 <../experiments/basic_demonstration/dependence_detection.png>]
-
-LaTeX Warning: Citation `?' on page 6 undefined on input line 204.
+Package pdftex.def Info: ./summary_noise_effect.png  used on input line 174.
+(pdftex.def)             Requested size: 148.01198pt x 111.00897pt.
 
 
-Overfull \hbox (1.54733pt too wide) in paragraph at lines 214--215
+Package caption Warning: \label without proper reference on input line 170.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `fig:experiments_simulation' on page 5 undefined on in
+put line 179.
+
+
+Package caption Warning: \label without proper reference on input line 170.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `fig:experiments_simulation' on page 5 undefined on in
+put line 183.
+
+[5 <../experiments/basic_demonstration/dependence_detection.png> <./summary_noi
+se_effect.png>]
+
+LaTeX Warning: Citation `?' on page 6 undefined on input line 205.
+
+
+Package caption Warning: \label without proper reference on input line 209.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `table:classification_accuracies' on page 6 undefined 
+on input line 206.
+
+
+Overfull \hbox (1.54733pt too wide) in paragraph at lines 215--216
 []\OT1/cmr/m/n/10 QSVM| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 220--220
+Underfull \hbox (badness 10000) in paragraph at lines 221--221
 []\OT1/cmr/m/n/10 One-hundred-
  []
 
 
-Overfull \hbox (13.5275pt too wide) in paragraph at lines 210--234
+Overfull \hbox (13.5275pt too wide) in paragraph at lines 211--235
  [][] 
  []
 
-[6 <./summary_noise_effect.png>]
+[6]
 
-LaTeX Warning: Citation `?' on page 7 undefined on input line 254.
+LaTeX Warning: Citation `?' on page 7 undefined on input line 255.
 
 (./main.bbl [7])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 281.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 282.
  [8]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 281.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 282.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 281.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 281.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 282.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 282.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 6989CF23FC946B737708726D2944E5AC;765.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 281.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 282.
  ) 
 Here is how much of TeX's memory you used:
- 7186 strings out of 492982
- 101553 string characters out of 6134897
- 194116 words of memory out of 5000000
- 10589 multiletter control sequences out of 15000+600000
+ 8370 strings out of 492982
+ 122906 string characters out of 6134897
+ 219179 words of memory out of 5000000
+ 11762 multiletter control sequences out of 15000+600000
  12976 words of font info for 50 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 28i,9n,30p,1157b,476s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 44i,9n,42p,1157b,478s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texli
@@ -811,10 +876,10 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist
 public/amsfonts/cm/cmtt8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
 amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/symbols/msbm7.pfb>
-Output written on main.pdf (8 pages, 330680 bytes).
+Output written on main.pdf (8 pages, 330617 bytes).
 PDF statistics:
- 281 PDF objects out of 1000 (max. 8388607)
- 243 compressed objects within 3 object streams
- 58 named destinations out of 1000 (max. 500000)
+ 282 PDF objects out of 1000 (max. 8388607)
+ 244 compressed objects within 3 object streams
+ 59 named destinations out of 1000 (max. 500000)
  115 words of extra memory for PDF output out of 10000 (max. 10000000)
 
