@@ -10,13 +10,14 @@
 \usepackage{hyperref}
 \usepackage{amsthm}
 \usepackage{subfig}
+\usepackage{textcomp}
 
 %\usepackage{prletters}
 
 \newtheorem{theorem}{Theorem}
 
 \title{Statistical independence measure based on maximum norm of joint and product-marginal characteristic functions}
-\author{povilas.daniusis, povilasd@neurotechnology.com}
+\author{Povilas Daniu\v{s}is, povilasd@neurotechnology.com\footnote{This preprint is not an official product of Neurotechnology}}
 \date{November 2021}
 
 \begin{document}
@@ -27,13 +28,14 @@
 %
 
 \begin{abstract}
-    In this paper we propose statistical independence measure based on the maximum norm of difference between joint and product-marginal characteristic functions, and its estimation procedure. We also extend the proposed measure to the reproducing kernel Hilbert spaces (RKHS).
+    In this paper we propose statistical independence measure based on the maximum norm of difference between joint and product-marginal characteristic functions, and its estimation procedure. We also extend the proposed measure to the reproducing kernel Hilbert spaces (RKHS), which allows to apply it to structured data.
     
-    On the empirical side, we discuss simulated examples, and applications for feature selection/extraction, regularisation, and conduct corresponding experiments with diverse collection of data sets from different domains.
+    We conduct experiments both with simulated and real data. The conducted experiments reveal, that the proposed measure can detect statistical dependence in non-linearly related data sets, and that it can be improve real data classification accuracy, when applied for feature extraction and regularisation.
+    
 \end{abstract}
 
 \section{Introduction}
-Statistical dependence measures plays important role in various statistical and machine learning methods (e.g. hypothesis testing~\cite{Gretton2005MeasuringSD}, feature selection and extraction~\cite{EigenHSIC}, information bottleneck methods \cite{Ma2020TheHB}, causal inference~\cite{NIPS2008_f7664060}, self-supervised learning~\cite{li2021selfsupervised}, causal inference~\cite{NIPS2008_f7664060}, among others).  Earliest statistical dependence estimation ideas (e.g. conditional probability) share nearly-common origin with the beginning of formal statistical reasoning itself. During last two centuries ideas of correlation and (relative) entropy (including various generalizations) were proposed and became very popular in numerous applications and theoretical developments. However, with the increasing popularity of statistical machine learning, new statistical dependence estimation methods, that are robust, applicable to noisy, high-dimensional, structured data, and which can be efficiently integrated with modern machine learning methods are helpful for the development both of the theory and application.
+Statistical dependence measures plays important role in various statistical and machine learning methods (e.g. hypothesis testing~\cite{Gretton2005MeasuringSD}, feature selection and extraction~\cite{EigenHSIC,HSCA}, information bottleneck methods \cite{Ma2020TheHB}, causal inference~\cite{NIPS2008_f7664060}, self-supervised learning~\cite{li2021selfsupervised}, among others).  Earliest statistical dependence estimation ideas (e.g. conditional probability) share nearly-common origin with the beginning of formal statistical reasoning itself. During last two centuries ideas of correlation and (relative) entropy (including various generalizations) were proposed and became very popular in numerous applications and theoretical developments. However, with the increasing popularity of statistical machine learning, new statistical dependence estimation methods, that are robust, applicable to noisy, high-dimensional, structured data, and which can be efficiently integrated with modern machine learning methods are helpful for the development both of the theory and application.
 
 In this article we focus on quantitative estimation of statistical independence, using characteristic functions. We begin with the short review of some important previous dependence estimation approaches (Section~\ref{section:previous_work}), devoting special attention to ones based on characteristic functions (Section~\ref{section:previous_work_cf}). Afterwards, we formulate the proposed characteristic function-based statistical dependence measure and its empirical estimator (Section~\ref{section:proposed_method}), including an extension into reproducing kernel Hilbert spaces (RKHS'es), which are the main theoretical contribution of our paper. Section~\ref{section:experiments} is devoted to experiments with simulated and real data sets, where we apply the proposed dependence measure for feature extraction and deep neural network (DNN) regularisation,  and finalizing Section~\ref{section:discussion} concludes this article.
 
@@ -96,38 +98,38 @@ Our motivation stems from the fact that evaluation of~\cite{Szekely} measures in
 \begin{theorem}
 \label{thm:properties}
   Statistical independence measure~\eqref{eq:kim} has the following properties:
-  \begin{itemize} 
+  \begin{enumerate} 
     \item $\kappa(X,Y) = \kappa(Y,X)$,
     \item $0 \leq \kappa(X,Y) \leq 1$,
     \item $\kappa(X,Y) = 0$ iff $X\perp Y$.
-   \end{itemize}    
+    \item $\kappa(X,Y)$ is scale invariant.
+   \end{enumerate}    
 \end{theorem}
 
 
 \begin{proof}
-Symmetry is obvious from definition~\eqref{eq:kim} (commutativity of addition and multiplication), and second property directly follows from Cauchy inequality and that absolute value of characteristic function is bounded by $1$:
+Property $\textit{1.}$ is obvious from definition~\eqref{eq:kim} (commutativity of addition and multiplication), and property $\textit{2.}$ directly follows from Cauchy inequality and that absolute value of characteristic function is bounded by $1$:
 \begin{multline*}
 |\phi_{X,Y}(\alpha, \beta)  -\phi_{X}(\alpha) \phi_{Y}(\beta)|^{2} =
 \mathbb{E}_{X,Y} |( e^{i\alpha^{T}X} - \phi_{X}(\alpha) )(e^{i\beta^{T}Y}- \phi_{Y}(\beta) )|^{2} \leq \\
 \mathbb{E}_{X,Y} |( e^{i\alpha^{T}X} - \phi_{X}(\alpha) )|^{2} |(e^{i\beta^{T}Y}- \phi_{Y}(\beta) )|^{2}  = (1 - |\phi_{X}(\alpha)|^{2}) (1 - |\phi_{Y}(\beta)|^{2}).
 \end{multline*}
+Proof of property $\textit{3.}$ directly follows from properties of characteristic functions (see e.g.~\cite{Jacod}, Corollary 14.1)\footnote{This property also is known as Kac's theorem~\cite{KacTheorem}. Although it is quite simple mathematical fact, this provides the basis of the proposed measure name.}.
+Scale invariance (Property $\textit{4.}$) is trivial result of the standartisation requirement for $X$ and $Y$.
 \end{proof}
-
-%\paragraph{Scale invariance}
-%$\kappa(\lambda X, \lambda Y) = \max_{\|\alpha\| = \|\beta\| = 1} \vert \phi_{\lambda X,\lambda Y}(\alpha + \beta)  -\phi_{\lambda X}(\alpha) \phi_{\lambda Y}(\beta)\vert = \max_{\\|\lambda \alpha\| = \|\lambda \beta\| = 1} \vert \phi_{X,Y}(\lambda(\alpha + \beta))  -\phi_{X}(\lambda\alpha) \phi_{Y}(\lambda\beta) \vert = \max_{\\|s\| = \|t\| = 1} \vert \phi_{X,Y}(s+t)  -\phi_{X}(s) \phi_{Y}(t) \vert = \kappa( X, Y). ?$
 
 \subsection{Estimation}
 
 Having i.i.d. standartized data $(x_{j}, y_{j})$, $j = 1,2,...,n$, an empirical scale-invariant estimator of~\eqref{eq:kim} is defined via corresponding empirical characteristic functions~\eqref{eq:joint_ecf} and~\eqref{eq:ecf}:
 \begin{equation}
 \label{eq:estimator}
-    \hat{\kappa}(X,Y) = \max_{\|\alpha\| = \|\beta\| = 1} \vert \widehat{\phi_{X,Y}}(\alpha,\beta)  - \widehat{\phi_{X}}(\alpha) \widehat{\phi_{Y}}(\beta) \vert.
+    \hat{\kappa}(X,Y) = \max_{\alpha, \beta} \vert \widehat{\phi_{X,Y}}(\alpha,\beta)  - \widehat{\phi_{X}}(\alpha) \widehat{\phi_{Y}}(\beta) \vert.
 \end{equation}
 
-\noindent Empirical estimator~\eqref{eq:estimator} also is symmetric and and bounded (Theorem~\ref{thm:properties}) . Normalisation of parameters $\alpha$ and $\beta$ on to unit sphere is included due to stability issues (really this is the reason?). The  estimator~\eqref{eq:estimator} can be calculated by using Algorithm~\ref{alg:estimator_computation} \footnote{ Pytorch~\cite{NEURIPS2019_9015} implementationcan be accessed from \url{https://github.com/povidanius/kac_independence_measure}}. 
+\noindent Empirical estimator~\eqref{eq:estimator} also is symmetric and and bounded (Theorem~\ref{thm:properties}). Emprically we observed that normalisation of parameters $\alpha$ and $\beta$ on to unit sphere increases estimation stability (why?). The  estimator~\eqref{eq:estimator} can be calculated iteratively by Algorithm~\ref{alg:estimator_computation} (Pytorch~\cite{NEURIPS2019_9015} implementationcan be accessed from \url{https://github.com/povidanius/kac_independence_measure}. 
 
 \begin{algorithm}
-\caption{KacIM estimator computation algorithm}\label{alg:estimator_computation}
+\caption{KacIM estimation iteration}\label{alg:estimator_computation}
 \begin{algorithmic}
 \Require data batch $(x,y)$, gradient-based optimiser $GradOpt(loss)$
 %\Ensure $y = x^n$
@@ -180,7 +182,7 @@ When data is independent, both in additive and multiplicative cases, due to inde
 \paragraph{Noise variance effect} In this simulation we use the same additive noise setting as in previous paragraph, but evaluate all noise levels $\lambda \in [0.1, 3.0]$, with step $0.1$.
 Figure~\ref{fig:experiments_simulation} empirically shows that value of KacIM  negatively correlates with noise level, and therefore the proposed measure is able not only to detect whether independence is present, but also to quantitatively evaluate it, which enables to use it to derive cost functions for various learning-based algorithms. 
 
-Since in~\ref{alg:estimator_computation} we standartize data, KacIM is also scale-invariant (i.e. $\kappa(rx, ry) = \kappa(x,y)$), where $r>0$ is scale parameter.
+%Since in~\ref{alg:estimator_computation} we standartize data, KacIM is also scale-invariant (i.e. $\kappa(rx, ry) = \kappa(x,y)$), where $r>0$ is scale parameter.
 
 
 
@@ -200,11 +202,10 @@ where the regularisation term, controlled by multiplier $\alpha \geq 0$, enforce
 %w_{t}^{*} = arg \max_{W} \frac{\kappa(w_{t}^{T}x, y)}{\kappa(w_{t}^{T}x, W_{t}x)}.
 %\end{equation}
 
-\noindent Afterwards, feature extraction is conducted by $f = W^{*}x$ and these features are used as the inputs to several popular classifiers: $3$-nearest neighbor classifier with Euclidean distance (KNN(3)), logistic regression (LR), linear and quadratic support vector machine\cite{?} (LSVM and QSVM, respectively). We randomly split all the datasets in training and testing sets of equal size, comparing unmodified inputs $x$, and features of all possible dimensions up to $d_{x}$.  In our experiments we set $\alpha$ to $1.0$ to quickly ensure orthogonal projection matrices, and further proceed to dependence maximization stage. 
+\noindent Afterwards, feature extraction is conducted by $f = W^{*}x$ and these features are used as the inputs to several popular classifiers: $3$-nearest neighbor classifier with Euclidean distance (KNN(3)), logistic regression (LR), linear and quadratic support vector machine~\cite{10.5555/3279302} (LSVM and QSVM, respectively). We randomly split all the datasets in training and testing sets of equal size, comparing unmodified inputs $x$, and features of all possible dimensions up to $d_{x}$.  In our experiments we set $\alpha$ to $1.0$ to quickly ensure orthogonal projection matrices, and further proceed to dependence maximization stage. 
 The classification accuracies, reported in Table~\ref{table:classification_accuracies} demonstrate that this KacIM-based feature extraction procedure indeed allows to increase classification accuracy when applied to real data sets from various domains.
 
 \begin{table}	
-\label{table:classification_accuracies}	
 \centering
 \begin{tabular}{ |p{3cm}|p{2.5cm}||p{1.5cm}|p{1cm}|p{1cm}|p{1cm}|  }
 	\hline
@@ -212,25 +213,26 @@ The classification accuracies, reported in Table~\ref{table:classification_accur
 	\hline
 	& size/dim. & KNN(3) & LR & LSVM & QSVM  \\
 	\hline
-	Ionosphere & (351, 34) & AF    &AFG&   004 & \\	
+	Ionosphere & (351, 34) &     &&    & \\	
 	\hline
 	Spambase & (4601, 57) & & & & \\
 	\hline
 	One-hundred-plants-texture   & (1599, 64)
-	  & AF    &AFG&   004 & \\
+	  &     & &    & \\
 	\hline	
-	LSVT  & (126, 310) & AF    &AFG&   004 & \\
+	LSVT  & (126, 310) &     &  &    & \\
 	\hline
 	Micro-mass  & (360, 1300)
-	 & AF    &AFG&   004 & \\
+	 &     &  &    & \\
 	\hline	
-	Tokyo1 & (959, 44) & AF    &AFG&   004 & \\
+	Tokyo1 & (959, 44) &     & &    & \\
 	\hline	
 	Clean1 & (476, 168)
-	 & AF    &AFG&   004 & \\
+	 &     & &    & \\
 	\hline
 \end{tabular}
-\caption{KNN}
+\caption{The accuracies of various classifiers, trained on KacIM-based features.}
+\label{table:classification_accuracies}	
 \end{table}
 
 \subsection{Regularisation}
