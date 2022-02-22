@@ -69,6 +69,9 @@ Dominic Edelmann, Konstantinos Fokianos, and Maria Pitsillou.
   Applications to Time Series}.
 \newblock {\em International Statistical Review}, 87(2):237--262, August 2019.
 
+\bibitem{KacTheorem}
+
+
 \bibitem{NEURIPS2019_9015}
 Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory
   Chanan, Trevor Killeen, Zeming Lin, Natalia Gimelshein, Luca Antiga, Alban
@@ -76,7 +79,7 @@ Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory
   Tejani, Sasank Chilamkurthy, Benoit Steiner, Lu~Fang, Junjie Bai, and Soumith
   Chintala.
 \newblock Pytorch: An imperative style, high-performance deep learning library.
-\newblock In H.~Wallach, H.~Larochelle, A.~Beygelzimer, F.~d
+\newblock In H.~Wallach, H.~Larochelle, A.~Beygelzimer, F.~d\textquotesingle
   Alch\'{e}-Buc, E.~Fox, and R.~Garnett, editors, {\em Advances in Neural
   Information Processing Systems 32}, pages 8024--8035. Curran Associates,
   Inc., 2019.

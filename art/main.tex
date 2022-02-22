@@ -11,6 +11,8 @@
 \usepackage{amsthm}
 \usepackage{subfig}
 \usepackage{textcomp}
+\usepackage{comment}
+
 
 %\usepackage{prletters}
 
@@ -28,9 +30,9 @@
 %
 
 \begin{abstract}
-    In this paper we propose statistical independence measure based on the maximum norm of difference between joint and product-marginal characteristic functions, and its estimation procedure. We also extend the proposed measure to the reproducing kernel Hilbert spaces (RKHS), which allows to apply it to structured data.
+    In this paper we propose statistical independence measure based on the maximum norm of difference between joint and product-marginal characteristic functions, and its estimation procedure (including open-source repository). We also extend the proposed measure to the reproducing kernel Hilbert spaces (RKHS), which allows to apply it to structured data.
     
-    We conduct experiments both with simulated and real data. The conducted experiments reveal, that the proposed measure can detect statistical dependence in non-linearly related data sets, and that it can be improve real data classification accuracy, when applied for feature extraction and regularisation.
+    We conduct experiments both with simulated and real data. The conducted experiments reveal, that the proposed measure can detect statistical dependence in non-linearly related data sets, and that it can improve real data classification accuracy, when applied for feature extraction and regularisation, on a set of common classifiers.
     
 \end{abstract}
 
@@ -247,14 +249,20 @@ Cost(\theta) = CE(f(x|\theta),y) + \beta \kappa(\phi(x|\theta),y),
 \noindent where $CE$ is cross-entropy loss, and $\beta \geq 0$ is regularisation parameters.
 
 
-\section{Discussion} 
+\section{Conclusion} 
 
-\label{section:discussion}
-In this article we propose statistical dependence measure, KacIM, which relies on the $L^{\infty}$ norm of the difference between joint characteristic function and the product of marginal ones.
+\label{section:conclusion}
+In this article we propose statistical dependence measure, KacIM, which relies on the $L^{\infty}$ norm of the difference between joint characteristic function and the product of marginal ones. The proposed measure, in theory can detect arbitrary statistical depdendence between a pairs of random variables of different dimension, extended to various known statistical generalisations (e.g. reproducing kernel Hilbert spaces, multivariablity) and machine learning scenarios (e.g. feature extraction, regularisation, among others), and is empirically tractable on these problems. Om the other side, beside providing a set of answers, it raises a corresponding set of unanswered questions, of theoretical and empirical character. For example, the interpretability when this measure approaches its maximal value remains insufficiently clear, however empirical experiments with simulated data reveals, that increasing independence between two random variables is reflected in a decreasing trend on the estimated values of the proposed dependence measure. Beside direct applications, the proposed measure is differentiable and thereby can be integrated with modern deep-learning methods, applied to high-dimensional and structured data. From empirical point of view, we see exploration of KacIM in causality, information bottleneck, self-supervised learning, and other modern problems, where dependence measures define a criterion of optimisation as important future work.
+
+\begin{comment}
+....
 
 Although we formulated and analysed KacIM for bivariate vectorial case, similarly it can be generalised for multivariate case. In addition, since characteristic functions are defined for matrices, graphs, and other objects \cite{?}, the proposed dependence measure can be extended to those objects as well, which is potential direction of future research of KacIM.
 
+
+
 Conducted empirical analysis show, that KacIM can detect and measure statistical independence for non-linearly related, high-dimensional data, and that it can be applied for feature extraction and DNN regularisation and improve model's performance on real data sets. On the other side, direct applications of the proposed statistical dependence measure in the areas of causality, information bottleneck, and other domains where not explored in this study, and left for the future work, as well as its  important properties (e.g. interpretability, limit distribution).
+\end{comment}
 
 \section{Acknowledgements}
 

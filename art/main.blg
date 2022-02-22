@@ -9,37 +9,43 @@ You're missing a field part---line 16 of file bibliography.bib
 I'm skipping whatever remains of this entry
 Warning--entry type for "Bottcher" isn't style-file defined
 --line 20 of file bibliography.bib
+Warning--I didn't find a database entry for "HSCA"
 Warning--I didn't find a database entry for "?"
-You've used 16 entries,
+Warning--I didn't find a database entry for "Jacod"
+Warning--empty author in KacTheorem
+Warning--empty title in KacTheorem
+Warning--empty journal in KacTheorem
+Warning--empty year in KacTheorem
+You've used 17 entries,
             1791 wiz_defined-function locations,
-            560 strings with 7067 characters,
-and the built_in function-call counts, 4044 in all, are:
-= -- 308
-> -- 271
+            566 strings with 7105 characters,
+and the built_in function-call counts, 4144 in all, are:
+= -- 311
+> -- 272
 < -- 3
-+ -- 94
++ -- 95
 - -- 78
-* -- 293
-:= -- 672
-add.period$ -- 50
-call.type$ -- 16
+* -- 305
+:= -- 679
+add.period$ -- 51
+call.type$ -- 17
 change.case$ -- 14
 chr.to.int$ -- 0
-cite$ -- 16
-duplicate$ -- 176
-empty$ -- 375
+cite$ -- 21
+duplicate$ -- 184
+empty$ -- 389
 format.name$ -- 78
-if$ -- 890
+if$ -- 909
 int.to.chr$ -- 0
-int.to.str$ -- 16
-missing$ -- 17
-newline$ -- 82
+int.to.str$ -- 17
+missing$ -- 18
+newline$ -- 85
 num.names$ -- 22
-pop$ -- 65
+pop$ -- 73
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 75
+skip$ -- 81
 stack$ -- 0
 substring$ -- 166
 swap$ -- 39
@@ -47,8 +53,8 @@ text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 0
+warning$ -- 4
 while$ -- 32
-width$ -- 18
-write$ -- 174
+width$ -- 19
+write$ -- 178
 (There was 1 error message)
