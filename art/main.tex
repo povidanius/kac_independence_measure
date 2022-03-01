@@ -81,7 +81,7 @@ where $d_{x}$ and $d_{y}$ are dimensions of $X$ and $Y$, respectively.
 
 This formulation of statistical independence was used as the basis (first in~\cite{Feuerverger} for one-dimensional case, and afterwards extended and developed by~\cite{Szekely} for bivariate multidimensional random vectors) for construction of statistical independence tests and measures.\textit{Distance covariance} and \textit{distance correlation}, prosposed by ~\cite{Szekely} relies on weighted $L^{2}$-norm analysis of~\eqref{eq:kac_theorem}. They select weighting function in such a way, that dependence measure can be expressed in terms of correlection of data-dependent distances. Study~\cite{Bottcher} generalises~\cite{Szekely} to multivariable case and proposes \textit{distance multivariance} and derivative dependence measure, called~\textit{total distance multivariance}. 
 
-Our motivation stems from the fact that evaluation of~\cite{Szekely} measures in high dimensional cases may be prone to curse of dimensionality (as mentioned in~\cite{Edlemann}). Although staying in $L^{p}$-space framework, instead of $p = 2$ ($L^{2}$ space) we take a limit when  $p \rightarrow \infty$, and also avoid direct calculation of integral by working in $L^{\infty}$, which has corresponding supremum norm. Also, from practical point of view maximization is convenient, because it is already implemented in various deep learning frameworks. %\textit{What are potential advantages of maximum norm?}
+Our motivation stems from the fact that evaluation of~\cite{Szekely} measures in high dimensional cases may be prone to curse of dimensionality (as mentioned in~\cite{Edlemann}). Although staying in $L^{p}$-space framework, instead of $p = 2$ ($L^{2}$ space) we take a limit when  $p \rightarrow \infty$, and thereby avoid direct calculation of norm integral, since norm of $L^{p}$ converges to supremum norm when $p \rightarrow \infty$. Also, from practical point of view maximization is convenient, because it is already implemented in various deep learning frameworks. %\textit{What are potential advantages of maximum norm?}
 
 \section{Proposed Independence Measure}
 \label{section:proposed_method}
@@ -192,16 +192,17 @@ Figure~\ref{fig:experiments_simulation} empirically shows that value of KacIM  n
 %Shubham
 
 \subsection{Feature extraction}
-In feature extraction experiments we will use a set of classification data sets from OpenML~\cite{OpenML2013}.  We conduct linear feature extraction by seeking 
+In feature extraction experiments we will use a set of classification data sets from OpenML~\cite{OpenML2013}.  We conduct supervised linear feature extraction by seeking 
 
 \begin{equation}
 \label{eq:kim_feature_extraction}    
 W^{*} = arg \max_{W} \kappa(Wx, y) - \alpha Tr\{(W^{T}W-I)^{T}(W^{T}W-I) \},
 \end{equation}
-where the regularisation term, controlled by multiplier $\alpha \geq 0$, enforces projection matrix $W^{*}$ to be orthogonal.
+where the regularisation term, controlled by multiplier $\alpha \geq 0$, enforces projection matrix $W^{*}$ to be orthogonal. This cost function is optimised iteratively ($250$ iterations).
 
 
-\noindent Afterwards, feature extraction is conducted by $f = W^{*}x$ and these features are used as the inputs to logistic regression classifier.
+\noindent After optimisation, feature extraction is conducted by $f = W^{*}x$ and these features are used as the inputs to logistic regression classifier.
+We use two baselines: raw features (RAW column in Table~\ref{table:classification_accuracies}) and neighborhood component analysis~\cite{NIPS2004_42fe8808} (NCA column in Table~\ref{table:classification_accuracies}). In contrast to our feature extraction approach, NCA explicitly optimises for classification accuracy, rather than more abstract variable dependency.
 
 We randomly split all the datasets in training and testing sets of equal size, comparing unmodified inputs $x$, and features of all possible dimensions up to $d_{x}$ with $10\%$ step.  In our experiments we set $\alpha$ to $1.0$ to quickly ensure orthogonal projection matrices, and further proceed to dependence maximization stage. 
 The classification accuracies, reported in Table~\ref{table:classification_accuracies} demonstrate that KacIM-based feature extraction procedure indeed allows to increase classification accuracy when applied to real data sets from various domains.
@@ -212,8 +213,8 @@ The purpose of these experiments is to provide the preliminary evaluation of the
 \begin{table}	
 	\centering
 	\begin{tabular}{ |p{3cm}|p{2.0cm}|p{1.2cm}|p{1.7cm}|p{1.2cm}|  }
-		\hline
-		\multicolumn{5}{|c|}{Classification accuracies} \\
+		%\hline
+		%\multicolumn{5}{|c|}{Classification accuracies} \\
 		\hline
 		Dataset & size/dim/$n_{c}$. & Raw & KacIMFE & NCA  \\
 		\hline
@@ -233,42 +234,12 @@ The purpose of these experiments is to provide the preliminary evaluation of the
 								
 		\hline
 	\end{tabular}
-	\caption{Classification accuracies, trained on KacIM-based features.}
+	\caption{Classification accuracies. $N$ denotes full data set size, $d_{x}$ - input dimensionality, and $n_{c}$ - number of classes. }
 	\label{table:classification_accuracies}	
 \end{table}
 
 
-\begin{comment}
-\begin{table}	
-\centering
-\begin{tabular}{ |p{3cm}|p{2.0cm}||p{1.5cm}|p{1cm}|p{1cm}|p{1cm}|  }
-	\hline
-	\multicolumn{6}{|c|}{Classification accuracies} \\
-	\hline
-	& size/dim. & KNN(3) & LR & LSVM & QSVM  \\
-	\hline
-	Ionosphere & (351, 34) &     &&    & \\	
-	\hline
-	Spambase & (4601, 57) & & & & \\
-	\hline
-	One-hundred-plants-texture   & (1599, 64)
-	  &     & &    & \\
-	\hline	
-	LSVT  & (126, 310) &     &  &    & \\
-	\hline
-	Micro-mass  & (360, 1300)
-	 &     &  &    & \\
-	\hline	
-	Tokyo1 & (959, 44) &     & &    & \\
-	\hline	
-	Clean1 & (476, 168)
-	 &     & &    & \\
-	\hline
-\end{tabular}
-\caption{The accuracies of various classifiers, trained on KacIM-based features.}
-\label{table:classification_accuracies}	
-\end{table}
-\end{comment}
+
 \subsection{Regularisation}
 In regularisation experiments we investigate chest x-ray classification task. It is represented as binary classification data set, consisting of xray scans, which should be classified as pneumonia or normal.
 
@@ -279,7 +250,22 @@ Cost(\theta) = CE(f(x|\theta),y) + \beta \kappa(\phi(x|\theta),y),
 \end{equation}
 
 \noindent where $CE$ is cross-entropy loss, and $\beta \geq 0$ is regularisation parameters.
-
+\begin{table}	
+	\centering
+	\begin{tabular}{ |p{4cm}|p{2cm}|p{2cm}|p{2cm}| }
+		%\hline
+		%\multicolumn{5}{|c|}{Classification accuracies} \\
+		\hline
+		Mode & Training & Validation & Testing  \\
+		\hline
+		Without regularisation   &   0.989  &   0.875  &   0.716 \\		
+		\hline
+		With regularisation  &     &    &   \\		
+		\hline
+	\end{tabular}
+	\caption{Classification accuracy comparison of regularised and not regularised model (pneumonia dataset).  }
+	\label{table:regularisation_classification_accuracies}	
+\end{table}
 
 \section{Conclusion} 
 

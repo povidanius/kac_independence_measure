@@ -5,24 +5,34 @@ import torch.nn as nn
 from torch.utils.data import DataLoader
 from torchvision.datasets import ImageFolder
 import torchvision.transforms as transforms
-from torchvision.models import inception_v3
+from torchvision.models import inception_v3, resnet18
 from torch import optim
+import sys
 import os
+
 data_path='/home/tank/Downloads/chest_xray/chest_xray'
+
+sys.path.insert(0, "../")
+from kac_independence_measure import KacIndependenceMeasure
+
+
 #os.listdir('./chest-xray-pneumonia/')
 #image = './chest-xray-pneumonia/train/normal/IM-0115-0001.jpeg'
 #img = plt.imread(image)
 #plt.imshow(img, cmap='gray')
 
+kim = KacIndependenceMeasure(512, 1, lr=0.007, input_projection_dim = 256, weight_decay=0.01) #0.007
+
+
 train_transform = transforms.Compose([transforms.Grayscale(num_output_channels=3), 
-                                      transforms.Resize((299,299)),
+                                      transforms.Resize((224,224)),
                                       transforms.RandomHorizontalFlip(),
                                       transforms.ColorJitter(brightness=1, contrast=1, saturation=1),
                                       transforms.ToTensor(),
                                       transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
 test_transform = transforms.Compose([transforms.Grayscale(num_output_channels=3), 
-                                     transforms.Resize((299,299)),
+                                     transforms.Resize((224,224)),
                                      transforms.ToTensor(),
                                      transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 training_dataset = ImageFolder(data_path + '/train', transform=train_transform)
@@ -38,12 +48,17 @@ print(len_val)
 train_loader = DataLoader(dataset=training_dataset, batch_size=64, shuffle=True)
 val_loader = DataLoader(dataset=validation_dataset, shuffle= True)
 test_loader = DataLoader(dataset= testing_dataset, shuffle=False)
-model = inception_v3(pretrained=True, aux_logits=False)
+
+#model = inception_v3(pretrained=True, aux_logits=False)
+model = resnet18(pretrained=True) #, aux_logits=False)
+#features = nn.Sequential(*(list(resnet18.children())[0:8]))
+
+
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 model.to(device)
 loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.AdamW(params=model.parameters(), lr = 0.0002, weight_decay=0.00001)
-number_of_epoch = 15
+number_of_epoch = 7
 
 train_loss = []
 test_loss = []
@@ -84,8 +99,8 @@ for epoch in range(number_of_epoch):
         'epoch': epoch,
         'model_state_dict': model.state_dict(),
         'optimizer_state_dict': optimizer.state_dict(),
-        'loss': LOSS,
-        }, format("chest_checkpoint_{}.pt".epoch))
+        'loss': train_loss,
+        }, format("chest_checkpoint_{}.pt".format(epoch)))
 
     model.eval()
     with torch.no_grad():

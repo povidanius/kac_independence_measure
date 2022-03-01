@@ -119,4 +119,10 @@ Joaquin Vanschoren, Jan~N. van Rijn, Bernd Bischl, and Luis Torgo.
 \newblock Openml: Networked science in machine learning.
 \newblock {\em SIGKDD Explorations}, 15(2):49--60, 2013.
 
+\bibitem{NIPS2004_42fe8808}
+Jacob Goldberger, Geoffrey~E Hinton, Sam Roweis, and Russ~R Salakhutdinov.
+\newblock Neighbourhood components analysis.
+\newblock In L.~Saul, Y.~Weiss, and L.~Bottou, editors, {\em Advances in Neural
+  Information Processing Systems}, volume~17. MIT Press, 2004.
+
 \end{thebibliography}
