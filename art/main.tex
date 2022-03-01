@@ -174,7 +174,7 @@ Further we will conduct empirical investigation of KacIM. We will begin with sim
 	\centering
 	\subfloat{{\includegraphics[scale=0.32]{../experiments/basic_demonstration/dependence_detection.png} }}%
 	\qquad
-	\subfloat{{\includegraphics[scale=0.32]{./summary_noise_effect.png} }}%
+	\subfloat{{\includegraphics[scale=0.32]{../experiments/noise_effect/summary.png} }}%
 	\caption{Left figure: Dependence detection in independent data (blue), additive (orange) and multiplicative (green) noise scenarios. Righ figure: noise level ($x$ axis) vs final iteration KacIM value ($y$ axis). KacIM values for larger noise levels saturates as in tail of graph}
 	\label{fig:experiments_simulation}
 \end{figure}
@@ -192,7 +192,7 @@ Figure~\ref{fig:experiments_simulation} empirically shows that value of KacIM  n
 %Shubham
 
 \subsection{Feature extraction}
-In feature extraction experiments we will use a set of classification data sets from OpenML~\cite{OpenML2013}. The purpose of these experiments is to provide the preliminary evaluation of the applicability of KacIM for feature extraction, hence we use rather basic comparative baselines. We conduct linear feature extraction by seeking 
+In feature extraction experiments we will use a set of classification data sets from OpenML~\cite{OpenML2013}.  We conduct linear feature extraction by seeking 
 
 \begin{equation}
 \label{eq:kim_feature_extraction}    
@@ -200,14 +200,45 @@ W^{*} = arg \max_{W} \kappa(Wx, y) - \alpha Tr\{(W^{T}W-I)^{T}(W^{T}W-I) \},
 \end{equation}
 where the regularisation term, controlled by multiplier $\alpha \geq 0$, enforces projection matrix $W^{*}$ to be orthogonal.
 
-%\begin{equation}
-%\label{eq:kim_feature_extraction1}    
-%w_{t}^{*} = arg \max_{W} \frac{\kappa(w_{t}^{T}x, y)}{\kappa(w_{t}^{T}x, W_{t}x)}.
-%\end{equation}
 
-\noindent Afterwards, feature extraction is conducted by $f = W^{*}x$ and these features are used as the inputs to several popular classifiers: $3$-nearest neighbor classifier with Euclidean distance (KNN(3)), logistic regression (LR), linear and quadratic support vector machine~\cite{10.5555/3279302} (LSVM and QSVM, respectively). We randomly split all the datasets in training and testing sets of equal size, comparing unmodified inputs $x$, and features of all possible dimensions up to $d_{x}$.  In our experiments we set $\alpha$ to $1.0$ to quickly ensure orthogonal projection matrices, and further proceed to dependence maximization stage. 
-The classification accuracies, reported in Table~\ref{table:classification_accuracies} demonstrate that this KacIM-based feature extraction procedure indeed allows to increase classification accuracy when applied to real data sets from various domains.
+\noindent Afterwards, feature extraction is conducted by $f = W^{*}x$ and these features are used as the inputs to logistic regression classifier.
 
+We randomly split all the datasets in training and testing sets of equal size, comparing unmodified inputs $x$, and features of all possible dimensions up to $d_{x}$ with $10\%$ step.  In our experiments we set $\alpha$ to $1.0$ to quickly ensure orthogonal projection matrices, and further proceed to dependence maximization stage. 
+The classification accuracies, reported in Table~\ref{table:classification_accuracies} demonstrate that KacIM-based feature extraction procedure indeed allows to increase classification accuracy when applied to real data sets from various domains.
+
+The purpose of these experiments is to provide the preliminary evaluation of the applicability of KacIM for feature extraction, hence we use rather basic comparative baselines.
+
+
+\begin{table}	
+	\centering
+	\begin{tabular}{ |p{3cm}|p{2.0cm}|p{1.2cm}|p{1.7cm}|p{1.2cm}|  }
+		\hline
+		\multicolumn{5}{|c|}{Classification accuracies} \\
+		\hline
+		Dataset & size/dim/$n_{c}$. & Raw & KacIMFE & NCA  \\
+		\hline
+		micro-mass  &  (360,1300,10)  &   0.88  &   0.93  &   0.89 \\
+		ionosphere  &  (351,34,2)  &   0.88  &   0.92  &   0.94 \\
+		spambase  &  (4601,57,2)  &   0.69  &   0.83  &   0.87 \\
+		lsvt  &  (126,310,2)  &   0.67  &   0.68  &   0.78 \\		
+		one-hundred-plants-texture  &  (1599,64,100)  &   0.62  &   0.77  &   0.80 \\
+		tokyo1  &  (959,44,2)  &   0.72  &   0.89  &   0.91 \\				
+		clean1  &  (476,168,2)  &   0.77  &   0.99  &   0.98 \\
+		one-hundred-plants-shape  &  (1600,64,100)  &   0.10  &   0.48  &   0.47 \\	
+		pc4  &  (1458,37,2)  &   0.88  &   0.87  &   0.87 \\
+		madelon  &  (2600,500,2)  &   0.60  &   0.55  &   0.57 \\
+		scene  &  (2407,299,2)  &   0.89  &   0.98  &   0.93 \\
+		gina\_agnostic  &  (3468,970,2)  &   0.85  &   0.80  &   0.81 \\
+		isolet  &  (7797,617,26)  &   0.93  &   0.95  &   0.95 \\			
+								
+		\hline
+	\end{tabular}
+	\caption{Classification accuracies, trained on KacIM-based features.}
+	\label{table:classification_accuracies}	
+\end{table}
+
+
+\begin{comment}
 \begin{table}	
 \centering
 \begin{tabular}{ |p{3cm}|p{2.0cm}||p{1.5cm}|p{1cm}|p{1cm}|p{1cm}|  }
@@ -237,7 +268,7 @@ The classification accuracies, reported in Table~\ref{table:classification_accur
 \caption{The accuracies of various classifiers, trained on KacIM-based features.}
 \label{table:classification_accuracies}	
 \end{table}
-
+\end{comment}
 \subsection{Regularisation}
 In regularisation experiments we investigate chest x-ray classification task. It is represented as binary classification data set, consisting of xray scans, which should be classified as pneumonia or normal.
 

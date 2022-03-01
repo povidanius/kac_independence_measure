@@ -12,6 +12,11 @@ P.~Daniu{\v{s}}is and P.~Vaitkus.
   Engineering and Automated Learning - IDEAL 2009}, pages 25--33, Berlin,
   Heidelberg, 2009. Springer Berlin Heidelberg.
 
+\bibitem{HSCA}
+P.~Daniušis, Pr. Vaitkus, and L.~Petkevičius.
+\newblock Hilbert–schmidt component analysis.
+\newblock {\em Lithuanian mathematical journal}, 57(A):7–11, Dec. 2016.
+
 \bibitem{Ma2020TheHB}
 Kurt Wan-Duo Ma, J.~P. Lewis, and W.~Kleijn.
 \newblock The hsic bottleneck: Deep learning without back-propagation.
@@ -37,16 +42,6 @@ Thomas~M. Cover and Joy~A. Thomas.
   Telecommunications and Signal Processing)}.
 \newblock Wiley-Interscience, July 2006.
 
-\bibitem{e20110813}
-José~M. Amigó, Sámuel~G. Balogh, and Sergio Hernández.
-\newblock A brief review of generalized entropies.
-\newblock {\em Entropy}, 20(11), 2018.
-
-\bibitem{Pczos2012CopulabasedKD}
-Barnab{\'a}s P{\'o}czos, Zoubin Ghahramani, and Jeff~G. Schneider.
-\newblock Copula-based kernel dependency measures.
-\newblock {\em ArXiv}, abs/1206.4682, 2012.
-
 \bibitem{Feuerverger}
 Andrey Feuerverger.
 \newblock A consistent test for bivariate dependence.
@@ -57,6 +52,20 @@ Andrey Feuerverger.
 Gábor~J. Székely, Maria~L. Rizzo, and Nail~K. Bakirov.
 \newblock {Measuring and testing dependence by correlation of distances}.
 \newblock {\em The Annals of Statistics}, 35(6):2769 -- 2794, 2007.
+
+\bibitem{Pczos2012CopulabasedKD}
+Barnab{\'a}s P{\'o}czos, Zoubin Ghahramani, and Jeff~G. Schneider.
+\newblock Copula-based kernel dependency measures.
+\newblock {\em ArXiv}, abs/1206.4682, 2012.
+
+\bibitem{NIPS2019_9147}
+Youssef Mroueh, Tom Sercu, Mattia Rigotti, Inkit Padhi, and Cicero Nogueira~dos
+  Santos.
+\newblock Sobolev independence criterion.
+\newblock In H.~Wallach, H.~Larochelle, A.~Beygelzimer, F.~d\textquotesingle
+  Alch\'{e}-Buc, E.~Fox, and R.~Garnett, editors, {\em Advances in Neural
+  Information Processing Systems 32}, pages 9505--9515. Curran Associates,
+  Inc., 2019.
 
 \bibitem{Bottcher}
 Björn Böttcher, Martin Keller-Ressel, and René Schilling.
@@ -69,8 +78,18 @@ Dominic Edelmann, Konstantinos Fokianos, and Maria Pitsillou.
   Applications to Time Series}.
 \newblock {\em International Statistical Review}, 87(2):237--262, August 2019.
 
-\bibitem{KacTheorem}
+\bibitem{Jacod}
+Jacod Jean.
+\newblock {\em Probability essentials / Jean Jacod, Philip Protter}.
+\newblock Universitext. Springer, Berlin Heidelberg New York, 2nd edition
+  edition, 2003.
 
+\bibitem{KacTheorem}
+Johan Kustermans J. Martin Lindsay Michael Schuermann Uwe~Franz
+  David~Applebaum, B.V. Rajarama~Bhat.
+\newblock Quantum independent increment processes i: From classical probability
+  to quantum stochastic calculus.
+\newblock 2005.
 
 \bibitem{NEURIPS2019_9015}
 Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory
@@ -90,7 +109,7 @@ Ilya Loshchilov and Frank Hutter.
 \newblock In {\em ICLR}, 2019.
 
 \bibitem{10.5555/3279302}
-Bernhard Schlkopf, Alexander~J. Smola, and Francis Bach.
+Bernhard Sch\"{o}lkopf, Alexander~J. Smola, and Francis Bach.
 \newblock {\em Learning with Kernels: Support Vector Machines, Regularization,
   Optimization, and Beyond}.
 \newblock The MIT Press, 2018.

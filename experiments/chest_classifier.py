@@ -80,6 +80,13 @@ for epoch in range(number_of_epoch):
     train_loss.append(train_iter_loss/train_iteration)
     train_accuracy.append(100*float(train_correct)/len_train)
     
+    torch.save({
+        'epoch': epoch,
+        'model_state_dict': model.state_dict(),
+        'optimizer_state_dict': optimizer.state_dict(),
+        'loss': LOSS,
+        }, format("chest_checkpoint_{}.pt".epoch))
+
     model.eval()
     with torch.no_grad():
         for data,label in val_loader:
@@ -101,6 +108,7 @@ for epoch in range(number_of_epoch):
     
     print ('Epoch {}/{}, Training Loss: {:.3f}, Training Accuracy: {:.3f}, Validation Loss: {:.3f}, Validation Acc: {:.3f}'
            .format(epoch+1, number_of_epoch, train_loss[-1], train_accuracy[-1], test_loss[-1], test_accuracy[-1]))
+
 
 corrected = 0
 
