@@ -72,6 +72,11 @@ Björn Böttcher, Martin Keller-Ressel, and René Schilling.
 \newblock Distance multivariance: New dependence measures for random vectors,
   10 2018.
 
+\bibitem{CHAUDHURI201915}
+Arin Chaudhuri and Wenhao Hu.
+\newblock A fast algorithm for computing distance correlation.
+\newblock {\em Computational Statistics & Data Analysis}, 135:15--24, 2019.
+
 \bibitem{Edlemann}
 Dominic Edelmann, Konstantinos Fokianos, and Maria Pitsillou.
 \newblock {An Updated Literature Review of Distance Correlation and Its
