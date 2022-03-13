@@ -18,41 +18,24 @@ sys.path.insert(0, "../")
 from kac_independence_measure import KacIndependenceMeasure
 from torch.nn.functional import *
 
-class ResNet18(nn.Module):
-    
-    def __init__(self, layer_numbers):
-        super().__init__()
-        self.layer_numbers = layer_numbers # indices of layers whose activations are needed
-        self.layer_acts = OrderedDict()
-        #self.resnet_18 = inception_v3(pretrained=True, aux_logits=False) 
-        self.resnet_18 = resnet18(pretrained=True) #, aux_logits=True)
-        self.forward_hooks = []
-        
-        #register hooks
-        for layer_num, layer_name in enumerate(self.resnet_18._modules.keys()):
-            if layer_num in layer_numbers:
-                print("Layer num {}, name: {}, shape {}".format(layer_num, layer_name, ''))
-                self.forward_hooks.append(getattr(self.resnet_18, layer_name).register_forward_hook(self.get_activations(layer_name)))
-    
-    #Defining hook to get intermediate features     
-    def get_activations(self, layer_name):
-        def hook(module, input, output):
-            self.layer_acts[layer_name] = output
-        return hook
-    
-    #forward pass
-    def forward(self, x):
-        out = self.resnet_18(x)
-        #don't need output values
-        return self.layer_acts
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+
+activation = {}
+def get_activation(name):
+    def hook(model, input, output):
+        activation[name] = output.detach()
+    return hook
 
 
 #os.listdir('./chest-xray-pneumonia/')
 #image = './chest-xray-pneumonia/train/normal/IM-0115-0001.jpeg'
 #img = plt.imread(image)
 #plt.imshow(img, cmap='gray')
+REGULARIZER = 0
+LOSS = 1
 
-kim = KacIndependenceMeasure(512, 1, lr=0.007, input_projection_dim = 256, weight_decay=0.01) #0.007
+kim = KacIndependenceMeasure(512, 2, lr=0.0007, input_projection_dim = 32, weight_decay=0.01,device=device) #0.007
 
 
 train_transform = transforms.Compose([transforms.Grayscale(num_output_channels=3), 
@@ -76,19 +59,27 @@ print(len_train)
 print(len_test)
 print(len_val)
 
-train_loader = DataLoader(dataset=training_dataset, batch_size=64, shuffle=True)
+train_loader = DataLoader(dataset=training_dataset, batch_size=128, shuffle=True)
 val_loader = DataLoader(dataset=validation_dataset, shuffle= True)
 test_loader = DataLoader(dataset= testing_dataset, shuffle=False)
 
-z_key = 2
+
+model = resnet18(pretrained=True) #, aux_logits=False)
+
+# intermediate activations
+"""
+model.layer1[0].register_forward_hook(get_activation('layer1_0'))
+model.layer1[1].register_forward_hook(get_activation('layer1_1'))
+model.layer2[0].register_forward_hook(get_activation('layer2_0'))
+model.layer2[1].register_forward_hook(get_activation('layer2_1'))
+model.layer3[0].register_forward_hook(get_activation('layer3_0'))
+model.layer3[1].register_forward_hook(get_activation('layer3_1'))
+model.layer4[0].register_forward_hook(get_activation('layer4_0'))
+model.layer4[1].register_forward_hook(get_activation('layer4_1'))
+"""
+model.avgpool.register_forward_hook(get_activation('avgpool'))
 
 
-#model = inception_v3(pretrained=True, aux_logits=False)
-required_layers = [1, z_key, 17]
-model = ResNet18(layer_numbers=required_layers) #pretrained=True) #, aux_logits=False)
-
-
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 model.to(device)
 loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.AdamW(params=model.parameters(), lr = 0.0002, weight_decay=0.00001)
@@ -99,8 +90,14 @@ test_loss = []
 train_accuracy = []
 test_accuracy = []
 
-num_kac_iters = 200
-optimize_kac_every_iters = 500
+#num_kac_iters = 200
+optimize_kac_every_iters = 15
+
+dep_history = []
+
+reg_alpha = 0.1
+
+mode = LOSS
 
 for epoch in range(number_of_epoch):
     
@@ -119,22 +116,52 @@ for epoch in range(number_of_epoch):
         data = data.to(device)
         label = label.to(device)
         
-        pred = model(data)
-        breakpoint()
-        loss = loss_fn(pred[0], label)
-        loss.backward()
-        optimizer.step()
+        pred = model(data)     
+        bottleneck = activation['avgpool'].squeeze()
+        y = torch.nn.functional.one_hot(label).float()
+
+
+
+        if (iteration % optimize_kac_every_iters  == 0) and mode == LOSS:
+            mode = REGULARIZER
+        elif (iteration % optimize_kac_every_iters  == 0) and mode == REGULARIZER:
+            mode = LOSS
+
+        if mode == REGULARIZER:
+            reg = kim.forward(bottleneck, y, update=True)
+
+            print("Mode: REGULARIZER")
+            print(iteration % optimize_kac_every_iters)
+            print("reg {}".format(reg))
+            #print("bottleneck: {}, y {}".format(bottleneck.shape, y.shape))
+            dep_history.append(reg.detach().cpu().numpy())
+            #
+            #plt.show(block=False)
+            #breakpoint()
+            #else:
+            #plt.plot(dep_history)
+            #plt.show()
+            #print("Loss")
+        elif mode == LOSS:
+
+            print("Mode: LOSS")
+            reg = kim.forward(bottleneck, y, update=False)
+            print("reg {}".format(reg))
+
+            loss = loss_fn(pred, label) - reg_alpha * reg # loss -> min.., dep -> max
+            loss.backward()
+            optimizer.step()
+
+
         
-        train_iter_loss += loss.item()
-        train_iteration += 1
+            train_iter_loss += loss.item()
+            train_iteration += 1
         
-        _, predicted = torch.max(pred, 1)
-        train_correct += (predicted == label).sum()
+            _, predicted = torch.max(pred, 1)
+            train_correct += (predicted == label).sum()
         iteration = iteration + 1
 
-        if iteration % optimize_kac_every_iters == 0:
-            # optimize kac_im
-            pass
+            
         
     train_loss.append(train_iter_loss/train_iteration)
     train_accuracy.append(100*float(train_correct)/len_train)
