@@ -97,6 +97,7 @@ dep_history = []
 
 reg_alpha = 0.1
 
+use_regularization = False
 mode = LOSS
 
 for epoch in range(number_of_epoch):
@@ -121,11 +122,11 @@ for epoch in range(number_of_epoch):
         y = torch.nn.functional.one_hot(label).float()
 
 
-
-        if (iteration % optimize_kac_every_iters  == 0) and mode == LOSS:
-            mode = REGULARIZER
-        elif (iteration % optimize_kac_every_iters  == 0) and mode == REGULARIZER:
-            mode = LOSS
+        if use_regularization:
+            if (iteration % optimize_kac_every_iters  == 0) and mode == LOSS:
+                mode = REGULARIZER
+            elif (iteration % optimize_kac_every_iters  == 0) and mode == REGULARIZER:
+                mode = LOSS
 
         if mode == REGULARIZER:
             reg = kim.forward(bottleneck, y, update=True)
@@ -144,11 +145,16 @@ for epoch in range(number_of_epoch):
             #print("Loss")
         elif mode == LOSS:
 
-            print("Mode: LOSS")
-            reg = kim.forward(bottleneck, y, update=False)
-            print("reg {}".format(reg))
+            # idea: use Agglomerative information bottleneck?
 
-            loss = loss_fn(pred, label) - reg_alpha * reg # loss -> min.., dep -> max
+            print("Mode: LOSS")
+
+            loss = loss_fn(pred, label) 
+            if use_regularization:
+                reg = kim.forward(bottleneck, y, update=False)
+                print("reg {}".format(reg))
+                loss = loss - reg_alpha * reg # loss -> min.., dep -> max
+
             loss.backward()
             optimizer.step()
 
