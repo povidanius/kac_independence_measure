@@ -31,9 +31,9 @@
 %
 
 \begin{abstract}
-    In this paper we propose statistical independence measure based on the maximum norm of difference between joint and product-marginal characteristic functions, and its estimation procedure (including open-source repository). We also extend the proposed measure to the reproducing kernel Hilbert spaces (RKHS), which allows to apply it to structured data.
+    In this paper we propose statistical independence measure based on the maximum norm of the absolute value of difference between joint and product-marginal characteristic functions, and its estimation procedure (including open-source repository). We also extend the proposed measure to the reproducing kernel Hilbert spaces (RKHS), which allows to apply it to structured data.
     
-    We conduct experiments both with simulated and real data. The conducted experiments reveal, that the proposed measure can detect statistical dependence in non-linearly related data sets, and that it can improve real data classification accuracy, when applied for feature extraction and regularisation, on a set of common classifiers.
+    We conduct experiments both with simulated and real data. Our experiments reveal, that the proposed measure can exploit statistical dependence in non-linear data sets, and that it can improve real-data classification accuracy, when applied for feature extraction and regularisation.
     
 \end{abstract}
 
@@ -253,11 +253,29 @@ The classification accuracies, reported in Table~\ref{table:classification_accur
 \end{table}
 
 
+Epoch 7/7, Training Loss: 0.075, Training Accuracy: 96.458, Validation Loss: 0.124, Validation Acc: 100.000
+
+Test accuracy is 77.885
+Regularization: True
+
+Epoch 7/7, Training Loss: 0.042, Training Accuracy: 96.875, Validation Loss: 0.012, Validation Acc: 100.000
+Test accuracy is 81.891
+
 
 \subsection{Regularisation}
-In regularisation experiments we investigate chest x-ray classification task. It is represented as binary classification data set, consisting of x-ray scans, which should be classified as pneumonia or normal. As classifier we use \emph{ResNet18}, trained with batches of $128$ elements.
+In regularisation experiments we investigate chest x-ray classification task. It is represented as binary classification data set, consisting of x-ray scans, which should be classified as pneumonia or normal (e.g. Figure~\ref{fig:Pneumonia_dataset_examples}). As classifier we use \emph{ResNet18}, trained with batches of $128$ elements.
 We denote classifier as $f(\phi(x|\theta_{0})|\theta_{1})$, where $\theta_{0}$ are bottleneck parameters, $\theta_{1}$ final (linear) layer parameters, and $x$ is $224\times 224$ input image.
 For optimisation we use decoupled weight decay regularization optimizer~\cite{Loshchilov2019DecoupledWD} with learning rate set to $0.0002$, and weight decay parameter set to $0.00001$ ($7$ epochs).
+
+\begin{figure}%
+	\centering
+	\subfloat{{\includegraphics[scale=0.07]{./img/IM-0170-0001.jpeg} }}%
+	\qquad
+	\subfloat{{\includegraphics[scale=0.20]{./img/person1_bacteria_1.jpeg} }}%
+	\caption{Left figure: example of healthy lung x-ray. Right: pneumonia.}
+	\label{fig:Pneumonia_dataset_examples}
+\end{figure}
+
 
 We will investigate additive regularizer, which maximises depency of bottleneck the feature $\phi(x)$ and target variable $y$ (one-hot encoding): 
 

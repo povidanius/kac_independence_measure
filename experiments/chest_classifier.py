@@ -218,3 +218,6 @@ accuracy = 100 * float(corrected)/ len_test
 
 print(f'Test accuracy is {accuracy :.3f}')
 print("Regularization: {}".format(use_regularization))
+
+with open("./result_{}.txt".format(use_regularization),"a") as f:
+    f.write("{} {} \n".format(accuracy, test_accuracy[-1]))
