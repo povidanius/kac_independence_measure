@@ -262,7 +262,7 @@ For optimisation we use decoupled weight decay regularization optimizer~\cite{Lo
 We will investigate additive regularizer, which maximises depency of bottleneck the feature $\phi(x)$ and target variable $y$ (one-hot encoding): 
 
 \begin{equation}
-Cost(\theta) := CE(f(\phi(x|\theta_{0})|\theta_{1}),y) - \beta \kappa(W\phi(x|\theta_{0}),y),
+Cost(\theta_{0},\theta_{1}, W) := CE(f(\phi(x|\theta_{0})|\theta_{1}),y) - \beta \kappa(W\phi(x|\theta_{0}),y),
 \end{equation}
 
 \noindent where $CE(.,.)$ is cross-entropy loss, $W$ is $32\times 512$ projection matrix, and $\beta \geq 0$ is regularisation parameter (in our experiments $\beta = 0.1$).
