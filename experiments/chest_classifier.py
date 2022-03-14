@@ -95,10 +95,11 @@ optimize_kac_every_iters = 15
 
 dep_history = []
 
-reg_alpha = 0.1
+reg_alpha = 0.1 #0.1
 
-use_regularization = False
+use_regularization = True
 mode = LOSS
+
 
 for epoch in range(number_of_epoch):
     
@@ -108,6 +109,7 @@ for epoch in range(number_of_epoch):
     test_iter_loss = 0.0
     train_iteration = 0
     test_iteration = 0
+    num_train = 0
     
     model.train()
     iteration = 0
@@ -136,13 +138,7 @@ for epoch in range(number_of_epoch):
             print("reg {}".format(reg))
             #print("bottleneck: {}, y {}".format(bottleneck.shape, y.shape))
             dep_history.append(reg.detach().cpu().numpy())
-            #
-            #plt.show(block=False)
-            #breakpoint()
-            #else:
-            #plt.plot(dep_history)
-            #plt.show()
-            #print("Loss")
+
         elif mode == LOSS:
 
             # idea: use Agglomerative information bottleneck?
@@ -152,7 +148,7 @@ for epoch in range(number_of_epoch):
             loss = loss_fn(pred, label) 
             if use_regularization:
                 reg = kim.forward(bottleneck, y, update=False)
-                print("reg {}".format(reg))
+                print("loss {}, reg {}".format(loss, reg))
                 loss = loss - reg_alpha * reg # loss -> min.., dep -> max
 
             loss.backward()
@@ -165,12 +161,15 @@ for epoch in range(number_of_epoch):
         
             _, predicted = torch.max(pred, 1)
             train_correct += (predicted == label).sum()
+            num_train += 128
         iteration = iteration + 1
 
             
         
     train_loss.append(train_iter_loss/train_iteration)
-    train_accuracy.append(100*float(train_correct)/len_train)
+    train_accuracy.append(100*float(train_correct)/num_train)
+
+    #train_accuracy.append(100*float(train_correct)/len_train)
     
     torch.save({
         'epoch': epoch,
@@ -201,7 +200,7 @@ for epoch in range(number_of_epoch):
     print ('Epoch {}/{}, Training Loss: {:.3f}, Training Accuracy: {:.3f}, Validation Loss: {:.3f}, Validation Acc: {:.3f}'
            .format(epoch+1, number_of_epoch, train_loss[-1], train_accuracy[-1], test_loss[-1], test_accuracy[-1]))
 
-
+    
 corrected = 0
 
 model.eval()
@@ -217,3 +216,4 @@ for data, label in test_loader:
 accuracy = 100 * float(corrected)/ len_test
 
 print(f'Test accuracy is {accuracy :.3f}')
+print("Regularization: {}".format(use_regularization))

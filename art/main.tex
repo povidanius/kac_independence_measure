@@ -255,15 +255,18 @@ The classification accuracies, reported in Table~\ref{table:classification_accur
 
 
 \subsection{Regularisation}
-In regularisation experiments we investigate chest x-ray classification task. It is represented as binary classification data set, consisting of xray scans, which should be classified as pneumonia or normal.
+In regularisation experiments we investigate chest x-ray classification task. It is represented as binary classification data set, consisting of x-ray scans, which should be classified as pneumonia or normal. As classifier we use \emph{ResNet18}, trained with batches of $128$ elements.
+We denote classifier as $f(\phi(x|\theta_{0})|\theta_{1})$, where $\theta_{0}$ are bottleneck parameters, $\theta_{1}$ final (linear) layer parameters, and $x$ is $224\times 224$ input image.
+For optimisation we use decoupled weight decay regularization optimizer~\cite{Loshchilov2019DecoupledWD} with learning rate set to $0.0002$, and weight decay parameter set to $0.00001$ ($7$ epochs).
 
-Let $f(x|\theta)$ be DNN classifier. We will investigate additive regularizer, which maximises depency of bottleneck feature $\phi(x)$ and target variable $y$: 
+We will investigate additive regularizer, which maximises depency of bottleneck the feature $\phi(x)$ and target variable $y$ (one-hot encoding): 
 
 \begin{equation}
-Cost(\theta) = CE(f(x|\theta),y) + \beta \kappa(\phi(x|\theta),y),
+Cost(\theta) := CE(f(\phi(x|\theta_{0})|\theta_{1}),y) - \beta \kappa(W\phi(x|\theta_{0}),y),
 \end{equation}
 
-\noindent where $CE$ is cross-entropy loss, and $\beta \geq 0$ is regularisation parameters.
+\noindent where $CE(.,.)$ is cross-entropy loss, $W$ is $512\times 32$ projection matrix, and $\beta \geq 0$ is regularisation parameter (in our experiments $\beta = 0.1$).
+
 \begin{table}	
 	\centering
 	\begin{tabular}{ |p{4cm}|p{2cm}|p{2cm}|p{2cm}| }
@@ -274,13 +277,16 @@ Cost(\theta) = CE(f(x|\theta),y) + \beta \kappa(\phi(x|\theta),y),
 		\hline
 		Without regularisation   &   0.989  &   0.875  &   0.716 \\		
 		\hline
-		With regularisation  &     &    &   \\		
+		With regularisation  &   97.865  & 81.250   &  74.199 \\		
 		\hline
 	\end{tabular}
 	\caption{Classification accuracy comparison of regularised and not regularised model (pneumonia dataset).  }
 	\label{table:regularisation_classification_accuracies}	
 \end{table}
 
+The results of classification accuracy without and with aforementioned regularisation is reported in Table~\ref{table:regularisation_classification_accuracies}.
+
+\begin{comment}
 With:
 
 Epoch 7/7, Training Loss: -0.201, Training Accuracy: 36.081, Validation Loss: 0.380, Validation Acc: 93.750
@@ -288,11 +294,14 @@ Test accuracy is 85.737
 
 Without:
 
+Epoch 7/7, Training Loss: 0.048, Training Accuracy: 98.428, Validation Loss: 0.149, Validation Acc: 93.750
+Test accuracy is 77.404
+\end{comment}
 
 \section{Conclusion} 
 
 \label{section:conclusion}
-In this article we propose statistical dependence measure, KacIM, which relies on the $L^{\infty}$ norm of the absolute value of difference between joint characteristic function and the product of marginal ones. The proposed measure, in theory can detect both linear and non-linear statistical depdendence between a pairs of random variables of different dimension, extended to various known statistical generalisations (e.g. reproducing kernel Hilbert spaces, multivariablity), machine learning scenarios (e.g. feature extraction, regularisation, among others), and is empirically tractable on these problems. On the other side, it raises a corresponding set of unanswered questions, both theoretical and empirical. For example, the interpretability when this measure approaches its maximal value remains insufficiently clear, however empirical experiments with simulated data reveals, that increasing independence between two random variables is reflected in a decreasing trend on the estimated values of the proposed dependence measure. Beside demonstrated applications in Section~\ref{section:experiments}, the proposed measure is differentiable and thereby can be integrated with various modern deep-learning methods, applied to high-dimensional and structured data. From empirical point of view, we see exploration of KacIM in causality, information bottleneck theory, self-supervised learning, and other modern problems, where dependence measures define a criterion of optimisation, as important future work, as well as exhaustive survey of measures of statistical independence.
+In this article we propose statistical dependence measure, KacIM, which relies on the $L^{\infty}$ norm of the absolute value of difference between joint characteristic function and the product of marginal ones. The proposed measure, in theory can detect both linear and non-linear statistical depdendence between a pairs of random variables of possibly different dimension, extended to various known statistical generalisations (e.g. reproducing kernel Hilbert spaces, multivariablity), machine learning scenarios (e.g. feature extraction, regularisation, among others), and is empirically tractable on these problems. On the other side, it raises a corresponding set of unanswered questions, both theoretical and empirical. For example, the interpretability when it approaches its maximal value remains insufficiently clear, however empirical experiments with simulated data reveals, that increasing independence between two random variables is reflected in a decreasing trend on the estimated values of the proposed dependence measure. Beside demonstrated applications in Section~\ref{section:experiments}, the proposed measure is differentiable and thereby can be integrated with various modern deep-learning methods, applied to high-dimensional and structured data. From empirical point of view, we see exploration of KacIM in causality, information bottleneck theory, self-supervised learning, and other modern problems, where dependence measures define a criterion of optimisation, as important future work, as well as exhaustive survey of measures of statistical independence.
 
 \begin{comment}
 ....
