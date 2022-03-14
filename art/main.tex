@@ -164,7 +164,7 @@ where $K$ and $L$ are Gram matrices, corresponding to $x_{i}$ and $y_{i}$. Note 
 \section{Experiments}
 \label{section:experiments}
 
-Further we will conduct empirical investigation of KacIM in order to demonstrate that it can measure statistical dependencies in non-linear data sets, and that it can be practically useful as a component machine learning tasks (feature selection and extraction, and regularisation).
+Further we will conduct empirical investigation of KacIM in order to demonstrate that it can measure statistical dependencies in non-linear data sets, and that it can be practically useful as a component of cost functions (in feature selection and extraction, and regularisation problems).
 
 %We will begin with simple illustrative simulations with toy-data, and afterwards investigate empirical performance of KacIM in classifier feature optimisation and regularization tasks using various publicly available data sets.
 
@@ -265,7 +265,7 @@ We will investigate additive regularizer, which maximises depency of bottleneck 
 Cost(\theta) := CE(f(\phi(x|\theta_{0})|\theta_{1}),y) - \beta \kappa(W\phi(x|\theta_{0}),y),
 \end{equation}
 
-\noindent where $CE(.,.)$ is cross-entropy loss, $W$ is $512\times 32$ projection matrix, and $\beta \geq 0$ is regularisation parameter (in our experiments $\beta = 0.1$).
+\noindent where $CE(.,.)$ is cross-entropy loss, $W$ is $32\times 512$ projection matrix, and $\beta \geq 0$ is regularisation parameter (in our experiments $\beta = 0.1$).
 
 \begin{table}	
 	\centering

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.6.4)  14 MAR 2022 09:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.6.4)  14 MAR 2022 09:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -904,9 +904,88 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 28.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
+)
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
+LaTeX Warning: Citation `Gretton2005MeasuringSD' on page 1 undefined on input l
+ine 41.
+
+
+LaTeX Warning: Citation `EigenHSIC' on page 1 undefined on input line 41.
+
+
+LaTeX Warning: Citation `HSCA' on page 1 undefined on input line 41.
+
+
+LaTeX Warning: Citation `Ma2020TheHB' on page 1 undefined on input line 41.
+
+
+LaTeX Warning: Citation `NIPS2008_f7664060' on page 1 undefined on input line 4
+1.
+
+
+LaTeX Warning: Citation `li2021selfsupervised' on page 1 undefined on input lin
+e 41.
+
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+
+LaTeX Warning: Citation `Cover2006' on page 2 undefined on input line 47.
+
+
+LaTeX Warning: Citation `Gretton2005MeasuringSD' on page 2 undefined on input l
+ine 47.
+
+
+LaTeX Warning: Citation `Feuerverger' on page 2 undefined on input line 47.
+
+
+LaTeX Warning: Citation `Szekely' on page 2 undefined on input line 47.
+
+
+LaTeX Warning: Citation `Pczos2012CopulabasedKD' on page 2 undefined on input l
+ine 47.
+
+
+LaTeX Warning: Citation `NIPS2019_9147' on page 2 undefined on input line 47.
+
+
+LaTeX Warning: Citation `Feuerverger' on page 2 undefined on input line 83.
+
+
+LaTeX Warning: Citation `Szekely' on page 2 undefined on input line 83.
+
+
+LaTeX Warning: Citation `Szekely' on page 2 undefined on input line 83.
+
+
+LaTeX Warning: Citation `Bottcher' on page 2 undefined on input line 83.
+
+
+LaTeX Warning: Citation `Szekely' on page 2 undefined on input line 83.
+
+
+LaTeX Warning: Citation `CHAUDHURI201915' on page 2 undefined on input line 83.
+
+
+[2]
+
+LaTeX Warning: Citation `Szekely' on page 3 undefined on input line 85.
+
+
+LaTeX Warning: Citation `Edlemann' on page 3 undefined on input line 85.
+
+[3]
+
+LaTeX Warning: Citation `Jacod' on page 4 undefined on input line 121.
+
+
+LaTeX Warning: Citation `KacTheorem' on page 4 undefined on input line 121.
+
+
+LaTeX Warning: Citation `NEURIPS2019_9015' on page 4 undefined on input line 13
+3.
+
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
 put line 136.
 
@@ -917,16 +996,24 @@ n/10 !
  []
 
 
+LaTeX Warning: Citation `Loshchilov2019DecoupledWD' on page 4 undefined on inpu
+t line 145.
+
+
 LaTeX Warning: Command \l invalid in math mode on input line 149.
 
 
 LaTeX Warning: Command \l invalid in math mode on input line 149.
+
+
+LaTeX Warning: Citation `10.5555/3279302' on page 4 undefined on input line 149
+.
 
 
 LaTeX Warning: Citation `?' on page 4 undefined on input line 155.
 
 [4]
-<../experiments/basic_demonstration/dependence_detection.png, id=176, 462.528pt
+<../experiments/basic_demonstration/dependence_detection.png, id=132, 462.528pt
  x 346.896pt>
 File: ../experiments/basic_demonstration/dependence_detection.png Graphic file 
 (type png)
@@ -934,14 +1021,22 @@ File: ../experiments/basic_demonstration/dependence_detection.png Graphic file
 Package pdftex.def Info: ../experiments/basic_demonstration/dependence_detectio
 n.png  used on input line 178.
 (pdftex.def)             Requested size: 148.01198pt x 111.00897pt.
-<../experiments/noise_effect/summary.png, id=178, 462.528pt x 346.896pt>
+<../experiments/noise_effect/summary.png, id=134, 462.528pt x 346.896pt>
 File: ../experiments/noise_effect/summary.png Graphic file (type png)
 <use ../experiments/noise_effect/summary.png>
 Package pdftex.def Info: ../experiments/noise_effect/summary.png  used on input
  line 180.
 (pdftex.def)             Requested size: 148.01198pt x 111.00897pt.
  [5 <../experiments/basic_demonstration/dependence_detection.png> <../experimen
-ts/noise_effect/summary.png>] [6]
+ts/noise_effect/summary.png>]
+
+LaTeX Warning: Citation `OpenML2013' on page 6 undefined on input line 200.
+
+
+LaTeX Warning: Citation `NIPS2004_42fe8808' on page 6 undefined on input line 2
+17.
+
+[6]
 Overfull \hbox (1.42801pt too wide) in paragraph at lines 235--235
 []\OT1/cmr/m/n/10 (360,1300,10)| 
  []
@@ -971,6 +1066,10 @@ Overfull \hbox (1.42801pt too wide) in paragraph at lines 247--247
 []\OT1/cmr/m/n/10 (7797,617,26)| 
  []
 
+
+LaTeX Warning: Citation `Loshchilov2019DecoupledWD' on page 7 undefined on inpu
+t line 260.
+
 Excluding 'comment' comment. [7] Excluding 'comment' comment. (./main.bbl
 [8]
 ! Misplaced alignment tab character &.
@@ -996,42 +1095,46 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 339.
  ) 
 Here is how much of TeX's memory you used:
- 8912 strings out of 492982
- 130887 string characters out of 6134897
- 229110 words of memory out of 5000000
- 12276 multiletter control sequences out of 15000+600000
- 14351 words of font info for 54 fonts, out of 8000000 for 9000
+ 8914 strings out of 492982
+ 130906 string characters out of 6134897
+ 228362 words of memory out of 5000000
+ 12277 multiletter control sequences out of 15000+600000
+ 14660 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  44i,11n,42p,1617b,481s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.p
-fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmti8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/m
-sbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/ms
-bm7.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/
-texmf/fonts/type1/public/cm-super/sfrm0800.pfb>
-Output written on main.pdf (9 pages, 356006 bytes).
+t/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmti8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb
+></usr/share/texmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf/f
+onts/type1/public/cm-super/sfrm0800.pfb>
+Output written on main.pdf (9 pages, 362468 bytes).
 PDF statistics:
- 321 PDF objects out of 1000 (max. 8388607)
- 280 compressed objects within 3 object streams
+ 297 PDF objects out of 1000 (max. 8388607)
+ 255 compressed objects within 3 object streams
  71 named destinations out of 1000 (max. 500000)
  123 words of extra memory for PDF output out of 10000 (max. 10000000)
 

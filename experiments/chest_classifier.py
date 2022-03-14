@@ -11,6 +11,7 @@ import sys
 import os
 from collections import OrderedDict
 
+torch.manual_seed(31337)
 
 data_path='/home/tank/Downloads/chest_xray/chest_xray'
 
@@ -110,7 +111,7 @@ for epoch in range(number_of_epoch):
     train_iteration = 0
     test_iteration = 0
     num_train = 0
-    
+
     model.train()
     iteration = 0
     for data,label in train_loader:
