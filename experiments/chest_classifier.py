@@ -11,7 +11,7 @@ import sys
 import os
 from collections import OrderedDict
 
-torch.manual_seed(31337)
+#torch.manual_seed(31337)
 
 data_path='/home/tank/Downloads/chest_xray/chest_xray'
 
@@ -219,5 +219,5 @@ accuracy = 100 * float(corrected)/ len_test
 print(f'Test accuracy is {accuracy :.3f}')
 print("Regularization: {}".format(use_regularization))
 
-with open("./result_{}.txt".format(use_regularization),"a") as f:
+with open("./1result_{}.txt".format(use_regularization),"a") as f:
     f.write("{} {} \n".format(accuracy, test_accuracy[-1]))

@@ -18,7 +18,7 @@
 
 \newtheorem{theorem}{Theorem}
 
-\title{Statistical independence measure based on maximum norm of joint and product-marginal characteristic functions}
+\title{Statistical independence measure based on maximum norm and characteristic function decomposition}
 \author{Povilas Daniu\v{s}is, povilasd@neurotechnology.com\footnote{This preprint currently is not an official product of Neurotechnology}}
 \date{November 2021}
 
@@ -71,7 +71,7 @@ $n$ i.i.d. realisations of $(X,Y)$, joint empirical characteristic function is d
 \widehat{\phi_{X,Y}}(\alpha,\beta) = \frac{1}{n} \sum_{j=1}^{n} e^{i(<\alpha, x_{j}> + <\beta, y_{j}>) }.
 \end{equation}
 
-In terms of characteristic functions, statistical independence  of $X$ and $Y$ is equivalent to $\forall \alpha \in R^{d_x},\forall \beta \in R^{d_y} $, 
+In terms of characteristic functions, statistical independence  of $X$ and $Y$ is equivalent to $\forall \alpha \in R^{d_X},\forall \beta \in R^{d_Y} $, 
 
 \begin{equation}
 %\mathbb{E}_{X,Y} e^{i <\alpha, X> + i <\beta, Y>} = \mathbb{E}_{X} e^{i <\alpha, X>} \mathbb{E}_{Y} e^{i <\beta, Y>},
@@ -95,6 +95,7 @@ Our motivation stems from the fact that evaluation of~\cite{Szekely} measures in
 \label{eq:kim}
     \kappa(X,Y) = \max_{\alpha \in \mathbb{R}^{d_{X}}, \beta \in \mathbb{R}^{d_{Y}}} \vert \phi_{X,Y}(\alpha, \beta)  -\phi_{X}(\alpha) \phi_{Y}(\beta) \vert.
 \end{equation}
+
 
 %In contrary to~\cite{Szekely} the proposed~\eqref{eq:kim} measure relies on maximum norm of difference between joint and product-marginal characteristic functions.
 
@@ -280,7 +281,7 @@ For optimisation we use decoupled weight decay regularization optimizer~\cite{Lo
 We will investigate additive regularizer, which maximises depency of bottleneck the feature $\phi(x)$ and target variable $y$ (one-hot encoding): 
 
 \begin{equation}
-Cost(\theta) := CE(f(\phi(x|\theta_{0})|\theta_{1}),y) - \beta \kappa(W\phi(x|\theta_{0}),y),
+Cost(\theta_{0},\theta_{1}, W) := CE(f(\phi(x|\theta_{0})|\theta_{1}),y) - \beta \kappa(W\phi(x|\theta_{0}),y),
 \end{equation}
 
 \noindent where $CE(.,.)$ is cross-entropy loss, $W$ is $32\times 512$ projection matrix, and $\beta \geq 0$ is regularisation parameter (in our experiments $\beta = 0.1$).
@@ -333,6 +334,7 @@ Conducted empirical analysis show, that KacIM can detect and measure statistical
 
 \section{Acknowledgements}
 
+We sincerely thank Dr. Pranas Vaitkus, and colleagues from Neurotechnology for discussions.
 
 %\subsection{KacIM for information bottleneck}
 %\subsection{Canonical component analysis, independent component analysis}
