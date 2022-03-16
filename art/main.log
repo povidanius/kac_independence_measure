@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.6.4)  14 MAR 2022 23:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.6.4)  16 MAR 2022 12:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -982,8 +982,8 @@ File: ./img/person1_bacteria_1.jpeg Graphic file (type jpg)
 Package pdftex.def Info: ./img/person1_bacteria_1.jpeg  used on input line 275.
 
 (pdftex.def)             Requested size: 142.93146pt x 88.12769pt.
-[7] Excluding 'comment' comment. Excluding 'comment' comment. (./main.bbl
-[8 <./img/IM-0170-0001.jpeg> <./img/person1_bacteria_1.jpeg>]
+[7] Excluding 'comment' comment. Excluding 'comment' comment. [8 <./img/IM-0170
+-0001.jpeg> <./img/person1_bacteria_1.jpeg>] (./main.bbl
 ! Misplaced alignment tab character &.
 l.78 \newblock {\em Computational Statistics &
                                                Data Analysis}, 135:15--24, 2...
@@ -1012,7 +1012,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 359.
 Here is how much of TeX's memory you used:
  8929 strings out of 492982
  131263 string characters out of 6134897
- 228189 words of memory out of 5000000
+ 227189 words of memory out of 5000000
  12285 multiletter control sequences out of 15000+600000
  14351 words of font info for 54 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1039,7 +1039,7 @@ cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/m
 sbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/ms
 bm7.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/
 texmf/fonts/type1/public/cm-super/sfrm0800.pfb>
-Output written on main.pdf (10 pages, 1226258 bytes).
+Output written on main.pdf (10 pages, 1226448 bytes).
 PDF statistics:
  333 PDF objects out of 1000 (max. 8388607)
  289 compressed objects within 3 object streams

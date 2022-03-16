@@ -13,7 +13,7 @@ from collections import OrderedDict
 
 #torch.manual_seed(31337)
 
-data_path='/home/tank/Downloads/chest_xray/chest_xray'
+data_path='/home/tank/Downloads/chest_xray/chest_xray/chest_xray'
 
 sys.path.insert(0, "../")
 from kac_independence_measure import KacIndependenceMeasure
@@ -42,6 +42,7 @@ kim = KacIndependenceMeasure(512, 2, lr=0.0007, input_projection_dim = 32, weigh
 train_transform = transforms.Compose([transforms.Grayscale(num_output_channels=3), 
                                       transforms.Resize((224,224)),
                                       transforms.RandomHorizontalFlip(),
+                                      transforms.RandomRotation(20), #
                                       transforms.ColorJitter(brightness=1, contrast=1, saturation=1),
                                       transforms.ToTensor(),
                                       transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
@@ -51,22 +52,24 @@ test_transform = transforms.Compose([transforms.Grayscale(num_output_channels=3)
                                      transforms.ToTensor(),
                                      transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 training_dataset = ImageFolder(data_path + '/train', transform=train_transform)
-validation_dataset = ImageFolder(data_path + '/val', transform=train_transform)
-testing_dataset = ImageFolder(data_path + '/test', transform=test_transform )
+#validation_dataset = ImageFolder(data_path + '/val', transform=train_transform)
+testing_dataset = ImageFolder(data_path + '/test1', transform=test_transform )
 len_train= len(training_dataset.samples)
 len_test= len(testing_dataset.samples)
-len_val= len(validation_dataset.samples)
-print(len_train)
-print(len_test)
-print(len_val)
+#len_val= len(validation_dataset.samples)
+#print(len_train)
+#print(len_test)
+#print(len_val)
+print("Train: {}, test: {}".format(len_train, len_test))
 
 train_loader = DataLoader(dataset=training_dataset, batch_size=128, shuffle=True)
-val_loader = DataLoader(dataset=validation_dataset, shuffle= True)
+#val_loader = DataLoader(dataset=validation_dataset, shuffle= True)
 test_loader = DataLoader(dataset= testing_dataset, shuffle=False)
 
 
 model = resnet18(pretrained=True) #, aux_logits=False)
-
+model.fc = nn.Linear(512, 2)
+#breakpoint()
 # intermediate activations
 """
 model.layer1[0].register_forward_hook(get_activation('layer1_0'))
@@ -84,7 +87,7 @@ model.avgpool.register_forward_hook(get_activation('avgpool'))
 model.to(device)
 loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.AdamW(params=model.parameters(), lr = 0.0002, weight_decay=0.00001)
-number_of_epoch = 7
+number_of_epoch = 10
 
 train_loss = []
 test_loss = []
@@ -121,6 +124,8 @@ for epoch in range(number_of_epoch):
         label = label.to(device)
         
         pred = model(data)     
+
+        #breakpoint()
         bottleneck = activation['avgpool'].squeeze()
         y = torch.nn.functional.one_hot(label).float()
 
@@ -179,6 +184,7 @@ for epoch in range(number_of_epoch):
         'loss': train_loss,
         }, format("chest_checkpoint_{}.pt".format(epoch)))
 
+    """
     model.eval()
     with torch.no_grad():
         for data,label in val_loader:
@@ -200,8 +206,9 @@ for epoch in range(number_of_epoch):
     
     print ('Epoch {}/{}, Training Loss: {:.3f}, Training Accuracy: {:.3f}, Validation Loss: {:.3f}, Validation Acc: {:.3f}'
            .format(epoch+1, number_of_epoch, train_loss[-1], train_accuracy[-1], test_loss[-1], test_accuracy[-1]))
+    """
+    print ('Epoch {}/{}, Training Loss: {:.3f}, Training Accuracy: {:.3f}'.format(epoch+1, number_of_epoch, train_loss[-1], train_accuracy[-1]))
 
-    
 corrected = 0
 
 model.eval()
@@ -219,5 +226,8 @@ accuracy = 100 * float(corrected)/ len_test
 print(f'Test accuracy is {accuracy :.3f}')
 print("Regularization: {}".format(use_regularization))
 
-with open("./1result_{}.txt".format(use_regularization),"a") as f:
-    f.write("{} {} \n".format(accuracy, test_accuracy[-1]))
+with open("./2result_{}.txt".format(use_regularization),"a") as f:
+    #f.write("{} {} \n".format(accuracy, test_accuracy[-1]))
+    f.write("{}\n".format(accuracy))
+    
+

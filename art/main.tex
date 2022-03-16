@@ -264,7 +264,7 @@ Test accuracy is 81.891
 
 
 \subsection{Regularisation}
-In regularisation experiments we investigate chest x-ray classification task. It is represented as binary classification data set, consisting of x-ray scans, which should be classified as pneumonia or normal (e.g. Figure~\ref{fig:Pneumonia_dataset_examples}). As classifier we use \emph{ResNet18}, trained with batches of $128$ elements.
+In regularisation experiments we investigate chest x-ray classification task. It is represented as binary classification data set, consisting of x-ray scans ($5216$ for training, and $642$ for testing), which should be classified as pneumonia or normal (e.g. Figure~\ref{fig:Pneumonia_dataset_examples}). As classifier we use \emph{ResNet18}, trained with batches of $128$ elements.
 We denote classifier as $f(\phi(x|\theta_{0})|\theta_{1})$, where $\theta_{0}$ are bottleneck parameters, $\theta_{1}$ final (linear) layer parameters, and $x$ is $224\times 224$ input image.
 For optimisation we use decoupled weight decay regularization optimizer~\cite{Loshchilov2019DecoupledWD} with learning rate set to $0.0002$, and weight decay parameter set to $0.00001$ ($7$ epochs).
 
@@ -334,7 +334,7 @@ Conducted empirical analysis show, that KacIM can detect and measure statistical
 
 \section{Acknowledgements}
 
-We sincerely thank Dr. Pranas Vaitkus, and colleagues from Neurotechnology for discussions.
+We sincerely thank Dr. Pranas Vaitkus, Dr. Linas Petkevi\v{c}ius, and colleagues from Neurotechnology for discussions.
 
 %\subsection{KacIM for information bottleneck}
 %\subsection{Canonical component analysis, independent component analysis}
