@@ -75,7 +75,7 @@ Björn Böttcher, Martin Keller-Ressel, and René Schilling.
 \bibitem{CHAUDHURI201915}
 Arin Chaudhuri and Wenhao Hu.
 \newblock A fast algorithm for computing distance correlation.
-\newblock {\em Computational Statistics & Data Analysis}, 135:15--24, 2019.
+\newblock {\em Computational Statistics and Data Analysis}, 135:15--24, 2019.
 
 \bibitem{Edlemann}
 Dominic Edelmann, Konstantinos Fokianos, and Maria Pitsillou.
@@ -95,6 +95,15 @@ Johan Kustermans J. Martin Lindsay Michael Schuermann Uwe~Franz
 \newblock Quantum independent increment processes i: From classical probability
   to quantum stochastic calculus.
 \newblock 2005.
+
+\bibitem{pmlr-v80-belghazi18a}
+Mohamed~Ishmael Belghazi, Aristide Baratin, Sai Rajeshwar, Sherjil Ozair,
+  Yoshua Bengio, Aaron Courville, and Devon Hjelm.
+\newblock Mutual information neural estimation.
+\newblock In Jennifer Dy and Andreas Krause, editors, {\em Proceedings of the
+  35th International Conference on Machine Learning}, volume~80 of {\em
+  Proceedings of Machine Learning Research}, pages 531--540. PMLR, 10--15 Jul
+  2018.
 
 \bibitem{NEURIPS2019_9015}
 Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory

@@ -131,19 +131,29 @@ Having i.i.d. standartized data $(x_{j}, y_{j})$, $j = 1,2,...,n$, an empirical 
     \hat{\kappa}(X,Y) = \max_{\alpha, \beta} \vert \widehat{\phi_{X,Y}}(\alpha,\beta)  - \widehat{\phi_{X}}(\alpha) \widehat{\phi_{Y}}(\beta) \vert.
 \end{equation}
 
-\noindent Empirical estimator~\eqref{eq:estimator} also is symmetric and and bounded (Theorem~\ref{thm:properties}). Emprically we observed that normalisation of parameters $\alpha$ and $\beta$ on to unit sphere increases estimation stability (why?). The  estimator~\eqref{eq:estimator} can be calculated iteratively by Algorithm~\ref{alg:estimator_computation} (Pytorch~\cite{NEURIPS2019_9015} implementationcan be accessed from \url{https://github.com/povidanius/kac_independence_measure}). 
+\noindent Empirical estimator~\eqref{eq:estimator} also is symmetric and and bounded (Theorem~\ref{thm:properties}). It can be calculated iteratively by Algorithm~\ref{alg:estimator_computation} (Pytorch~\cite{NEURIPS2019_9015} implementationcan be accessed from \url{https://github.com/povidanius/kac_independence_measure}). 
+
 
 \begin{algorithm}
 \caption{KacIM estimation iteration}\label{alg:estimator_computation}
 \begin{algorithmic}
 \Require data batch $(x,y)$, gradient-based optimiser $GradOpt(loss)$
-%\Ensure $y = x^n$
 \State Normalize $(x,y)$ to zero mean and unit variance (scale invariance).
 \State Calculate KacIM estimator $\hat{\kappa}(x,y)$, without maximization step (i.e. using current $\alpha, \beta$).
 \State Perform one maximization iteration of computed $\hat{\kappa}(x,y)$ via $\alpha, \beta \rightarrow GradOpt(\hat{\kappa}(x,y))$.
 \end{algorithmic}
 \end{algorithm}
-In our implementation we use decoupled weight decay regularization optimizer~\cite{Loshchilov2019DecoupledWD}.
+
+
+Hence, the estimation of KacIM via Algorithm~\ref{alg:estimator_computation} results in $O(kn)$ computational complexity, where $k$ is the number of iterations, and $n$ is sample size.
+
+It requires to initialise $\alpha$ and $\beta$ (we empirically found that uniform initialisation resulted in faster convergence), select stoping criteria (e.g. $k \in \mathbf{N}$), and optimiser. In our implementation we use decoupled weight decay regularization optimizer~\cite{Loshchilov2019DecoupledWD}. 
+We also emprically observed that normalisation of parameters $\alpha$ and $\beta$ on to unit sphere increases estimation stability (why?).
+
+Note, that e.g. Shannon and Renyi mutual information~\cite{Cover2006} are also estimated via transforming them into maximisation problem by Donsker-Varadhan representation~\cite{pmlr-v80-belghazi18a}, in order to avoid density estimation.
+
+
+
 
 \subsection{Kernel version}
 
@@ -254,20 +264,13 @@ The classification accuracies, reported in Table~\ref{table:classification_accur
 \end{table}
 
 
-Epoch 7/7, Training Loss: 0.075, Training Accuracy: 96.458, Validation Loss: 0.124, Validation Acc: 100.000
-
-Test accuracy is 77.885
-Regularization: True
-
-Epoch 7/7, Training Loss: 0.042, Training Accuracy: 96.875, Validation Loss: 0.012, Validation Acc: 100.000
-Test accuracy is 81.891
-
 
 \subsection{Regularisation}
 In regularisation experiments we investigate chest x-ray classification task. It is represented as binary classification data set, consisting of x-ray scans ($5216$ for training, and $642$ for testing), which should be classified as pneumonia or normal (e.g. Figure~\ref{fig:Pneumonia_dataset_examples}). As classifier we use \emph{ResNet18}, trained with batches of $128$ elements.
 We denote classifier as $f(\phi(x|\theta_{0})|\theta_{1})$, where $\theta_{0}$ are bottleneck parameters, $\theta_{1}$ final (linear) layer parameters, and $x$ is $224\times 224$ input image.
 For optimisation we use decoupled weight decay regularization optimizer~\cite{Loshchilov2019DecoupledWD} with learning rate set to $0.0002$, and weight decay parameter set to $0.00001$ ($7$ epochs).
-
+We used the following data augmentations: random horizontal flip, random rotation (up to 10 degrees), color jitter.
+ 
 \begin{figure}%
 	\centering
 	\subfloat{{\includegraphics[scale=0.07]{./img/IM-0170-0001.jpeg} }}%
@@ -279,6 +282,7 @@ For optimisation we use decoupled weight decay regularization optimizer~\cite{Lo
 
 
 We will investigate additive regularizer, which maximises depency of bottleneck the feature $\phi(x)$ and target variable $y$ (one-hot encoding): 
+
 
 \begin{equation}
 Cost(\theta_{0},\theta_{1}, W) := CE(f(\phi(x|\theta_{0})|\theta_{1}),y) - \beta \kappa(W\phi(x|\theta_{0}),y),
@@ -320,7 +324,9 @@ Test accuracy is 77.404
 \section{Conclusion} 
 
 \label{section:conclusion}
-In this article we propose statistical dependence measure, KacIM, which relies on the $L^{\infty}$ norm of the absolute value of difference between joint characteristic function and the product of marginal ones. The proposed measure, in theory can detect both linear and non-linear statistical depdendence between a pairs of random variables of possibly different dimension, extended to various known statistical generalisations (e.g. reproducing kernel Hilbert spaces, multivariablity), machine learning scenarios (e.g. feature extraction, regularisation, among others), and is empirically tractable on these problems. On the other side, it raises a corresponding set of unanswered questions, both theoretical and empirical. For example, the interpretability when it approaches its maximal value remains insufficiently clear, however empirical experiments with simulated data reveals, that increasing independence between two random variables is reflected in a decreasing trend on the estimated values of the proposed dependence measure. Beside demonstrated applications in Section~\ref{section:experiments}, the proposed measure is differentiable and thereby can be integrated with various modern deep-learning methods, applied to high-dimensional and structured data. From empirical point of view, we see exploration of KacIM in causality, information bottleneck theory, self-supervised learning, and other modern problems, where dependence measures define a criterion of optimisation, as important future work, as well as exhaustive survey of measures of statistical independence.
+In this article we propose statistical dependence measure, KacIM, which relies on the $L^{\infty}$ norm of the absolute value of difference between joint characteristic function and the product of marginal ones. The proposed measure, in theory can detect both linear and non-linear statistical depdendence between a pairs of random variables of possibly different dimension, extended to various known statistical generalisations (e.g. reproducing kernel Hilbert spaces, multivariablity), machine learning scenarios (e.g. feature extraction, regularisation, among others), and is empirically tractable on these problems. On the other side, it raises a corresponding set of unanswered questions, both theoretical and empirical. For example, the interpretability when it approaches its maximal value remains insufficiently clear, however empirical experiments with simulated data reveals, that increasing independence between two random variables is reflected in a decreasing trend on the estimated values of the proposed dependence measure. In contrary to e.g. HSIC or distance correlation, the estimation of the porposed measure is iterative optimisation process. Therefore, parameter initialization, meta-parameter (e.g. stopping criteria, batch size) selection are needed in order to evaluate it efficiently.
+
+Beside demonstrated applications in Section~\ref{section:experiments}, the proposed measure is differentiable and thereby can be integrated with various modern deep-learning methods, applied to high-dimensional and structured data. From empirical point of view, we see exploration of KacIM in causality, information bottleneck theory, self-supervised learning, and other modern problems, where dependence measures define a criterion of optimisation, as important future work. We also would like to note, that exhaustive survey of measures of statistical dependence, accompanied with open-source code repository, would be helpful both for the theorists and for practicioneers.
 
 \begin{comment}
 ....

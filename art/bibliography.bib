@@ -21,7 +21,7 @@ publisher={Springer}
 
 @article{CHAUDHURI201915,
 	title = {A fast algorithm for computing distance correlation},
-	journal = {Computational Statistics & Data Analysis},
+	journal = {Computational Statistics and Data Analysis},
 	volume = {135},
 	pages = {15-24},
 	year = {2019},
@@ -29,8 +29,7 @@ publisher={Springer}
 	doi = {https://doi.org/10.1016/j.csda.2019.01.016},
 	url = {https://www.sciencedirect.com/science/article/pii/S0167947319300313},
 	author = {Arin Chaudhuri and Wenhao Hu},
-	keywords = {Distance correlation, Dependency measure, Fast algorithm, Merge sort},
-	abstract = {Classical dependence measures such as Pearson correlation, Spearman’s ρ, and Kendall’s τ can detect only monotonic or linear dependence. To overcome these limitations, Székely et al. proposed distance covariance and its derived correlation. The distance covariance is a weighted L2 distance between the joint characteristic function and the product of marginal distributions; it is 0 if and only if two random vectors X and Y are independent. This measure can detect the presence of a dependence structure when the sample size is large enough. They further showed that the sample distance covariance can be calculated simply from modified Euclidean distances, which typically requires O(n2) cost, where n is the sample size. Quadratic computing time greatly limits the use of the distance covariance for large data. To calculate the sample distance covariance between two univariate random variables, a simple, exact O(nlog(n)) algorithms is developed. The proposed algorithm essentially consists of two sorting steps, so it is easy to implement. Empirical results show that the proposed algorithm is significantly faster than state-of-the-art methods. The algorithm’s speed will enable researchers to explore complicated dependence structures in large datasets.}
+	keywords = {Distance correlation, Dependency measure, Fast algorithm, Merge sort}
 }
 
 @unknown{Bottcher,
@@ -271,3 +270,21 @@ url = {http://papers.neurips.cc/paper/9015-pytorch-an-imperative-style-high-perf
 	volume = {17},
 	year = {2004}
 }
+
+
+@InProceedings{pmlr-v80-belghazi18a,
+	title = 	 {Mutual Information Neural Estimation},
+	author =       {Belghazi, Mohamed Ishmael and Baratin, Aristide and Rajeshwar, Sai and Ozair, Sherjil and Bengio, Yoshua and Courville, Aaron and Hjelm, Devon},
+	booktitle = 	 {Proceedings of the 35th International Conference on Machine Learning},
+	pages = 	 {531--540},
+	year = 	 {2018},
+	editor = 	 {Dy, Jennifer and Krause, Andreas},
+	volume = 	 {80},
+	series = 	 {Proceedings of Machine Learning Research},
+	month = 	 {10--15 Jul},
+	publisher =    {PMLR},
+	pdf = 	 {http://proceedings.mlr.press/v80/belghazi18a/belghazi18a.pdf},
+	url = 	 {https://proceedings.mlr.press/v80/belghazi18a.html},
+	abstract = 	 {We argue that the estimation of mutual information between high dimensional continuous random variables can be achieved by gradient descent over neural networks. We present a Mutual Information Neural Estimator (MINE) that is linearly scalable in dimensionality as well as in sample size, trainable through back-prop, and strongly consistent. We present a handful of applications on which MINE can be used to minimize or maximize mutual information. We apply MINE to improve adversarially trained generative models. We also use MINE to implement the Information Bottleneck, applying it to supervised classification; our results demonstrate substantial improvement in flexibility and performance in these settings.}
+}
+

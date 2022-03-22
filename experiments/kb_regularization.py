@@ -11,6 +11,7 @@ import sys
 import os
 from collections import OrderedDict
 import time
+import gc
 
 #torch.manual_seed(31337)
 
@@ -37,7 +38,7 @@ def get_activation(name):
 REGULARIZER = 0
 LOSS = 1
 
-kim = KacIndependenceMeasure(512, 512, lr=0.0001, input_projection_dim = 32, output_projection_dim=32, weight_decay=0.01,device=device) #0.007
+kim = KacIndependenceMeasure(512, 512, lr=0.0005, input_projection_dim = 32, output_projection_dim=32, weight_decay=0.01,device=device) #0.007
 
 
 train_transform = transforms.Compose([transforms.Grayscale(num_output_channels=3), 
@@ -65,7 +66,7 @@ len_test= len(testing_dataset.samples)
 #print(len_test)
 #print(len_val)
 print("Train: {}, test: {}".format(len_train, len_test))
-batch_size = 64
+batch_size = 52
 
 train_loader = DataLoader(dataset=training_dataset, batch_size=batch_size, shuffle=True, drop_last=True)
 #val_loader = DataLoader(dataset=validation_dataset, shuffle= True)
@@ -105,11 +106,11 @@ optimize_kac_every_iters = 10
 
 dep_history = []
 
-reg_alpha = 0.3 #0.1
+reg_alpha = 0.1 #0.1
 
 use_regularization = True
 save_dep_figures = True
-mode = LOSS
+mode = REGULARIZER
 
 
 for epoch in range(number_of_epoch):
@@ -124,15 +125,13 @@ for epoch in range(number_of_epoch):
 
     model.train()
     iteration = 0
-
+    internal_iter = 0
+    
     it = iter(train_loader)
     #for data,label in train_loader:
     epoch_finished = False
+
     while epoch_finished == False:
-
-        #first = next(it)
-        #second = next(it)
-
         try:
             x1, label1 = next(it)
             x2, label2 = next(it)
@@ -158,13 +157,13 @@ for epoch in range(number_of_epoch):
 
     
         #if use_regularization:
-        if False:
-            if (iteration % optimize_kac_every_iters  == 0) and mode == LOSS:
-                mode = REGULARIZER
-            elif (iteration % optimize_kac_every_iters  == 0) and mode == REGULARIZER:
-                mode = LOSS
+        #if True:
+        #    if (iteration % optimize_kac_every_iters  == 0) and mode == LOSS:
+        #        mode = REGULARIZER
+        #    elif (iteration % optimize_kac_every_iters  == 0) and mode == REGULARIZER:
+        #        mode = LOSS
 
-        if True:
+        if mode == REGULARIZER:
             reg = kim.forward(z1, z2, update=True)
 
             print("Mode: REGULARIZER")
@@ -172,47 +171,60 @@ for epoch in range(number_of_epoch):
             print("reg {}".format(reg))
             #print("bottleneck: {}, y {}".format(bottleneck.shape, y.shape))
             dep_history.append(reg.detach().cpu().numpy())
-        
-        """
+            if reg.item() > 0.2:
+                mode = LOSS
+                internal_iter = 0
+                continue
+            internal_iter = internal_iter + 1 
         elif mode == LOSS:
 
             print("Mode: LOSS")
 
-            loss = loss_fn(pred, label) 
+            loss1 = loss_fn(pred1, label1) 
+            loss2 = loss_fn(pred2, label2)
+            loss = loss1 + loss2
             if use_regularization:
-                reg = kim.forward(bottleneck, y, update=False)
-                print("loss {}, reg {}".format(loss, reg_alpha*reg))
-                loss = loss - reg_alpha * reg # loss -> min.., dep -> max
-
+                reg = kim.forward(z1, z2, update=False)
+                if reg.item() < 0.1:
+                    mode = REGULARIZER
+                    internal_iter = 0
+                    continue
+                print("loss {}, reg {}".format(loss, reg))
+                loss = loss + reg_alpha * reg # loss -> min.., dep -> max
+            
+            internal_iter = internal_iter + 1 
             loss.backward()
             optimizer.step()
-
+            gc.collect()
+            torch.cuda.empty_cache()
 
         
             train_iter_loss += loss.item()
             train_iteration += 1
         
-            _, predicted = torch.max(pred, 1)
-            train_correct += (predicted == label).sum()
-            num_train += pred.shape[0]
-        """    
+            _, predicted1 = torch.max(pred1, 1)
+            train_correct += (predicted1 == label1).sum()
+            num_train += pred1.shape[0]
+            _, predicted2 = torch.max(pred2, 1)
+            train_correct += (predicted2 == label2).sum()
+            num_train += pred2.shape[0]
         iteration = iteration + 1
 
-            
-    """    
-    train_loss.append(train_iter_loss/train_iteration)
-    train_accuracy.append(100*float(train_correct)/num_train)
+    if train_iteration != 0:              
+        train_loss.append(train_iter_loss/train_iteration)
+        train_accuracy.append(100*float(train_correct)/num_train)
 
     #train_accuracy.append(100*float(train_correct)/len_train)
-    """
+  
 
-    if False:
-        torch.save({
-            'epoch': epoch,
-            'model_state_dict': model.state_dict(),
-            'optimizer_state_dict': optimizer.state_dict(),
-            'loss': train_loss,
-            }, format("chest_checkpoint_{}.pt".format(epoch)))
+        if False:
+            torch.save({
+                'epoch': epoch,
+                'model_state_dict': model.state_dict(),
+                'optimizer_state_dict': optimizer.state_dict(),
+                'loss': train_loss,
+                }, format("chest_checkpoint_{}.pt".format(epoch)))
+        print ('Epoch {}/{}, Training Loss: {:.3f}, Training Accuracy: {:.3f}'.format(epoch+1, number_of_epoch, train_loss[-1], train_accuracy[-1]))
 
     """
     model.eval()
@@ -237,7 +249,6 @@ for epoch in range(number_of_epoch):
     print ('Epoch {}/{}, Training Loss: {:.3f}, Training Accuracy: {:.3f}, Validation Loss: {:.3f}, Validation Acc: {:.3f}'
            .format(epoch+1, number_of_epoch, train_loss[-1], train_accuracy[-1], test_loss[-1], test_accuracy[-1]))
     """
-    #print ('Epoch {}/{}, Training Loss: {:.3f}, Training Accuracy: {:.3f}'.format(epoch+1, number_of_epoch, train_loss[-1], train_accuracy[-1]))
 
 if save_dep_figures:
     plt.plot(dep_history)
@@ -245,7 +256,7 @@ if save_dep_figures:
     timestr = time.strftime("%Y%m%d-%H%M%S")
     plt.savefig('./kb_{}.png'.format(timestr))
 
-"""
+
 corrected = 0
 
 model.eval()
@@ -263,8 +274,8 @@ accuracy = 100 * float(corrected)/ len_test
 print(f'Test accuracy is {accuracy :.3f}')
 print("Regularization: {}".format(use_regularization))
 
-with open("./4result_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
+with open("./5result_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
     #f.write("{} {} \n".format(accuracy, test_accuracy[-1]))
     f.write("{}\n".format(accuracy))
-"""  
+  
 

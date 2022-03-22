@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.6.4)  16 MAR 2022 12:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.6.4)  22 MAR 2022 11:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -908,7 +908,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 137.
+put line 138.
 
 Underfull \hbox (badness 1418) in paragraph at lines 143--144
 []\OT1/cmr/m/n/10 Per-form one max-i-miza-tion it-er-a-tion of com-puted $[](\O
@@ -917,106 +917,95 @@ n/10 !
  []
 
 
-LaTeX Warning: Command \l invalid in math mode on input line 150.
+LaTeX Warning: Command \l invalid in math mode on input line 160.
 
 
-LaTeX Warning: Command \l invalid in math mode on input line 150.
-
-
-LaTeX Warning: Citation `?' on page 4 undefined on input line 156.
+LaTeX Warning: Command \l invalid in math mode on input line 160.
 
 [4]
-<../experiments/basic_demonstration/dependence_detection.png, id=176, 462.528pt
+
+LaTeX Warning: Citation `?' on page 5 undefined on input line 166.
+
+<../experiments/basic_demonstration/dependence_detection.png, id=177, 462.528pt
  x 346.896pt>
 File: ../experiments/basic_demonstration/dependence_detection.png Graphic file 
 (type png)
 <use ../experiments/basic_demonstration/dependence_detection.png>
 Package pdftex.def Info: ../experiments/basic_demonstration/dependence_detectio
-n.png  used on input line 179.
+n.png  used on input line 189.
 (pdftex.def)             Requested size: 148.01198pt x 111.00897pt.
-<../experiments/noise_effect/summary.png, id=178, 462.528pt x 346.896pt>
+<../experiments/noise_effect/summary.png, id=179, 462.528pt x 346.896pt>
 File: ../experiments/noise_effect/summary.png Graphic file (type png)
 <use ../experiments/noise_effect/summary.png>
 Package pdftex.def Info: ../experiments/noise_effect/summary.png  used on input
- line 181.
+ line 191.
 (pdftex.def)             Requested size: 148.01198pt x 111.00897pt.
- [5 <../experiments/basic_demonstration/dependence_detection.png> <../experimen
-ts/noise_effect/summary.png>] [6]
-Overfull \hbox (1.42801pt too wide) in paragraph at lines 236--236
+[5] [6 <../experiments/basic_demonstration/dependence_detection.png> <../experi
+ments/noise_effect/summary.png>]
+Overfull \hbox (1.42801pt too wide) in paragraph at lines 246--246
 []\OT1/cmr/m/n/10 (360,1300,10)| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 240--240
+Underfull \hbox (badness 10000) in paragraph at lines 250--250
 []\OT1/cmr/m/n/10 one-hundred-
  []
 
 
-Overfull \hbox (1.42801pt too wide) in paragraph at lines 240--240
+Overfull \hbox (1.42801pt too wide) in paragraph at lines 250--250
 []\OT1/cmr/m/n/10 (1599,64,100)| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 243--243
+Underfull \hbox (badness 10000) in paragraph at lines 253--253
 []\OT1/cmr/m/n/10 one-hundred-
  []
 
 
-Overfull \hbox (1.42801pt too wide) in paragraph at lines 243--243
+Overfull \hbox (1.42801pt too wide) in paragraph at lines 253--253
 []\OT1/cmr/m/n/10 (1600,64,100)| 
  []
 
 
-Overfull \hbox (1.42801pt too wide) in paragraph at lines 248--248
+Overfull \hbox (1.42801pt too wide) in paragraph at lines 258--258
 []\OT1/cmr/m/n/10 (7797,617,26)| 
  []
 
-<./img/IM-0170-0001.jpeg, id=212, 2156.055pt x 1501.61pt>
+[7]
+<./img/IM-0170-0001.jpeg, id=221, 2156.055pt x 1501.61pt>
 File: ./img/IM-0170-0001.jpeg Graphic file (type jpg)
 <use ./img/IM-0170-0001.jpeg>
-Package pdftex.def Info: ./img/IM-0170-0001.jpeg  used on input line 273.
+Package pdftex.def Info: ./img/IM-0170-0001.jpeg  used on input line 276.
 (pdftex.def)             Requested size: 150.93927pt x 105.12343pt.
-<./img/person1_bacteria_1.jpeg, id=213, 714.67pt x 440.64626pt>
+<./img/person1_bacteria_1.jpeg, id=222, 714.67pt x 440.64626pt>
 File: ./img/person1_bacteria_1.jpeg Graphic file (type jpg)
 <use ./img/person1_bacteria_1.jpeg>
-Package pdftex.def Info: ./img/person1_bacteria_1.jpeg  used on input line 275.
+Package pdftex.def Info: ./img/person1_bacteria_1.jpeg  used on input line 278.
 
 (pdftex.def)             Requested size: 142.93146pt x 88.12769pt.
-[7] Excluding 'comment' comment. Excluding 'comment' comment. [8 <./img/IM-0170
--0001.jpeg> <./img/person1_bacteria_1.jpeg>] (./main.bbl
-! Misplaced alignment tab character &.
-l.78 \newblock {\em Computational Statistics &
-                                               Data Analysis}, 135:15--24, 2...
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-[9])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 359.
+ Excluding 'comment' comment. [8 <./img/IM-0170-0001.jpeg> <./img/person1_bacte
+ria_1.jpeg>] Excluding 'comment' comment. (./main.bbl [9])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 365.
  [10]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 359.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 365.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 359.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 359.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 365.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 365.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 0A141E2CE233104B27B577D14695176B;832.
 
-
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 359.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 365.
  ) 
 Here is how much of TeX's memory you used:
- 8929 strings out of 492982
- 131263 string characters out of 6134897
- 227189 words of memory out of 5000000
- 12285 multiletter control sequences out of 15000+600000
- 14351 words of font info for 54 fonts, out of 8000000 for 9000
+ 8935 strings out of 492982
+ 131348 string characters out of 6134897
+ 225232 words of memory out of 5000000
+ 12288 multiletter control sequences out of 15000+600000
+ 14970 words of font info for 56 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 44i,11n,42p,1617b,480s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 44i,11n,42p,1320b,480s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dis
@@ -1039,10 +1028,10 @@ cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/m
 sbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/ms
 bm7.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/
 texmf/fonts/type1/public/cm-super/sfrm0800.pfb>
-Output written on main.pdf (10 pages, 1226448 bytes).
+Output written on main.pdf (10 pages, 1227984 bytes).
 PDF statistics:
- 333 PDF objects out of 1000 (max. 8388607)
- 289 compressed objects within 3 object streams
- 75 named destinations out of 1000 (max. 500000)
+ 336 PDF objects out of 1000 (max. 8388607)
+ 292 compressed objects within 3 object streams
+ 76 named destinations out of 1000 (max. 500000)
  133 words of extra memory for PDF output out of 10000 (max. 10000000)
 
