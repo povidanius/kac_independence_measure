@@ -162,8 +162,8 @@ for epoch in range(number_of_epoch):
         #        mode = REGULARIZER
         #    elif (iteration % optimize_kac_every_iters  == 0) and mode == REGULARIZER:
         #        mode = LOSS
-
-        if mode == REGULARIZER:
+        if True:
+        #if mode == REGULARIZER:
             reg = kim.forward(z1, z2, update=True)
 
             print("Mode: REGULARIZER")
@@ -171,12 +171,12 @@ for epoch in range(number_of_epoch):
             print("reg {}".format(reg))
             #print("bottleneck: {}, y {}".format(bottleneck.shape, y.shape))
             dep_history.append(reg.detach().cpu().numpy())
-            if reg.item() > 0.2:
-                mode = LOSS
-                internal_iter = 0
-                continue
+            #if reg.item() > 0.2:
+            #    mode = LOSS
+            #    internal_iter = 0
+            #    continue
             internal_iter = internal_iter + 1 
-        elif mode == LOSS:
+        #elif mode == LOSS:
 
             print("Mode: LOSS")
 
@@ -185,10 +185,10 @@ for epoch in range(number_of_epoch):
             loss = loss1 + loss2
             if use_regularization:
                 reg = kim.forward(z1, z2, update=False)
-                if reg.item() < 0.1:
-                    mode = REGULARIZER
-                    internal_iter = 0
-                    continue
+                #if reg.item() < 0.1:
+                #    mode = REGULARIZER
+                #    internal_iter = 0
+                #    continue
                 print("loss {}, reg {}".format(loss, reg))
                 loss = loss + reg_alpha * reg # loss -> min.., dep -> max
             
