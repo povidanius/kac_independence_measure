@@ -38,7 +38,7 @@ def get_activation(name):
 REGULARIZER = 0
 LOSS = 1
 
-kim = KacIndependenceMeasure(512, 512, lr=0.0005, input_projection_dim = 32, output_projection_dim=32, weight_decay=0.01,device=device) #0.007
+kim = KacIndependenceMeasure(32, 32, lr=0.0005, weight_decay=0.01,device=device) #0.007
 
 
 train_transform = transforms.Compose([transforms.Grayscale(num_output_channels=3), 
@@ -66,7 +66,7 @@ len_test= len(testing_dataset.samples)
 #print(len_test)
 #print(len_val)
 print("Train: {}, test: {}".format(len_train, len_test))
-batch_size = 52
+batch_size = 64 # 128
 
 train_loader = DataLoader(dataset=training_dataset, batch_size=batch_size, shuffle=True, drop_last=True)
 #val_loader = DataLoader(dataset=validation_dataset, shuffle= True)
@@ -74,7 +74,14 @@ test_loader = DataLoader(dataset= testing_dataset, shuffle=False)
 
 
 model = resnet18(pretrained=True) #, aux_logits=False)
-model.fc = nn.Linear(512, 2)
+#model.fc = nn.Linear(512, 2)
+model.fc = nn.Sequential(
+    nn.Dropout(0.5),
+    nn.Linear(512, 32),
+    nn.ReLU(),
+    nn.BatchNorm1d(32),
+    nn.Linear(32, 2)
+)
 #breakpoint()
 # intermediate activations
 """
@@ -87,13 +94,14 @@ model.layer3[1].register_forward_hook(get_activation('layer3_1'))
 model.layer4[0].register_forward_hook(get_activation('layer4_0'))
 model.layer4[1].register_forward_hook(get_activation('layer4_1'))
 """
-model.avgpool.register_forward_hook(get_activation('avgpool'))
+#model.avgpool.register_forward_hook(get_activation('avgpool'))
+model.fc[3].register_forward_hook(get_activation('fc_3'))
 
 
 model.to(device)
 loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.AdamW(params=model.parameters(), lr = 0.0002, weight_decay=0.00001)
-number_of_epoch = 6
+number_of_epoch = 4
 
 train_loss = []
 test_loss = []
@@ -145,11 +153,11 @@ for epoch in range(number_of_epoch):
 
         optimizer.zero_grad()             
         pred1 = model(x1)
-        bottleneck1 = activation['avgpool'].squeeze()
+        bottleneck1 = activation['fc_3'].squeeze()
         y_1 = torch.nn.functional.one_hot(label1).float()
 
         pred2 = model(x2)     
-        bottleneck2 = activation['avgpool'].squeeze()
+        bottleneck2 = activation['fc_3'].squeeze()
         y_2 = torch.nn.functional.one_hot(label2).float()
 
         z1 = bottleneck1 + bottleneck2
@@ -190,7 +198,7 @@ for epoch in range(number_of_epoch):
                 #    internal_iter = 0
                 #    continue
                 print("loss {}, reg {}".format(loss, reg))
-                loss = loss + reg_alpha * reg # loss -> min.., dep -> max
+                loss = loss + reg_alpha * reg 
             
             internal_iter = internal_iter + 1 
             loss.backward()
@@ -274,7 +282,7 @@ accuracy = 100 * float(corrected)/ len_test
 print(f'Test accuracy is {accuracy :.3f}')
 print("Regularization: {}".format(use_regularization))
 
-with open("./5result_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
+with open("./8result_kb_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
     #f.write("{} {} \n".format(accuracy, test_accuracy[-1]))
     f.write("{}\n".format(accuracy))
   
