@@ -38,7 +38,7 @@
 \end{abstract}
 
 \section{Introduction}
-Statistical dependence measures plays important role in various statistical and machine learning methods (e.g. hypothesis testing~\cite{Gretton2005MeasuringSD}, feature selection and extraction~\cite{EigenHSIC,HSCA}, information bottleneck methods \cite{Ma2020TheHB}, causal inference~\cite{NIPS2008_f7664060}, self-supervised learning~\cite{li2021selfsupervised}, among others).  Earliest statistical dependence estimation ideas (e.g. conditional probability) share nearly-common origin with the beginning of formal statistical reasoning itself. During last two centuries ideas of correlation and (relative) entropy (including various generalizations) were proposed and became very popular in numerous applications and theoretical developments. However, with the increasing popularity of statistical machine learning, new statistical dependence estimation methods, that are robust, applicable to noisy, high-dimensional, structured data, and which can be efficiently integrated with modern machine learning methods are helpful for the development both of the theory and application.
+Statistical dependence measures plays important role in various statistical and machine learning methods (e.g. hypothesis testing~\cite{Gretton2005MeasuringSD}, feature selection and extraction~\cite{EigenHSIC,HSCA}, information bottleneck methods \cite{Ma2020TheHB}, causal inference~\cite{NIPS2008_f7664060}, self-supervised learning~\cite{li2021selfsupervised}, representation learning~\cite{Ragonesi2021LearningUR}, among others).  Earliest statistical dependence estimation ideas (e.g. conditional probability) share nearly-common origin with the beginning of formal statistical reasoning itself. During last two centuries ideas of correlation and (relative) entropy (including various generalizations) were proposed and became very popular in numerous applications and theoretical developments. However, with the increasing popularity of statistical machine learning, new statistical dependence estimation methods, that are robust, applicable to noisy, high-dimensional, structured data, and which can be efficiently integrated with modern machine learning methods are helpful for the development both of the theory and application.
 
 In this article we focus on quantitative estimation of statistical independence, using characteristic functions. We begin with the short review of some important previous dependence estimation approaches (Section~\ref{section:previous_work}), devoting special attention to ones based on characteristic functions (Section~\ref{section:previous_work_cf}). Afterwards, we formulate the proposed characteristic function-based statistical dependence measure and its empirical estimator (Section~\ref{section:proposed_method}), including an extension into reproducing kernel Hilbert spaces (RKHS'es), which are the main theoretical contribution of our paper. Section~\ref{section:experiments} is devoted to experiments with simulated and real data sets, where we apply the proposed dependence measure for feature extraction and deep neural network (DNN) regularisation,  and finalizing Section~\ref{section:conclusion} concludes this article.
 
@@ -71,18 +71,18 @@ $n$ i.i.d. realisations of $(X,Y)$, joint empirical characteristic function is d
 \widehat{\phi_{X,Y}}(\alpha,\beta) = \frac{1}{n} \sum_{j=1}^{n} e^{i(<\alpha, x_{j}> + <\beta, y_{j}>) }.
 \end{equation}
 
-In terms of characteristic functions, statistical independence  of $X$ and $Y$ is equivalent to $\forall \alpha \in R^{d_X},\forall \beta \in R^{d_Y} $, 
+If cumulative distribution function (cdf.) of $(X,Y)$, $F_{X,Y}(x,y)$, $x \in R^{d_{X}}$ and $y \in R^{d_{Y}}$ decomposes as $F_{X}(x)F_{Y}(y)$ for all $x$ and $y$, $X$ and $Y$ are called independent (the same holds for probability density function, pdf.). However, this criterion is impractical due to need of evaluation of potentially high-dimensional cdf. or pdf., and often alternative independence criterions are more useful. For example, in terms of characteristic functions, statistical independence  of $X$ and $Y$ is equivalent to $\forall \alpha \in R^{d_X},\forall \beta \in R^{d_Y} $, 
 
 \begin{equation}
 %\mathbb{E}_{X,Y} e^{i <\alpha, X> + i <\beta, Y>} = \mathbb{E}_{X} e^{i <\alpha, X>} \mathbb{E}_{Y} e^{i <\beta, Y>},
 \label{eq:kac_theorem}
-\Delta_{X,Y}(\alpha, \beta) := \phi_{X,Y}(\alpha,\beta) - \phi_{X}(\alpha) \phi_{Y}(\beta) = 0,
+\Delta_{X,Y}(\alpha, \beta) := \phi_{X,Y}(\alpha,\beta) - \phi_{X}(\alpha) \phi_{Y}(\beta) = 0.
 \end{equation}
-where $d_{x}$ and $d_{y}$ are dimensions of $X$ and $Y$, respectively.
+%where $d_{x}$ and $d_{y}$ are dimensions of $X$ and $Y$, respectively.
 
 This formulation of statistical independence was used as the basis (first in~\cite{Feuerverger} for one-dimensional case, and afterwards extended and developed by~\cite{Szekely} for bivariate multidimensional random vectors) for construction of statistical independence tests and measures.\textit{Distance covariance} and \textit{distance correlation}, prosposed by ~\cite{Szekely} relies on weighted $L^{2}$-norm analysis of~\eqref{eq:kac_theorem}. They select weighting function in such a way, that dependence measure can be expressed in terms of correlection of data-dependent distances. Study~\cite{Bottcher} generalises~\cite{Szekely} to multivariable case and proposes \textit{distance multivariance} and derivative dependence measure, called~\textit{total distance multivariance}.~\cite{CHAUDHURI201915} proposed computationally efficient algorithm for estimation of distance correlation measure, reducing computational complexity from $O(n^2)$ to $O(n\cdot \log n)$, where $n$ is sample size.
 
-Our motivation stems from the fact that evaluation of~\cite{Szekely} measures in high dimensional cases may be prone to curse of dimensionality (as mentioned in~\cite{Edlemann}). Although staying in $L^{p}$-space framework, instead of $p = 2$ ($L^{2}$ space) we take a limit when  $p \rightarrow \infty$, and thereby avoid direct calculation of norm integral, since norm of $L^{p}$ converges to supremum norm when $p \rightarrow \infty$. Also, from practical point of view maximization is convenient, because it is already implemented in various deep learning frameworks. %\textit{What are potential advantages of maximum norm?}
+Our motivation stems from the fact that evaluation of~\cite{Szekely} measures in high dimensional cases may be prone to curse of dimensionality (as mentioned in~\cite{Edlemann}). Although staying in $L^{p}$-space framework, instead of $p = 2$ ($L^{2}$ space) we take a limit when  $p \rightarrow \infty$, and thereby avoid direct calculation of norm integral, since norm of $L^{p}$ converges to supremum norm when $p \rightarrow \infty$. Also, from practical point of view maximization is convenient, because it is efficiently implemented in modern deep learning frameworks (e.g. Pytorch~\cite{NEURIPS2019_9015}). %\textit{What are potential advantages of maximum norm?}
 
 \section{Proposed Independence Measure}
 \label{section:proposed_method}
@@ -90,7 +90,7 @@ Our motivation stems from the fact that evaluation of~\cite{Szekely} measures in
 
 
 
-\noindent This motivates the construction of a novel dependence measure, which we further refer to as Kac independence measure (KacIM). Let $X$ and $Y$ be two standartized random random vectors. The proposed independence measure is defined as
+\noindent The above considerations serves as the basis for constructing of a novel dependence measure, which we further refer to as Kac independence measure (KacIM). Let $X$ and $Y$ be two standartized random random vectors. The proposed independence measure is defined as
 \begin{equation}
 \label{eq:kim}
     \kappa(X,Y) = \max_{\alpha \in \mathbb{R}^{d_{X}}, \beta \in \mathbb{R}^{d_{Y}}} \vert \phi_{X,Y}(\alpha, \beta)  -\phi_{X}(\alpha) \phi_{Y}(\beta) \vert.
@@ -99,7 +99,7 @@ Our motivation stems from the fact that evaluation of~\cite{Szekely} measures in
 
 %In contrary to~\cite{Szekely} the proposed~\eqref{eq:kim} measure relies on maximum norm of difference between joint and product-marginal characteristic functions.
 
-\subsection{Properties}
+\subsection{Basic Properties}
 \begin{theorem}
 \label{thm:properties}
   Statistical independence measure~\eqref{eq:kim} has the following properties:
@@ -131,7 +131,7 @@ Having i.i.d. standartized data $(x_{j}, y_{j})$, $j = 1,2,...,n$, an empirical 
     \hat{\kappa}(X,Y) = \max_{\alpha, \beta} \vert \widehat{\phi_{X,Y}}(\alpha,\beta)  - \widehat{\phi_{X}}(\alpha) \widehat{\phi_{Y}}(\beta) \vert.
 \end{equation}
 
-\noindent Empirical estimator~\eqref{eq:estimator} also is symmetric and and bounded (Theorem~\ref{thm:properties}). It can be calculated iteratively by Algorithm~\ref{alg:estimator_computation} (Pytorch~\cite{NEURIPS2019_9015} implementationcan be accessed from \url{https://github.com/povidanius/kac_independence_measure}). 
+\noindent Empirical estimator~\eqref{eq:estimator} also is symmetric and and bounded (Theorem~\ref{thm:properties}). It can be calculated iteratively by Algorithm~\ref{alg:estimator_computation} (Pytorch~\cite{NEURIPS2019_9015} implementation can be accessed from \url{https://github.com/povidanius/kac_independence_measure}). 
 
 
 \begin{algorithm}
@@ -145,10 +145,10 @@ Having i.i.d. standartized data $(x_{j}, y_{j})$, $j = 1,2,...,n$, an empirical 
 \end{algorithm}
 
 
-Hence, the estimation of KacIM via Algorithm~\ref{alg:estimator_computation} results in $O(kn)$ computational complexity, where $k$ is the number of iterations, and $n$ is sample size.
 
-It requires to initialise $\alpha$ and $\beta$ (we empirically found that uniform initialisation resulted in faster convergence), select stoping criteria (e.g. $k \in \mathbf{N}$), and optimiser. In our implementation we use decoupled weight decay regularization optimizer~\cite{Loshchilov2019DecoupledWD}. 
-We also emprically observed that normalisation of parameters $\alpha$ and $\beta$ on to unit sphere increases estimation stability (why?).
+
+Algorithm~\ref{alg:estimator_computation} requires to initialise $\alpha$ and $\beta$ (we empirically found that uniform initialisation resulted in faster convergence), select stoping criteria (e.g. $k \in \mathbf{N}$), and optimiser. In our implementation we use decoupled weight decay regularization optimizer~\cite{Loshchilov2019DecoupledWD}. 
+We also emprically observed that normalisation of parameters $\alpha$ and $\beta$ on to unit sphere increases estimation stability (why?).After the estimation of KacIM via Algorithm~\ref{alg:estimator_computation}, the evaluation the estimator ~\eqref{eq:estimator} has computation complexity $O(n)$, where $n$ is sample size.
 
 Note, that e.g. Shannon and Renyi mutual information~\cite{Cover2006} are also estimated via transforming them into maximisation problem by Donsker-Varadhan representation~\cite{pmlr-v80-belghazi18a}, in order to avoid density estimation.
 
@@ -157,7 +157,7 @@ Note, that e.g. Shannon and Renyi mutual information~\cite{Cover2006} are also e
 
 \subsection{Kernel version}
 
-Having two RKHS'es, defined by feature mapping $(x,y) \rightarrow (\l(x,.), \l(y,.)$, where $k: \mathbb{R}^{d_{x}} \times \mathbb{R}^{d_{x}} \rightarrow \mathbb{R}$ and $l: \mathbb{R}^{d_{y}} \times \mathbb{R}^{d_{y}} \rightarrow \mathbb{R}$ (see~\cite{10.5555/3279302}). Then, estimation of kernel-$KIM$ ($\hat{\kappa}_{k,l} (X,Y)$) can be reformulated as maximization of :
+Having two RKHS'es, defined by feature maps $k,l: (x,y) \rightarrow (k(x,.), l(y,.)$, where $k: \mathbb{R}^{d_{x}} \times \mathbb{R}^{d_{x}} \rightarrow \mathbb{R}$ and $l: \mathbb{R}^{d_{y}} \times \mathbb{R}^{d_{y}} \rightarrow \mathbb{R}$ (see~\cite{10.5555/3279302}). Then, estimation of kernel-$KIM$ ($\hat{\kappa}_{k,l} (X,Y)$) can be reformulated as maximization of :
 \begin{equation}
 \label{eq:kernel_estimator}
     \vert \frac{1}{n} \sum_{j=1}^{n} e^{i(<\alpha, k(x_{j},.)> + <\beta, l(y_{j}>,.)) } - \frac{1}{n^2} \sum_{j=1}^{n} e^{i <\alpha, k(x_{j},.)>}\sum_{k=1}^{n} e^{i<\beta, l(y_{k},.)>}\vert,
@@ -176,8 +176,6 @@ where $K$ and $L$ are Gram matrices, corresponding to $x_{i}$ and $y_{i}$. Note 
 \label{section:experiments}
 
 Further we will conduct empirical investigation of KacIM in order to demonstrate that it can measure statistical dependencies in non-linear data sets, and that it can be practically useful as a component of cost functions (in feature selection and extraction, and regularisation problems).
-
-%We will begin with simple illustrative simulations with toy-data, and afterwards investigate empirical performance of KacIM in classifier feature optimisation and regularization tasks using various publicly available data sets.
 
 \subsection{Generated data}
 
@@ -200,6 +198,7 @@ When data is independent, both in additive and multiplicative cases, due to inde
 Figure~\ref{fig:experiments_simulation} empirically shows that value of KacIM  negatively correlates with noise level, and therefore the proposed measure is able not only to detect whether independence is present, but also to quantitatively evaluate it, which enables to use it to derive cost functions for various learning-based algorithms. 
 
 %Since in~\ref{alg:estimator_computation} we standartize data, KacIM is also scale-invariant (i.e. $\kappa(rx, ry) = \kappa(x,y)$), where $r>0$ is scale parameter.
+\paragraph{Comparison with distance correlation}
 
 
 \subsection{Feature selection}

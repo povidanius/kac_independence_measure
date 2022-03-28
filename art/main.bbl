@@ -36,6 +36,13 @@ Yazhe Li, Roman Pogodin, Danica~J. Sutherland, and Arthur Gretton.
 \newblock In {\em Thirty-Fifth Conference on Neural Information Processing
   Systems}, 2021.
 
+\bibitem{Ragonesi2021LearningUR}
+Ruggero Ragonesi, Riccardo Volpi, Jacopo Cavazza, and Vittorio Murino.
+\newblock Learning unbiased representations via mutual information
+  backpropagation.
+\newblock {\em 2021 IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition Workshops (CVPRW)}, pages 2723--2732, 2021.
+
 \bibitem{Cover2006}
 Thomas~M. Cover and Joy~A. Thomas.
 \newblock {\em Elements of Information Theory 2nd Edition (Wiley Series in
@@ -96,15 +103,6 @@ Johan Kustermans J. Martin Lindsay Michael Schuermann Uwe~Franz
   to quantum stochastic calculus.
 \newblock 2005.
 
-\bibitem{pmlr-v80-belghazi18a}
-Mohamed~Ishmael Belghazi, Aristide Baratin, Sai Rajeshwar, Sherjil Ozair,
-  Yoshua Bengio, Aaron Courville, and Devon Hjelm.
-\newblock Mutual information neural estimation.
-\newblock In Jennifer Dy and Andreas Krause, editors, {\em Proceedings of the
-  35th International Conference on Machine Learning}, volume~80 of {\em
-  Proceedings of Machine Learning Research}, pages 531--540. PMLR, 10--15 Jul
-  2018.
-
 \bibitem{NEURIPS2019_9015}
 Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory
   Chanan, Trevor Killeen, Zeming Lin, Natalia Gimelshein, Luca Antiga, Alban
@@ -121,6 +119,15 @@ Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory
 Ilya Loshchilov and Frank Hutter.
 \newblock Decoupled weight decay regularization.
 \newblock In {\em ICLR}, 2019.
+
+\bibitem{pmlr-v80-belghazi18a}
+Mohamed~Ishmael Belghazi, Aristide Baratin, Sai Rajeshwar, Sherjil Ozair,
+  Yoshua Bengio, Aaron Courville, and Devon Hjelm.
+\newblock Mutual information neural estimation.
+\newblock In Jennifer Dy and Andreas Krause, editors, {\em Proceedings of the
+  35th International Conference on Machine Learning}, volume~80 of {\em
+  Proceedings of Machine Learning Research}, pages 531--540. PMLR, 10--15 Jul
+  2018.
 
 \bibitem{10.5555/3279302}
 Bernhard Sch\"{o}lkopf, Alexander~J. Smola, and Francis Bach.

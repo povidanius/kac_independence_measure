@@ -116,7 +116,7 @@ dep_history = []
 
 reg_alpha = 0.1 #0.1
 
-use_regularization = True
+use_regularization = False
 save_dep_figures = True
 mode = REGULARIZER
 

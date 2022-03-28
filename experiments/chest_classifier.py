@@ -65,14 +65,23 @@ len_test= len(testing_dataset.samples)
 #print(len_test)
 #print(len_val)
 print("Train: {}, test: {}".format(len_train, len_test))
+batch_size = 64 # 128
 
-train_loader = DataLoader(dataset=training_dataset, batch_size=128, shuffle=True)
+train_loader = DataLoader(dataset=training_dataset, batch_size=batch_size, shuffle=True)
 #val_loader = DataLoader(dataset=validation_dataset, shuffle= True)
 test_loader = DataLoader(dataset= testing_dataset, shuffle=False)
 
 
 model = resnet18(pretrained=True) #, aux_logits=False)
-model.fc = nn.Linear(512, 2)
+#model.fc = nn.Linear(512, 2)
+model.fc = nn.Sequential(
+    nn.Dropout(0.5),
+    nn.Linear(512, 32),
+    nn.ReLU(),
+    nn.BatchNorm1d(32),
+    nn.Linear(32, 2)
+)
+
 #breakpoint()
 # intermediate activations
 """
@@ -85,13 +94,13 @@ model.layer3[1].register_forward_hook(get_activation('layer3_1'))
 model.layer4[0].register_forward_hook(get_activation('layer4_0'))
 model.layer4[1].register_forward_hook(get_activation('layer4_1'))
 """
-model.avgpool.register_forward_hook(get_activation('avgpool'))
+model.fc[3].register_forward_hook(get_activation('fc_3'))
 
 
 model.to(device)
 loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.AdamW(params=model.parameters(), lr = 0.0002, weight_decay=0.00001)
-number_of_epoch = 6
+number_of_epoch = 4
 
 train_loss = []
 test_loss = []
@@ -104,7 +113,7 @@ optimize_kac_every_iters = 10
 
 dep_history = []
 
-reg_alpha = 0.3 #0.1
+reg_alpha = 0.2 #0.1
 
 use_regularization = True
 mode = LOSS
@@ -130,7 +139,7 @@ for epoch in range(number_of_epoch):
         pred = model(data)     
 
         #breakpoint()
-        bottleneck = activation['avgpool'].squeeze()
+        bottleneck = activation['fc_3'].squeeze()
         y = torch.nn.functional.one_hot(label).float()
 
 
@@ -170,7 +179,7 @@ for epoch in range(number_of_epoch):
         
             _, predicted = torch.max(pred, 1)
             train_correct += (predicted == label).sum()
-            num_train += 128
+            num_train += batch_size
         iteration = iteration + 1
 
             
@@ -188,35 +197,12 @@ for epoch in range(number_of_epoch):
             'loss': train_loss,
             }, format("chest_checkpoint_{}.pt".format(epoch)))
 
-    """
-    model.eval()
-    with torch.no_grad():
-        for data,label in val_loader:
-        
-            data = data.to(device)
-            label = label.to(device)
-        
-            pred = model(data)
-            loss = loss_fn(pred, label)
-        
-            test_iter_loss += loss.item()
-            test_iteration += 1
-        
-            _, predicted = torch.max(pred, 1)
-            test_correct += (predicted == label).sum()
-        
-    test_loss.append(test_iter_loss/test_iteration)
-    test_accuracy.append(100*float(test_correct)/len_val)
-    
-    print ('Epoch {}/{}, Training Loss: {:.3f}, Training Accuracy: {:.3f}, Validation Loss: {:.3f}, Validation Acc: {:.3f}'
-           .format(epoch+1, number_of_epoch, train_loss[-1], train_accuracy[-1], test_loss[-1], test_accuracy[-1]))
-    """
     print ('Epoch {}/{}, Training Loss: {:.3f}, Training Accuracy: {:.3f}'.format(epoch+1, number_of_epoch, train_loss[-1], train_accuracy[-1]))
 
 plt.plot(dep_history)
 #plt.show()
 timestr = time.strftime("%Y%m%d-%H%M%S")
-plt.savefig('./{}.png'.format(timestr))
+plt.savefig('./chest_{}.png'.format(timestr))
 
 corrected = 0
 
@@ -235,7 +221,7 @@ accuracy = 100 * float(corrected)/ len_test
 print(f'Test accuracy is {accuracy :.3f}')
 print("Regularization: {}".format(use_regularization))
 
-with open("./4result_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
+with open("./9result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
     #f.write("{} {} \n".format(accuracy, test_accuracy[-1]))
     f.write("{}\n".format(accuracy))
     
