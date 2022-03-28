@@ -23,9 +23,9 @@ if __name__ == "__main__":
     if not os.path.exists('basic_demonstration'):
         os.makedirs('basic_demonstration')
 
-    n_batch = 2048 #2048
+    n_batch = 8192 #2048
     dim_x = 512 # 1024
-    dim_y = 4 # 32
+    dim_y = 512 # 32
     num_iter = 200 #500
     input_proj_dim = 0 #dim_x #0
     lr = 0.05
@@ -107,5 +107,5 @@ if __name__ == "__main__":
     plt.plot(history_dep, label="Dependent_multiplicative")
 
 
-    plt.savefig('./basic_demonstration/dependence_detection.png')
+    plt.savefig('./basic_demonstration/dependence_detection_1024_1024.png')
 

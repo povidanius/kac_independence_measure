@@ -33,6 +33,7 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
 from kac_independence_measure import KacIndependenceMeasure
+import csv   
 
 random_state = 0
 
@@ -90,13 +91,15 @@ def benchmark(X_train, y_train, X_test, y_test, method_name = 'R'):
     logistic = linear_model.LogisticRegression(max_iter=1000)
     #svc = SVC(kernel='rbf', gamma='auto', degree=2)
     #lsvm = LinearSVC(random_state=0, max_iter=100000)
-    print("%5.2f" % (logistic.fit(X_train, y_train).score(X_test, y_test)), end=" ")
+    result = logistic.fit(X_train, y_train).score(X_test, y_test)
+    print("%5.2f" % (result), end=" ")
 
     #print("LR score(%s): %f" % (method_name, logistic.fit(X_train, y_train).score(X_test, y_test)))
     #print("KNN3 score(%s): %f" % (method_name, knn.fit(X_train, y_train).score(X_test, y_test)))
     #print("LSVM score(%s): %f" % (method_name, lsvm.fit(X_train, y_train).score(X_test, y_test)))
     #print("SVM score(%s): %f" % (method_name, svc.fit(X_train, y_train).score(X_test, y_test)))
     #print("---")
+    return result
 
 if __name__ == "__main__":
 
@@ -188,16 +191,20 @@ if __name__ == "__main__":
     print(" & ",end =" ")
     print("({},{},{})".format(num_samples,X_train.shape[1],num_classes),end =" ")
     print(" & ",end =" ")
-    benchmark(X_train, y_train, X_test, y_test, 'R')
+    rez_raw = benchmark(X_train, y_train, X_test, y_test, 'R')
     print(" & ",end =" ")
-    benchmark(F_train, y_train, F_test, y_test, 'KacIMF')
+    rez_kacIMFE = benchmark(F_train, y_train, F_test, y_test, 'KacIMF')
     print(" & ",end =" ")
     #benchmark(PCA_X_train, y_train, PCA_X_test, y_test, 'PCA')
-    benchmark(NCA_X_train, y_train, NCA_X_test, y_test, 'NCA')
+    rez_NCA = benchmark(NCA_X_train, y_train, NCA_X_test, y_test, 'NCA')
     print("\\\\",end ="\n")
     #print("num_classes {}".format(num_classes))
 
-
+    with open('feature_extraction/{}.csv'.format(sys.argv[1]),'a') as fd:
+        result_row = [rez_raw, rez_kacIMFE, rez_NCA] 
+        writer = csv.writer(fd)
+        writer.writerow(result_row)
+        
 
 
     """

@@ -37,7 +37,7 @@ def get_activation(name):
 REGULARIZER = 0
 LOSS = 1
 
-kim = KacIndependenceMeasure(512, 2, lr=0.0007, input_projection_dim = 32, weight_decay=0.01,device=device) #0.007
+kim = KacIndependenceMeasure(32, 2, lr=0.0007, input_projection_dim = 0, weight_decay=0.01,device=device) #0.007
 
 
 train_transform = transforms.Compose([transforms.Grayscale(num_output_channels=3), 
@@ -75,7 +75,7 @@ test_loader = DataLoader(dataset= testing_dataset, shuffle=False)
 model = resnet18(pretrained=True) #, aux_logits=False)
 #model.fc = nn.Linear(512, 2)
 model.fc = nn.Sequential(
-    nn.Dropout(0.5),
+    #nn.Dropout(0.5),
     nn.Linear(512, 32),
     nn.ReLU(),
     nn.BatchNorm1d(32),
@@ -94,7 +94,7 @@ model.layer3[1].register_forward_hook(get_activation('layer3_1'))
 model.layer4[0].register_forward_hook(get_activation('layer4_0'))
 model.layer4[1].register_forward_hook(get_activation('layer4_1'))
 """
-model.fc[3].register_forward_hook(get_activation('fc_3'))
+model.fc[2].register_forward_hook(get_activation('fc_2'))
 
 
 model.to(device)
@@ -107,8 +107,8 @@ test_loss = []
 train_accuracy = []
 test_accuracy = []
 
-#num_kac_iters = 200
-optimize_kac_every_iters = 10
+num_kac_iters = 300
+#optimize_kac_every_iters = 20
 #switch_to_loss_every_iters = 100
 
 dep_history = []
@@ -116,7 +116,7 @@ dep_history = []
 reg_alpha = 0.2 #0.1
 
 use_regularization = True
-mode = LOSS
+mode = REGULARIZER
 
 
 for epoch in range(number_of_epoch):
@@ -139,34 +139,36 @@ for epoch in range(number_of_epoch):
         pred = model(data)     
 
         #breakpoint()
-        bottleneck = activation['fc_3'].squeeze()
+        bottleneck = activation['fc_2'].squeeze()
         y = torch.nn.functional.one_hot(label).float()
 
 
         #if use_regularization:
-        if True:
+        if False:
             if (iteration % optimize_kac_every_iters  == 0) and mode == LOSS:
                 mode = REGULARIZER
             elif (iteration % optimize_kac_every_iters  == 0) and mode == REGULARIZER:
                 mode = LOSS
 
-        if mode == REGULARIZER:
+
+        #if mode == REGULARIZER:
+        if iteration < num_kac_iters:
             reg = kim.forward(bottleneck, y, update=True)
 
-            print("Mode: REGULARIZER")
-            print(iteration % optimize_kac_every_iters)
-            print("reg {}".format(reg))
+            #print("Mode: REGULARIZER")
+            #print(iteration % optimize_kac_every_iters)
+            print("Mode: REGULARIZER, reg {}, epoch {}, iteration {}".format(reg, epoch, iteration))
             #print("bottleneck: {}, y {}".format(bottleneck.shape, y.shape))
             dep_history.append(reg.detach().cpu().numpy())
 
-        elif mode == LOSS:
+        else:
 
             print("Mode: LOSS")
 
             loss = loss_fn(pred, label) 
             if use_regularization:
                 reg = kim.forward(bottleneck, y, update=False)
-                print("loss {}, reg {}".format(loss, reg_alpha*reg))
+                print("loss {}, reg {}".format(loss, reg))
                 loss = loss - reg_alpha * reg # loss -> min.., dep -> max
 
             loss.backward()
@@ -182,7 +184,8 @@ for epoch in range(number_of_epoch):
             num_train += batch_size
         iteration = iteration + 1
 
-            
+    if train_iteration == 0:
+        continue        
         
     train_loss.append(train_iter_loss/train_iteration)
     train_accuracy.append(100*float(train_correct)/num_train)
@@ -221,7 +224,7 @@ accuracy = 100 * float(corrected)/ len_test
 print(f'Test accuracy is {accuracy :.3f}')
 print("Regularization: {}".format(use_regularization))
 
-with open("./9result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
+with open("./10result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
     #f.write("{} {} \n".format(accuracy, test_accuracy[-1]))
     f.write("{}\n".format(accuracy))
     
