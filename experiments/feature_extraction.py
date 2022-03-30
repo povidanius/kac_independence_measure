@@ -34,6 +34,8 @@ from sklearn.preprocessing import StandardScaler
 
 from kac_independence_measure import KacIndependenceMeasure
 import csv   
+from os.path import exists
+
 
 random_state = 0
 
@@ -62,8 +64,8 @@ def load_data(db_name, train_frac):
     X,y = fetch_openml(name=db_name, as_frame=True, return_X_y=True)
 
     print("X shape: {}".format(X.shape))
-    #if db_name == "ionosphere":
-    #    X = X.to_numpy()[:,2:] # remove constant columns
+    if db_name == "ionosphere":
+        X = X.to_numpy()[:,2:] # remove constant columns
 
     #breakpoint()
     dim_x = X.shape[1]
@@ -88,7 +90,7 @@ def load_data(db_name, train_frac):
 def benchmark(X_train, y_train, X_test, y_test, method_name = 'R'):
 
     #knn = KNeighborsClassifier(n_neighbors=3)
-    logistic = linear_model.LogisticRegression(max_iter=1000)
+    logistic = linear_model.LogisticRegression(max_iter=10000)
     #svc = SVC(kernel='rbf', gamma='auto', degree=2)
     #lsvm = LinearSVC(random_state=0, max_iter=100000)
     result = logistic.fit(X_train, y_train).score(X_test, y_test)
@@ -100,6 +102,8 @@ def benchmark(X_train, y_train, X_test, y_test, method_name = 'R'):
     #print("SVM score(%s): %f" % (method_name, svc.fit(X_train, y_train).score(X_test, y_test)))
     #print("---")
     return result
+
+# seq 10 | xargs -l -- | sed 's/[0-9]\+/pc4/g' | xargs -I {} python ./feature_extraction.py  {}
 
 if __name__ == "__main__":
 
@@ -147,7 +151,7 @@ if __name__ == "__main__":
             #breakpoint()
             dep = kim.forward(Xb, yb, normalize=normalize)
             dep_history.append(dep.detach().numpy())
-            print("{} {} {}, {}".format(i, j, dep, Xb.shape[0]))
+            print("epoch {} batch {} {}, {}".format(i, j, dep, Xb.shape[0]))
 
   
 
@@ -187,24 +191,54 @@ if __name__ == "__main__":
     NCA_X_train = nca.transform(X_train)
     NCA_X_test = nca.transform(X_test)
 
-    print(sys.argv[1],end =" ")
-    print(" & ",end =" ")
-    print("({},{},{})".format(num_samples,X_train.shape[1],num_classes),end =" ")
-    print(" & ",end =" ")
-    rez_raw = benchmark(X_train, y_train, X_test, y_test, 'R')
-    print(" & ",end =" ")
-    rez_kacIMFE = benchmark(F_train, y_train, F_test, y_test, 'KacIMF')
-    print(" & ",end =" ")
-    #benchmark(PCA_X_train, y_train, PCA_X_test, y_test, 'PCA')
-    rez_NCA = benchmark(NCA_X_train, y_train, NCA_X_test, y_test, 'NCA')
-    print("\\\\",end ="\n")
-    #print("num_classes {}".format(num_classes))
+    #from os.path import exists
+    handle_exception = True
+    try:
+        train = pd.read_csv('feature_extraction/{}.csv'.format(sys.argv[1]))
+        train_tensor = torch.tensor(train.values)
+        if train_tensor.shape[0] > 25:
+            print("Enough!")    
+            handle_exception = False         
+        else: 
+            print("A")
+            with open('feature_extraction/{}.csv'.format(sys.argv[1]),'a') as fd:
+                print(sys.argv[1],end =" ")
+                print(" & ",end =" ")
+                print("({},{},{})".format(num_samples,X_train.shape[1],num_classes),end =" ")
+                print(" & ",end =" ")
+                rez_raw = benchmark(X_train, y_train, X_test, y_test, 'R')
+                print(" & ",end =" ")
+                rez_kacIMFE = benchmark(F_train, y_train, F_test, y_test, 'KacIMF')
+                print(" & ",end =" ")
+                #benchmark(PCA_X_train, y_train, PCA_X_test, y_test, 'PCA')
+                rez_NCA = benchmark(NCA_X_train, y_train, NCA_X_test, y_test, 'NCA')
+                print("\\\\",end ="\n")
+                #print("num_classes {}".format(num_classes))
 
-    with open('feature_extraction/{}.csv'.format(sys.argv[1]),'a') as fd:
-        result_row = [rez_raw, rez_kacIMFE, rez_NCA] 
-        writer = csv.writer(fd)
-        writer.writerow(result_row)
-        
+                result_row = [rez_raw, rez_kacIMFE, rez_NCA] 
+                writer = csv.writer(fd)
+                writer.writerow(result_row)
+    except:         
+            if handle_exception == False:      
+                sys.exit(0)
+            else:
+                with open('feature_extraction/{}.csv'.format(sys.argv[1]),'a') as fd:
+                    print(sys.argv[1],end =" ")
+                    print(" & ",end =" ")
+                    print("({},{},{})".format(num_samples,X_train.shape[1],num_classes),end =" ")
+                    print(" & ",end =" ")
+                    rez_raw = benchmark(X_train, y_train, X_test, y_test, 'R')
+                    print(" & ",end =" ")
+                    rez_kacIMFE = benchmark(F_train, y_train, F_test, y_test, 'KacIMF')
+                    print(" & ",end =" ")
+                    #benchmark(PCA_X_train, y_train, PCA_X_test, y_test, 'PCA')
+                    rez_NCA = benchmark(NCA_X_train, y_train, NCA_X_test, y_test, 'NCA')
+                    print("\\\\",end ="\n")
+                    #print("num_classes {}".format(num_classes))
+
+                    result_row = [rez_raw, rez_kacIMFE, rez_NCA] 
+                    writer = csv.writer(fd)
+                    writer.writerow(result_row)  
 
 
     """

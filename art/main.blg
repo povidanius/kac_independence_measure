@@ -15,45 +15,46 @@ while executing---line 944 of file unsrt.bst
 Too many commas in name 1 of "David Applebaum, B.V. Rajarama Bhat, Johan Kustermans, J. Martin Lindsay, Michael Schuermann, Uwe Franz" for entry KacTheorem
 while executing---line 944 of file unsrt.bst
 Warning--empty journal in KacTheorem
-You've used 23 entries,
+Warning--can't use both author and editor fields in Wilcoxon1992
+You've used 24 entries,
             1791 wiz_defined-function locations,
-            614 strings with 8640 characters,
-and the built_in function-call counts, 6326 in all, are:
-= -- 509
-> -- 394
-< -- 8
-+ -- 136
-- -- 113
-* -- 455
-:= -- 1018
-add.period$ -- 75
-call.type$ -- 23
+            624 strings with 8853 characters,
+and the built_in function-call counts, 6669 in all, are:
+= -- 546
+> -- 398
+< -- 9
++ -- 138
+- -- 114
+* -- 473
+:= -- 1059
+add.period$ -- 78
+call.type$ -- 24
 change.case$ -- 21
 chr.to.int$ -- 0
-cite$ -- 24
-duplicate$ -- 282
-empty$ -- 577
-format.name$ -- 113
-if$ -- 1419
+cite$ -- 26
+duplicate$ -- 302
+empty$ -- 612
+format.name$ -- 114
+if$ -- 1505
 int.to.chr$ -- 0
-int.to.str$ -- 23
-missing$ -- 25
-newline$ -- 117
-num.names$ -- 35
-pop$ -- 92
+int.to.str$ -- 24
+missing$ -- 27
+newline$ -- 122
+num.names$ -- 36
+pop$ -- 97
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 137
+skip$ -- 152
 stack$ -- 0
-substring$ -- 307
-swap$ -- 81
-text.length$ -- 8
+substring$ -- 339
+swap$ -- 92
+text.length$ -- 9
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 1
-while$ -- 52
-width$ -- 25
-write$ -- 255
+warning$ -- 2
+while$ -- 56
+width$ -- 26
+write$ -- 267
 (There were 4 error messages)

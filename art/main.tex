@@ -19,7 +19,7 @@
 \newtheorem{theorem}{Theorem}
 
 \title{Statistical independence measure based on maximum norm and characteristic function factorisation}
-\author{Povilas Daniu\v{s}is, povilasd@neurotechnology.com\footnote{This preprint currently is not an official product of Neurotechnology}}
+\author{Povilas Daniu\v{s}is, povilasd@neurotechnology.com\footnote{This preprint currently is not officially related to Neurotechnology}}
 \date{November 2021}
 
 
@@ -201,7 +201,7 @@ Figure~\ref{fig:experiments_simulation} empirically shows that value of KacIM  n
 \paragraph{Comparison with distance correlation}
 
 
-\subsection{Feature selection}
+%\subsection{Feature selection}
 %Shubham
 
 \subsection{Feature extraction}
@@ -221,7 +221,8 @@ After the optimisation, the feature extraction is conducted by $f(x) = W^{*}x$, 
 
 
 
-We randomly split all the datasets in training and testing sets of equal size, comparing unmodified inputs $x$, and features of all possible dimensions up to $d_{x}$ with $10\%$ step.  In our experiments we set $\alpha$ to $1.0$ to quickly ensure orthogonal projection matrices, and further proceed to dependence maximization stage. In order to quantitatively evaluate features, we use logistic regression-based classification accuracy, measured on the testing set.
+We randomly split all the datasets in training and testing sets of equal size. % comparing unmodified inputs $x$, and features % of all possible dimensions up to $d_{x}$ with $10\%$ step.  
+In our experiments we set $\alpha$ to $1.0$ to quickly ensure orthogonal projection matrices, and further proceed to dependence maximization stage. In order to quantitatively evaluate features, we use logistic regression-based classification accuracy, measured on the testing set.
 
 
 We use two baselines: raw features (RAW column in Table~\ref{table:classification_accuracies}) and neighborhood component analysis~\cite{NIPS2004_42fe8808} (NCA column in Table~\ref{table:classification_accuracies}).  The purpose of these experiments is to provide the preliminary evaluation of the applicability of KacIM for feature extraction, hence we use rather basic cost function and comparative baselines.
@@ -229,11 +230,41 @@ We use two baselines: raw features (RAW column in Table~\ref{table:classificatio
 
 
 
-The classification accuracies, reported in Table~\ref{table:classification_accuracies} demonstrate that KacIM-based feature extraction procedure (KacIMFE column) indeed allows to increase classification accuracy when applied to real data sets from different domains, despite In contrast to our feature extraction approach, NCA explicitly optimises for classification accuracy, rather than more abstract dependency of $f(x)$ with $y$.
+The classification accuracies, reported in Table~\ref{table:classification_accuracies} demonstrate that KacIM-based feature extraction procedure (KacIMFE column) indeed allows to increase classification accuracy when applied to real data sets from different domains. In contrast to our feature extraction approach, NCA explicitly optimises for classification accuracy, rather than more abstract dependency of features $f(x)$ with dependent variable $y$.
 
 
 
+\begin{table}	
+	\centering
+	\begin{tabular}{ |p{3cm}|p{2.0cm}|p{1.2cm}|p{1.7cm}|p{1.2cm}|  }
+		%\hline
+		%\multicolumn{5}{|c|}{Classification accuracies} \\
+		\hline
+		Dataset & $N$/$d_{x}$/$n_{c}$. & Raw & KacIMFE & NCA  \\
+		\hline
+isolet & (7797,617,26)   &  0.9261  &  0.9437  &  \textbf{0.9477} \\
+madelon & (2600,500,2)   &  \textbf{0.6015}  &  0.5484  &  0.5685 \\
+prnn-viruses & (61,18,4)   &  0.6452  &  0.9265  &  0.9355 \\
+ionosphere & (351,34,2)   &  0.8807  &  0.9278  &  \textbf{0.9375} \\
+micro-mass & (360,1300,10)   &  0.8778  &  \textbf{0.9282}  &  0.8944 \\
+%CostaMadre1 & (296,37,2)   &  \textbf{0.8716}  &  0.8549  &  0.8378 \\
+clean1 & (476,168,2)   &  0.7689  &  \textbf{0.9888}  &  0.9790 \\
+%pc4 & (1458,37,2)   &  \textbf{0.8779}  &  0.8707  &  0.8683 \\
+robot-failures-lp2 & (47,90,5)   &  0.4583  &  0.6067  &  0.5833 \\
+waveform-5000 & (5000,40,3)   &  \textbf{0.8692}  &  0.8017  &  0.8516 \\
+spambase & (4601,57,2)   &  0.6906  &  0.8285  &  \textbf{0.8705} \\
+gina-agnostic & (3468,970,2)   &  \textbf{0.8512}  &  0.7894  &  0.8080 \\
+scene & (2407,299,2)   &  0.8895  &  \textbf{0.9707}  &  0.9336 \\
+tokyo1 & (959,44,2)   &  0.7250  &  0.8995  &  \textbf{0.9062} \\
+one-hundred-plants-shape & (1600,64,100)   &  0.1013  &  \textbf{0.4913}  &  0.4688 \\		
+		
+		\hline
+	\end{tabular}
+	\caption{Classification accuracies. $N$ denotes full data set size, $d_{x}$ - input dimensionality, and $n_{c}$ - number of classes. In this table feature dimension is equal to a half of original input dimension. Best accuracies that are also statistically significant (Wilcoxon's signed rank test~\cite{Wilcoxon1992}, 25 runs, $p$-value threshold $0.01$) are indicated in bold text.}
+	\label{table:classification_accuracies}	
+\end{table}
 
+\begin{comment}
 \begin{table}	
 	\centering
 	\begin{tabular}{ |p{3cm}|p{2.0cm}|p{1.2cm}|p{1.7cm}|p{1.2cm}|  }
@@ -253,15 +284,15 @@ The classification accuracies, reported in Table~\ref{table:classification_accur
 		pc4  &  (1458,37,2)  &   0.88  &   0.87  &   0.87 \\
 		madelon  &  (2600,500,2)  &   0.60  &   0.55  &   0.57 \\
 		scene  &  (2407,299,2)  &   0.89  &   0.98  &   0.93 \\
-		gina\_agnostic  &  (3468,970,2)  &   0.85  &   0.80  &   0.81 \\
+		%gina\_agnostic  &  (3468,970,2)  &   0.85  &   0.80  &   0.81 \\
 		isolet  &  (7797,617,26)  &   0.93  &   0.95  &   0.95 \\			
 								
 		\hline
 	\end{tabular}
-	\caption{Classification accuracies. $N$ denotes full data set size, $d_{x}$ - input dimensionality, and $n_{c}$ - number of classes. In this table feature dimension is equal to a half of original input dimension.}
+	\caption{Classification accuracies. $N$ denotes full data set size, $d_{x}$ - input dimensionality, and $n_{c}$ - number of classes. In this table feature dimension is equal to a half of original input dimension. }
 	\label{table:classification_accuracies}	
 \end{table}
-
+\end{comment}
 
 
 \subsection{Regularisation}
@@ -323,9 +354,9 @@ Test accuracy is 77.404
 \section{Conclusion} 
 
 \label{section:conclusion}
-In this article we propose statistical dependence measure, KacIM, which relies on the $L^{\infty}$ norm of the absolute value of difference between joint characteristic function and the product of marginal ones. The proposed measure, in theory can detect both linear and non-linear statistical depdendence between a pairs of random variables of possibly different dimension, extended to various known statistical generalisations (e.g. reproducing kernel Hilbert spaces, multivariablity), machine learning scenarios (e.g. feature extraction, regularisation, among others), and is empirically tractable on these problems. On the other side, it raises a corresponding set of unanswered questions, both theoretical and empirical. For example, the interpretability when it approaches its maximal value remains insufficiently clear, however empirical experiments with simulated data reveals, that increasing independence between two random variables is reflected in a decreasing trend on the estimated values of the proposed dependence measure. In contrary to e.g. HSIC or distance correlation, the estimation of the porposed measure is iterative optimisation process. Therefore, parameter initialization, meta-parameter (e.g. stopping criteria, batch size) selection are needed in order to evaluate it efficiently.
+In this article we propose statistical dependence measure, KacIM, which corresponds to the $L^{\infty}$ norm of the absolute value of difference between joint characteristic function and the product of marginal ones. The proposed measure, in theory can detect both linear and non-linear statistical depdendence between a pairs of random variables of possibly different dimension, extended to various known statistical generalisations (e.g. reproducing kernel Hilbert spaces, multivariablity), machine learning scenarios (e.g. feature extraction, regularisation, among others), and is empirically tractable on these problems. On the other side, it raises a corresponding set of unanswered questions, both theoretical and empirical. For example, the interpretability when it approaches its maximal value remains insufficiently clear, however empirical experiments with simulated data reveals, that increasing independence between two random variables is reflected in a decreasing trend on the estimated values of the proposed dependence measure. In contrary to e.g. HSIC or distance correlation, the estimation of the porposed measure is iterative optimisation process. Therefore, parameter initialization, meta-parameter (e.g. stopping criteria, batch size) selection are needed in order to evaluate it efficiently.
 
-Beside demonstrated applications in Section~\ref{section:experiments}, the proposed measure is differentiable and thereby can be integrated with various modern deep-learning methods, applied to high-dimensional and structured data. From empirical point of view, we see exploration of KacIM in causality, information bottleneck theory, self-supervised learning, and other modern problems, where dependence measures define a criterion of optimisation, as important future work. We also would like to note, that exhaustive survey of measures of statistical dependence, accompanied with open-source code repository, would be helpful both for the theorists and for practicioneers.
+Beside demonstrated applications in Section~\ref{section:experiments}, the proposed measure is differentiable and thereby can be integrated with various modern deep-learning methods, applied to high-dimensional and structured data. From empirical point of view, we see exploration of KacIM in causality, information bottleneck theory, self-supervised learning, and other modern problems, where dependence measures define a criterion of optimisation, as important future work. %We also would like to note, that exhaustive survey of measures of statistical dependence, accompanied with open-source code repository, would be helpful both for the theorists and for practicioneers.
 
 \begin{comment}
 ....
@@ -339,7 +370,7 @@ Conducted empirical analysis show, that KacIM can detect and measure statistical
 
 \section{Acknowledgements}
 
-We sincerely thank Dr. Pranas Vaitkus, Dr. Linas Petkevi\v{c}ius, and colleagues from Neurotechnology for discussions.
+We sincerely thank Dr. Pranas Vaitkus, Dr. Linas Petkevi\v{c}ius, and colleagues from Neurotechnology for discussions. We also thank Neurotechnology for supporting this research.
 
 %\subsection{KacIM for information bottleneck}
 %\subsection{Canonical component analysis, independent component analysis}

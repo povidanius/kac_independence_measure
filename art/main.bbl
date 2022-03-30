@@ -90,6 +90,18 @@ Dominic Edelmann, Konstantinos Fokianos, and Maria Pitsillou.
   Applications to Time Series}.
 \newblock {\em International Statistical Review}, 87(2):237--262, August 2019.
 
+\bibitem{NEURIPS2019_9015}
+Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory
+  Chanan, Trevor Killeen, Zeming Lin, Natalia Gimelshein, Luca Antiga, Alban
+  Desmaison, Andreas Kopf, Edward Yang, Zachary DeVito, Martin Raison, Alykhan
+  Tejani, Sasank Chilamkurthy, Benoit Steiner, Lu~Fang, Junjie Bai, and Soumith
+  Chintala.
+\newblock Pytorch: An imperative style, high-performance deep learning library.
+\newblock In H.~Wallach, H.~Larochelle, A.~Beygelzimer, F.~d\textquotesingle
+  Alch\'{e}-Buc, E.~Fox, and R.~Garnett, editors, {\em Advances in Neural
+  Information Processing Systems 32}, pages 8024--8035. Curran Associates,
+  Inc., 2019.
+
 \bibitem{Jacod}
 Jacod Jean.
 \newblock {\em Probability essentials / Jean Jacod, Philip Protter}.
@@ -102,18 +114,6 @@ Johan Kustermans J. Martin Lindsay Michael Schuermann Uwe~Franz
 \newblock Quantum independent increment processes i: From classical probability
   to quantum stochastic calculus.
 \newblock 2005.
-
-\bibitem{NEURIPS2019_9015}
-Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory
-  Chanan, Trevor Killeen, Zeming Lin, Natalia Gimelshein, Luca Antiga, Alban
-  Desmaison, Andreas Kopf, Edward Yang, Zachary DeVito, Martin Raison, Alykhan
-  Tejani, Sasank Chilamkurthy, Benoit Steiner, Lu~Fang, Junjie Bai, and Soumith
-  Chintala.
-\newblock Pytorch: An imperative style, high-performance deep learning library.
-\newblock In H.~Wallach, H.~Larochelle, A.~Beygelzimer, F.~d\textquotesingle
-  Alch\'{e}-Buc, E.~Fox, and R.~Garnett, editors, {\em Advances in Neural
-  Information Processing Systems 32}, pages 8024--8035. Curran Associates,
-  Inc., 2019.
 
 \bibitem{Loshchilov2019DecoupledWD}
 Ilya Loshchilov and Frank Hutter.
@@ -145,5 +145,10 @@ Jacob Goldberger, Geoffrey~E Hinton, Sam Roweis, and Russ~R Salakhutdinov.
 \newblock Neighbourhood components analysis.
 \newblock In L.~Saul, Y.~Weiss, and L.~Bottou, editors, {\em Advances in Neural
   Information Processing Systems}, volume~17. MIT Press, 2004.
+
+\bibitem{Wilcoxon1992}
+Frank Wilcoxon.
+\newblock {\em Individual Comparisons by Ranking Methods}, pages 196--202.
+\newblock Springer New York, New York, NY, 1992.
 
 \end{thebibliography}
