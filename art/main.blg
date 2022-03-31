@@ -18,34 +18,34 @@ Warning--empty journal in KacTheorem
 Warning--can't use both author and editor fields in Wilcoxon1992
 You've used 24 entries,
             1791 wiz_defined-function locations,
-            624 strings with 8853 characters,
-and the built_in function-call counts, 6669 in all, are:
-= -- 546
-> -- 398
+            625 strings with 9074 characters,
+and the built_in function-call counts, 6482 in all, are:
+= -- 542
+> -- 357
 < -- 9
-+ -- 138
-- -- 114
-* -- 473
-:= -- 1059
++ -- 126
+- -- 102
+* -- 446
+:= -- 1019
 add.period$ -- 78
 call.type$ -- 24
 change.case$ -- 21
 chr.to.int$ -- 0
 cite$ -- 26
 duplicate$ -- 302
-empty$ -- 612
-format.name$ -- 114
-if$ -- 1505
+empty$ -- 611
+format.name$ -- 102
+if$ -- 1472
 int.to.chr$ -- 0
 int.to.str$ -- 24
 missing$ -- 27
 newline$ -- 122
-num.names$ -- 36
+num.names$ -- 34
 pop$ -- 97
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 152
+skip$ -- 150
 stack$ -- 0
 substring$ -- 339
 swap$ -- 92
@@ -54,7 +54,7 @@ text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 2
-while$ -- 56
+while$ -- 55
 width$ -- 26
 write$ -- 267
 (There were 4 error messages)

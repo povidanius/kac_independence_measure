@@ -152,8 +152,13 @@ We also emprically observed that normalisation of parameters $\alpha$ and $\beta
 
 Note, that e.g. Shannon and Renyi mutual information~\cite{Cover2006} are also estimated via transforming them into maximisation problem by Donsker-Varadhan representation~\cite{pmlr-v80-belghazi18a}, in order to avoid density estimation.
 
-
-
+\subsection{Connection to canonical correlation}
+If both $X$ and $Y$ are zero mean Gaussian random vectors we have:
+\begin{equation}
+\label{eq:gaussian_kacim}
+\kappa(X,Y) = \max_{\alpha, \beta} | e^{-\frac{1}{2} \alpha^{T}\Sigma_{x}\alpha + \beta{^T}\Sigma_{y}\beta}(e^{-\frac{1}{2}\alpha{^T}\Sigma_{x,y}\beta} - 1)|.
+\end{equation}
+Assuming constant $\alpha^{T}\Sigma_{x}\alpha$ and  $\beta{^T}\Sigma_{y}\beta$, the maximization of~\eqref{eq:gaussian_kacim} can be achieved by maximization of  $\alpha{^T}\Sigma_{x,y}\beta$, which coincides with the cost function of canonical correlation analysis~\cite{CCA}. Here $\Sigma_{x}$, $\Sigma_{y}$ and  $\Sigma_{x,y}$ are covariance matrices of $X$, $Y$, and $(X,Y)$, respectively. %$(X^{T},Y^{T})^{T}$.
 
 \subsection{Kernel version}
 

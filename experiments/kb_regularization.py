@@ -38,7 +38,7 @@ def get_activation(name):
 REGULARIZER = 0
 LOSS = 1
 
-kim = KacIndependenceMeasure(32, 32, lr=0.0005, weight_decay=0.01,device=device) #0.007
+kim = KacIndependenceMeasure(2, 2, lr=0.0005, weight_decay=0.01,device=device) #0.007
 
 
 train_transform = transforms.Compose([transforms.Grayscale(num_output_channels=3), 
@@ -95,7 +95,7 @@ model.layer4[0].register_forward_hook(get_activation('layer4_0'))
 model.layer4[1].register_forward_hook(get_activation('layer4_1'))
 """
 #model.avgpool.register_forward_hook(get_activation('avgpool'))
-model.fc[3].register_forward_hook(get_activation('fc_3'))
+model.fc[4].register_forward_hook(get_activation('fc_4'))
 
 
 model.to(device)
@@ -116,9 +116,9 @@ dep_history = []
 
 reg_alpha = 0.1 #0.1
 
-use_regularization = False
+use_regularization = True
 save_dep_figures = True
-mode = REGULARIZER
+mode = LOSS
 
 
 for epoch in range(number_of_epoch):
@@ -134,6 +134,8 @@ for epoch in range(number_of_epoch):
     model.train()
     iteration = 0
     internal_iter = 0
+    reg_iter = 0
+    #loss_iter = 0
     
     it = iter(train_loader)
     #for data,label in train_loader:
@@ -153,11 +155,14 @@ for epoch in range(number_of_epoch):
 
         optimizer.zero_grad()             
         pred1 = model(x1)
-        bottleneck1 = activation['fc_3'].squeeze()
+        bottleneck1 = activation['fc_4'].squeeze()
         y_1 = torch.nn.functional.one_hot(label1).float()
 
+        #print(label1)
+        #breakpoint()
+
         pred2 = model(x2)     
-        bottleneck2 = activation['fc_3'].squeeze()
+        bottleneck2 = activation['fc_4'].squeeze()
         y_2 = torch.nn.functional.one_hot(label2).float()
 
         z1 = bottleneck1 + bottleneck2
@@ -170,8 +175,7 @@ for epoch in range(number_of_epoch):
         #        mode = REGULARIZER
         #    elif (iteration % optimize_kac_every_iters  == 0) and mode == REGULARIZER:
         #        mode = LOSS
-        if True:
-        #if mode == REGULARIZER:
+        if mode == REGULARIZER:
             reg = kim.forward(z1, z2, update=True)
 
             print("Mode: REGULARIZER")
@@ -184,7 +188,11 @@ for epoch in range(number_of_epoch):
             #    internal_iter = 0
             #    continue
             internal_iter = internal_iter + 1 
-        #elif mode == LOSS:
+            dep_iter = dep_iter + 1
+            if dep_iter >= 100:
+                dep_iter = 0
+
+        elif mode == LOSS:
 
             print("Mode: LOSS")
 
@@ -192,7 +200,7 @@ for epoch in range(number_of_epoch):
             loss2 = loss_fn(pred2, label2)
             loss = loss1 + loss2
             if use_regularization:
-                reg = kim.forward(z1, z2, update=False)
+                reg = kim.forward(z1, z2, update=True)
                 #if reg.item() < 0.1:
                 #    mode = REGULARIZER
                 #    internal_iter = 0
@@ -225,38 +233,6 @@ for epoch in range(number_of_epoch):
     #train_accuracy.append(100*float(train_correct)/len_train)
   
 
-        if False:
-            torch.save({
-                'epoch': epoch,
-                'model_state_dict': model.state_dict(),
-                'optimizer_state_dict': optimizer.state_dict(),
-                'loss': train_loss,
-                }, format("chest_checkpoint_{}.pt".format(epoch)))
-        print ('Epoch {}/{}, Training Loss: {:.3f}, Training Accuracy: {:.3f}'.format(epoch+1, number_of_epoch, train_loss[-1], train_accuracy[-1]))
-
-    """
-    model.eval()
-    with torch.no_grad():
-        for data,label in val_loader:
-        
-            data = data.to(device)
-            label = label.to(device)
-        
-            pred = model(data)
-            loss = loss_fn(pred, label)
-        
-            test_iter_loss += loss.item()
-            test_iteration += 1
-        
-            _, predicted = torch.max(pred, 1)
-            test_correct += (predicted == label).sum()
-        
-    test_loss.append(test_iter_loss/test_iteration)
-    test_accuracy.append(100*float(test_correct)/len_val)
-    
-    print ('Epoch {}/{}, Training Loss: {:.3f}, Training Accuracy: {:.3f}, Validation Loss: {:.3f}, Validation Acc: {:.3f}'
-           .format(epoch+1, number_of_epoch, train_loss[-1], train_accuracy[-1], test_loss[-1], test_accuracy[-1]))
-    """
 
 if save_dep_figures:
     plt.plot(dep_history)
@@ -282,7 +258,7 @@ accuracy = 100 * float(corrected)/ len_test
 print(f'Test accuracy is {accuracy :.3f}')
 print("Regularization: {}".format(use_regularization))
 
-with open("./8result_kb_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
+with open("./10result_kb_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
     #f.write("{} {} \n".format(accuracy, test_accuracy[-1]))
     f.write("{}\n".format(accuracy))
   

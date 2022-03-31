@@ -1,13 +1,13 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import math
-import numpy as np
-import matplotlib.pyplot as plt
+#import math
+#import numpy as np
+#import matplotlib.pyplot as plt
 from torch.autograd import Variable
 import itertools
-from torch.nn.utils import weight_norm
-import numpy as np
+#from torch.nn.utils import weight_norm
+#import numpy as np
 
 # Kac independence measure, preprint/article will be added further.
 # Author: Dr. Povilas Daniušis, ORCID 0000-0001-5977-827X
@@ -44,19 +44,16 @@ class KacIndependenceMeasure(nn.Module):
             self.b = Variable(torch.rand(self.output_projection_dim,device=self.device), requires_grad=True)
             self.projection_y = nn.Linear(self.dim_y, self.output_projection_dim).to(self.device)
             param_list = param_list + list(self.projection_y.parameters()) #+ [self.b]
-            #self.optimizer = torch.optim.AdamW(list(self.projection.parameters()) + [self.a, self.b], lr=self.lr, weight_decay=self.weight_decay) 
         else:            
             self.b = Variable(torch.rand(self.dim_y,device=self.device), requires_grad=True)
         
         
         self.optimizer = torch.optim.AdamW(param_list  + [self.a, self.b], lr=self.lr, weight_decay=self.weight_decay) 
 
-        #self.optimizer = torch.optim.AdamW([self.a, self.b], lr=self.lr, weight_decay=self.weight_decay ) 
 
    
 
     def project(self, x, normalize=True):
-        #print(x.shape)
         if normalize:
             x = (x - x.mean(axis=0, keepdim=True))/(0.00001 + x.std(axis=0, keepdim=True))
 
@@ -69,7 +66,7 @@ class KacIndependenceMeasure(nn.Module):
             #if self.dim_y > 1:
             #    y = (y - y.mean(axis=1, keepdim=True))/y.std(axis=1, keepdim=True)
             #else:    
-            y = (y - y.mean(axis=0, keepdim=True))/y.std(axis=0, keepdim=True)
+            y = (y - y.mean(axis=0, keepdim=True))/(y.std(axis=0, keepdim=True))
         
 
         if self.input_projection_dim > 0:                

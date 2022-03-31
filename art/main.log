@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.6.4)  30 MAR 2022 12:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.6.4)  31 MAR 2022 21:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -918,78 +918,81 @@ n/10 !
 
 [4]
 
-LaTeX Warning: Citation `?' on page 5 undefined on input line 166.
+LaTeX Warning: Citation `CCA' on page 5 undefined on input line 161.
 
-<../experiments/basic_demonstration/dependence_detection.png, id=178, 462.528pt
+
+LaTeX Warning: Citation `?' on page 5 undefined on input line 171.
+
+<../experiments/basic_demonstration/dependence_detection.png, id=183, 462.528pt
  x 346.896pt>
 File: ../experiments/basic_demonstration/dependence_detection.png Graphic file 
 (type png)
 <use ../experiments/basic_demonstration/dependence_detection.png>
 Package pdftex.def Info: ../experiments/basic_demonstration/dependence_detectio
-n.png  used on input line 187.
+n.png  used on input line 192.
 (pdftex.def)             Requested size: 148.01198pt x 111.00897pt.
-<../experiments/noise_effect/summary.png, id=180, 462.528pt x 346.896pt>
+<../experiments/noise_effect/summary.png, id=185, 462.528pt x 346.896pt>
 File: ../experiments/noise_effect/summary.png Graphic file (type png)
 <use ../experiments/noise_effect/summary.png>
 Package pdftex.def Info: ../experiments/noise_effect/summary.png  used on input
- line 189.
+ line 194.
 (pdftex.def)             Requested size: 148.01198pt x 111.00897pt.
 [5] [6 <../experiments/basic_demonstration/dependence_detection.png> <../experi
 ments/noise_effect/summary.png>]
-Overfull \hbox (1.42801pt too wide) in paragraph at lines 245--245
+Overfull \hbox (1.42801pt too wide) in paragraph at lines 250--250
 []\OT1/cmr/m/n/10 (7797,617,26)| 
  []
 
 
-Overfull \hbox (1.42801pt too wide) in paragraph at lines 249--249
+Overfull \hbox (1.42801pt too wide) in paragraph at lines 254--254
 []\OT1/cmr/m/n/10 (360,1300,10)| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 259--259
+Underfull \hbox (badness 10000) in paragraph at lines 264--264
 []\OT1/cmr/m/n/10 one-hundred-
  []
 
 
-Overfull \hbox (1.42801pt too wide) in paragraph at lines 259--259
+Overfull \hbox (1.42801pt too wide) in paragraph at lines 264--264
 []\OT1/cmr/m/n/10 (1600,64,100)| 
  []
 
 Excluding 'comment' comment. [7]
-<./img/IM-0170-0001.jpeg, id=226, 2156.055pt x 1501.61pt>
+<./img/IM-0170-0001.jpeg, id=232, 2156.055pt x 1501.61pt>
 File: ./img/IM-0170-0001.jpeg Graphic file (type jpg)
 <use ./img/IM-0170-0001.jpeg>
-Package pdftex.def Info: ./img/IM-0170-0001.jpeg  used on input line 306.
+Package pdftex.def Info: ./img/IM-0170-0001.jpeg  used on input line 311.
 (pdftex.def)             Requested size: 150.93927pt x 105.12343pt.
-<./img/person1_bacteria_1.jpeg, id=227, 714.67pt x 440.64626pt>
+<./img/person1_bacteria_1.jpeg, id=233, 714.67pt x 440.64626pt>
 File: ./img/person1_bacteria_1.jpeg Graphic file (type jpg)
 <use ./img/person1_bacteria_1.jpeg>
-Package pdftex.def Info: ./img/person1_bacteria_1.jpeg  used on input line 308.
+Package pdftex.def Info: ./img/person1_bacteria_1.jpeg  used on input line 313.
 
 (pdftex.def)             Requested size: 142.93146pt x 88.12769pt.
  Excluding 'comment' comment. [8 <./img/IM-0170-0001.jpeg> <./img/person1_bacte
 ria_1.jpeg>] Excluding 'comment' comment.
 (./main.bbl [9])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 395.
- [10]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 395.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 400.
+ [10] [11]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 400.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 395.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 395.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 400.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 400.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 1451D24203A17B900D8A461359B51417;771.
+(rerunfilecheck)             Checksum: 8C648B07875CB06605B4A6C3704D062A;856.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 395.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 400.
  ) 
 Here is how much of TeX's memory you used:
- 8937 strings out of 492982
- 131392 string characters out of 6134897
- 225478 words of memory out of 5000000
- 12288 multiletter control sequences out of 15000+600000
- 14970 words of font info for 56 fonts, out of 8000000 for 9000
+ 8945 strings out of 492982
+ 131488 string characters out of 6134897
+ 226541 words of memory out of 5000000
+ 12292 multiletter control sequences out of 15000+600000
+ 15346 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  44i,11n,43p,1325b,477s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texli
@@ -1002,22 +1005,24 @@ c/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
 nts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.p
 fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmti8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/m
-sbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/ms
-bm7.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/
-texmf/fonts/type1/public/cm-super/sfrm0800.pfb>
-Output written on main.pdf (10 pages, 1231913 bytes).
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mti8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
+</usr/share/texmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf/fo
+nts/type1/public/cm-super/sfrm0800.pfb></usr/share/texmf/fonts/type1/public/cm-
+super/sfti0800.pfb>
+Output written on main.pdf (11 pages, 1255952 bytes).
 PDF statistics:
- 341 PDF objects out of 1000 (max. 8388607)
- 296 compressed objects within 3 object streams
- 78 named destinations out of 1000 (max. 500000)
- 125 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 361 PDF objects out of 1000 (max. 8388607)
+ 312 compressed objects within 4 object streams
+ 81 named destinations out of 1000 (max. 500000)
+ 133 words of extra memory for PDF output out of 10000 (max. 10000000)
 

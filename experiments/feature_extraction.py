@@ -104,6 +104,7 @@ def benchmark(X_train, y_train, X_test, y_test, method_name = 'R'):
     return result
 
 # seq 10 | xargs -l -- | sed 's/[0-9]\+/pc4/g' | xargs -I {} python ./feature_extraction.py  {}
+# seq 25 | xargs -l -- | sed 's/[0-9]\+/robot-failures-lp2/g' | xargs -I {} python ./feature_extraction.py  {}
 
 if __name__ == "__main__":
 

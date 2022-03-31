@@ -4,10 +4,11 @@
 \BOOKMARK [1][-]{section.3}{Proposed Independence Measure}{}% 4
 \BOOKMARK [2][-]{subsection.3.1}{Basic Properties}{section.3}% 5
 \BOOKMARK [2][-]{subsection.3.2}{Estimation}{section.3}% 6
-\BOOKMARK [2][-]{subsection.3.3}{Kernel version}{section.3}% 7
-\BOOKMARK [1][-]{section.4}{Experiments}{}% 8
-\BOOKMARK [2][-]{subsection.4.1}{Generated data}{section.4}% 9
-\BOOKMARK [2][-]{subsection.4.2}{Feature extraction}{section.4}% 10
-\BOOKMARK [2][-]{subsection.4.3}{Regularisation}{section.4}% 11
-\BOOKMARK [1][-]{section.5}{Conclusion}{}% 12
-\BOOKMARK [1][-]{section.6}{Acknowledgements}{}% 13
+\BOOKMARK [2][-]{subsection.3.3}{Connection to canonical correlation}{section.3}% 7
+\BOOKMARK [2][-]{subsection.3.4}{Kernel version}{section.3}% 8
+\BOOKMARK [1][-]{section.4}{Experiments}{}% 9
+\BOOKMARK [2][-]{subsection.4.1}{Generated data}{section.4}% 10
+\BOOKMARK [2][-]{subsection.4.2}{Feature extraction}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.3}{Regularisation}{section.4}% 12
+\BOOKMARK [1][-]{section.5}{Conclusion}{}% 13
+\BOOKMARK [1][-]{section.6}{Acknowledgements}{}% 14

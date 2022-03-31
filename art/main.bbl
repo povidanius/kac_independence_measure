@@ -2,19 +2,19 @@
 
 \bibitem{Gretton2005MeasuringSD}
 Arthur Gretton, Olivier Bousquet, Alex Smola, and Bernhard Sch{\"o}lkopf.
-\newblock Measuring statistical dependence with hilbert-schmidt norms.
+\newblock {Measuring Statistical Dependence with Hilbert-Schmidt Norms}.
 \newblock In {\em ALT}, 2005.
 
 \bibitem{EigenHSIC}
-P.~Daniu{\v{s}}is and P.~Vaitkus.
-\newblock Supervised feature extraction using hilbert-schmidt norms.
-\newblock In Emilio Corchado and Hujun Yin, editors, {\em Intelligent Data
-  Engineering and Automated Learning - IDEAL 2009}, pages 25--33, Berlin,
+{Daniu{\v{s}}is, P. and Vaitkus, P.}
+\newblock {Supervised Feature Extraction Using Hilbert-Schmidt Norms}.
+\newblock In {Corchado, Emilio and Yin, Hujun}, editor, {\em {Intelligent Data
+  Engineering and Automated Learning - IDEAL 2009}}, pages 25--33, Berlin,
   Heidelberg, 2009. Springer Berlin Heidelberg.
 
 \bibitem{HSCA}
 P.~Daniušis, Pr. Vaitkus, and L.~Petkevičius.
-\newblock Hilbert–schmidt component analysis.
+\newblock {Hilbert–Schmidt component analysis}.
 \newblock {\em Lithuanian mathematical journal}, 57(A):7–11, Dec. 2016.
 
 \bibitem{Ma2020TheHB}
@@ -25,7 +25,7 @@ Kurt Wan-Duo Ma, J.~P. Lewis, and W.~Kleijn.
 \bibitem{NIPS2008_f7664060}
 Patrik Hoyer, Dominik Janzing, Joris~M Mooij, Jonas Peters, and Bernhard
   Sch\"{o}lkopf.
-\newblock Nonlinear causal discovery with additive noise models.
+\newblock {Nonlinear causal discovery with additive noise models}.
 \newblock In D.~Koller, D.~Schuurmans, Y.~Bengio, and L.~Bottou, editors, {\em
   Advances in Neural Information Processing Systems}, volume~21. Curran
   Associates, Inc., 2009.
@@ -38,20 +38,20 @@ Yazhe Li, Roman Pogodin, Danica~J. Sutherland, and Arthur Gretton.
 
 \bibitem{Ragonesi2021LearningUR}
 Ruggero Ragonesi, Riccardo Volpi, Jacopo Cavazza, and Vittorio Murino.
-\newblock Learning unbiased representations via mutual information
-  backpropagation.
+\newblock {Learning Unbiased Representations via Mutual Information
+  Backpropagation}.
 \newblock {\em 2021 IEEE/CVF Conference on Computer Vision and Pattern
   Recognition Workshops (CVPRW)}, pages 2723--2732, 2021.
 
 \bibitem{Cover2006}
 Thomas~M. Cover and Joy~A. Thomas.
-\newblock {\em Elements of Information Theory 2nd Edition (Wiley Series in
-  Telecommunications and Signal Processing)}.
+\newblock {\em {Elements of Information Theory 2nd Edition (Wiley Series in
+  Telecommunications and Signal Processing)}}.
 \newblock Wiley-Interscience, July 2006.
 
 \bibitem{Feuerverger}
 Andrey Feuerverger.
-\newblock A consistent test for bivariate dependence.
+\newblock {A Consistent Test for Bivariate Dependence}.
 \newblock {\em International Statistical Review / Revue Internationale de
   Statistique}, 61(3):419--433, 1993.
 
@@ -62,26 +62,26 @@ Gábor~J. Székely, Maria~L. Rizzo, and Nail~K. Bakirov.
 
 \bibitem{Pczos2012CopulabasedKD}
 Barnab{\'a}s P{\'o}czos, Zoubin Ghahramani, and Jeff~G. Schneider.
-\newblock Copula-based kernel dependency measures.
+\newblock {Copula-based Kernel Dependency Measures}.
 \newblock {\em ArXiv}, abs/1206.4682, 2012.
 
 \bibitem{NIPS2019_9147}
-Youssef Mroueh, Tom Sercu, Mattia Rigotti, Inkit Padhi, and Cicero Nogueira~dos
-  Santos.
-\newblock Sobolev independence criterion.
-\newblock In H.~Wallach, H.~Larochelle, A.~Beygelzimer, F.~d\textquotesingle
-  Alch\'{e}-Buc, E.~Fox, and R.~Garnett, editors, {\em Advances in Neural
-  Information Processing Systems 32}, pages 9505--9515. Curran Associates,
-  Inc., 2019.
+{Mroueh, Youssef and Sercu, Tom and Rigotti, Mattia and Padhi, Inkit and
+  Nogueira dos Santos, Cicero}.
+\newblock {Sobolev Independence Criterion}.
+\newblock In {\em {Advances in Neural Information Processing Systems 32},
+  editor = {H. Wallach and H. Larochelle and A. Beygelzimer and F.
+  d\textquotesingle Alch\'{e}-Buc and E. Fox and R. Garnett}}, pages
+  9505--9515. Curran Associates, Inc., 2019.
 
 \bibitem{Bottcher}
 Björn Böttcher, Martin Keller-Ressel, and René Schilling.
-\newblock Distance multivariance: New dependence measures for random vectors,
+\newblock {Distance multivariance: New dependence measures for random vectors},
   10 2018.
 
 \bibitem{CHAUDHURI201915}
 Arin Chaudhuri and Wenhao Hu.
-\newblock A fast algorithm for computing distance correlation.
+\newblock {A fast algorithm for computing distance correlation}.
 \newblock {\em Computational Statistics and Data Analysis}, 135:15--24, 2019.
 
 \bibitem{Edlemann}
@@ -111,19 +111,19 @@ Jacod Jean.
 \bibitem{KacTheorem}
 Johan Kustermans J. Martin Lindsay Michael Schuermann Uwe~Franz
   David~Applebaum, B.V. Rajarama~Bhat.
-\newblock Quantum independent increment processes i: From classical probability
-  to quantum stochastic calculus.
+\newblock {Quantum Independent Increment Processes I: From Classical
+  Probability to Quantum Stochastic Calculus}.
 \newblock 2005.
 
 \bibitem{Loshchilov2019DecoupledWD}
 Ilya Loshchilov and Frank Hutter.
-\newblock Decoupled weight decay regularization.
+\newblock {Decoupled Weight Decay Regularization}.
 \newblock In {\em ICLR}, 2019.
 
 \bibitem{pmlr-v80-belghazi18a}
 Mohamed~Ishmael Belghazi, Aristide Baratin, Sai Rajeshwar, Sherjil Ozair,
   Yoshua Bengio, Aaron Courville, and Devon Hjelm.
-\newblock Mutual information neural estimation.
+\newblock {Mutual Information Neural Estimation}.
 \newblock In Jennifer Dy and Andreas Krause, editors, {\em Proceedings of the
   35th International Conference on Machine Learning}, volume~80 of {\em
   Proceedings of Machine Learning Research}, pages 531--540. PMLR, 10--15 Jul
@@ -142,13 +142,13 @@ Joaquin Vanschoren, Jan~N. van Rijn, Bernd Bischl, and Luis Torgo.
 
 \bibitem{NIPS2004_42fe8808}
 Jacob Goldberger, Geoffrey~E Hinton, Sam Roweis, and Russ~R Salakhutdinov.
-\newblock Neighbourhood components analysis.
+\newblock {Neighbourhood Components Analysis}.
 \newblock In L.~Saul, Y.~Weiss, and L.~Bottou, editors, {\em Advances in Neural
   Information Processing Systems}, volume~17. MIT Press, 2004.
 
 \bibitem{Wilcoxon1992}
-Frank Wilcoxon.
-\newblock {\em Individual Comparisons by Ranking Methods}, pages 196--202.
+{Wilcoxon, Frank}.
+\newblock {\em {Individual Comparisons by Ranking Methods}}, pages 196--202.
 \newblock Springer New York, New York, NY, 1992.
 
 \end{thebibliography}
