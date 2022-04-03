@@ -156,7 +156,7 @@ Note, that e.g. Shannon and Renyi mutual information~\cite{Cover2006} are also e
 If both $X$ and $Y$ are zero mean Gaussian random vectors we have:
 \begin{equation}
 \label{eq:gaussian_kacim}
-\kappa(X,Y) = \max_{\alpha, \beta} | e^{-\frac{1}{2} \alpha^{T}\Sigma_{x}\alpha + \beta{^T}\Sigma_{y}\beta}(e^{-\frac{1}{2}\alpha{^T}\Sigma_{x,y}\beta} - 1)|.
+\kappa(X,Y) = \max_{\alpha, \beta} | e^{-\frac{1}{2} (\alpha^{T}\Sigma_{x}\alpha + \beta{^T}\Sigma_{y}\beta)}(e^{-\frac{1}{2}\alpha{^T}\Sigma_{x,y}\beta} - 1)|.
 \end{equation}
 Assuming constant $\alpha^{T}\Sigma_{x}\alpha$ and  $\beta{^T}\Sigma_{y}\beta$, the maximization of~\eqref{eq:gaussian_kacim} can be achieved by maximization of  $\alpha{^T}\Sigma_{x,y}\beta$, which coincides with the cost function of canonical correlation analysis~\cite{CCA}. Here $\Sigma_{x}$, $\Sigma_{y}$ and  $\Sigma_{x,y}$ are covariance matrices of $X$, $Y$, and $(X,Y)$, respectively. %$(X^{T},Y^{T})^{T}$.
 
@@ -344,17 +344,6 @@ Cost(\theta_{0},\theta_{1}, W) := CE(f(\phi(x|\theta_{0})|\theta_{1}),y) - \beta
 
 The results of classification accuracy without and with aforementioned regularisation is reported in Table~\ref{table:regularisation_classification_accuracies}.
 
-\begin{comment}
-With:
-
-Epoch 7/7, Training Loss: -0.201, Training Accuracy: 36.081, Validation Loss: 0.380, Validation Acc: 93.750
-Test accuracy is 85.737
-
-Without:
-
-Epoch 7/7, Training Loss: 0.048, Training Accuracy: 98.428, Validation Loss: 0.149, Validation Acc: 93.750
-Test accuracy is 77.404
-\end{comment}
 
 \section{Conclusion} 
 
