@@ -116,7 +116,7 @@ dep_history = []
 
 reg_alpha = 0.1 #0.1
 
-use_regularization = True
+use_regularization = False
 save_dep_figures = True
 mode = LOSS
 
@@ -200,7 +200,7 @@ for epoch in range(number_of_epoch):
             loss2 = loss_fn(pred2, label2)
             loss = loss1 + loss2
             if use_regularization:
-                reg = kim.forward(z1, z2, update=True)
+                reg = kim.forward(z1, z2, update=False)
                 #if reg.item() < 0.1:
                 #    mode = REGULARIZER
                 #    internal_iter = 0

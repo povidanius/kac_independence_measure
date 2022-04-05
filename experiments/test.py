@@ -9,8 +9,8 @@ from scipy.stats import wilcoxon
 #acc_reg = loadtxt("./8result_kb_True_0.1.txt", comments="#", delimiter=",", unpack=False)
 #acc = loadtxt("./8result_kb_False_0.1.txt", comments="#", delimiter=",", unpack=False)
 
-acc_reg = loadtxt("./9result_chest_True_0.2.txt", comments="#", delimiter=",", unpack=False)
-acc = loadtxt("./8result_kb_False_0.1.txt", comments="#", delimiter=",", unpack=False)
+acc_reg = loadtxt("./10result_kb_True_0.1.txt", comments="#", delimiter=",", unpack=False)
+acc = loadtxt("./10result_kb_False_0.1.txt", comments="#", delimiter=",", unpack=False)
 
 print("acc_reg {}, acc {}".format(np.mean(acc_reg), np.mean(acc)))
 n = np.min([len(acc_reg), len(acc)])

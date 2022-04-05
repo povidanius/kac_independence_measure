@@ -82,7 +82,8 @@ If cumulative distribution function (cdf.) of $(X,Y)$, $F_{X,Y}(x,y)$, $x \in R^
 
 This formulation of statistical independence was used as the basis (first in~\cite{Feuerverger} for one-dimensional case, and afterwards extended and developed by~\cite{Szekely} for bivariate multidimensional random vectors) for construction of statistical independence tests and measures.\textit{Distance covariance} and \textit{distance correlation}, prosposed by ~\cite{Szekely} relies on weighted $L^{2}$-norm analysis of~\eqref{eq:kac_theorem}. They select weighting function in such a way, that dependence measure can be expressed in terms of correlection of data-dependent distances. Study~\cite{Bottcher} generalises~\cite{Szekely} to multivariable case and proposes \textit{distance multivariance} and derivative dependence measure, called~\textit{total distance multivariance}.~\cite{CHAUDHURI201915} proposed computationally efficient algorithm for estimation of distance correlation measure, reducing computational complexity from $O(n^2)$ to $O(n\cdot \log n)$, where $n$ is sample size.
 
-Our motivation stems from the fact that evaluation of~\cite{Szekely} measures in high dimensional cases may be prone to curse of dimensionality (as mentioned in~\cite{Edlemann}). Although staying in $L^{p}$-space framework, instead of $p = 2$ ($L^{2}$ space) we take a limit when  $p \rightarrow \infty$, and thereby avoid direct calculation of norm integral, since norm of $L^{p}$ converges to supremum norm when $p \rightarrow \infty$. Also, from practical point of view maximization is convenient, because it is efficiently implemented in modern deep learning frameworks (e.g. Pytorch~\cite{NEURIPS2019_9015}). %\textit{What are potential advantages of maximum norm?}
+Our motivation stems from the fact that~\cite{Szekely} measures in high dimensions are prone to the curse of dimensionality (as mentioned in~\cite{Edlemann}). Although staying in $L^{p}$-space framework, instead of $p = 2$ ($L^{2}$ space) we take a limit when  $p \rightarrow \infty$, and thereby avoid direct calculation of norm integral, since norm of $L^{p}$ converges to supremum norm when $p \rightarrow \infty$. Also, from practical point of view maximization is convenient, because it is efficiently implemented in modern deep learning frameworks (e.g. Pytorch~\cite{NEURIPS2019_9015}).
+
 
 \section{Proposed Independence Measure}
 \label{section:proposed_method}
@@ -158,11 +159,18 @@ If both $X$ and $Y$ are zero mean Gaussian random vectors we have:
 \label{eq:gaussian_kacim}
 \kappa(X,Y) = \max_{\alpha, \beta} | e^{-\frac{1}{2} (\alpha^{T}\Sigma_{x}\alpha + \beta{^T}\Sigma_{y}\beta)}(e^{-\frac{1}{2}\alpha{^T}\Sigma_{x,y}\beta} - 1)|.
 \end{equation}
-Assuming constant $\alpha^{T}\Sigma_{x}\alpha$ and  $\beta{^T}\Sigma_{y}\beta$, the maximization of~\eqref{eq:gaussian_kacim} can be achieved by maximization of  $\alpha{^T}\Sigma_{x,y}\beta$, which coincides with the cost function of canonical correlation analysis~\cite{CCA}. Here $\Sigma_{x}$, $\Sigma_{y}$ and  $\Sigma_{x,y}$ are covariance matrices of $X$, $Y$, and $(X,Y)$, respectively. %$(X^{T},Y^{T})^{T}$.
+Assuming constant $\alpha^{T}\Sigma_{x}\alpha$ and  $\beta{^T}\Sigma_{y}\beta$, the maximization of~\eqref{eq:gaussian_kacim} can be achieved by maximization of  $\alpha{^T}\Sigma_{x,y}\beta$, which coincides with the cost function of canonical correlation analysis~\cite{10.5555/3279302}. Here $\Sigma_{x}$, $\Sigma_{y}$ and  $\Sigma_{x,y}$ are covariance matrices of $X$, $Y$, and $(X,Y)$, respectively. %$(X^{T},Y^{T})^{T}$.
 
+\begin{comment}
 \subsection{Kernel version}
 
-Having two RKHS'es, defined by feature maps $k,l: (x,y) \rightarrow (k(x,.), l(y,.)$, where $k: \mathbb{R}^{d_{x}} \times \mathbb{R}^{d_{x}} \rightarrow \mathbb{R}$ and $l: \mathbb{R}^{d_{y}} \times \mathbb{R}^{d_{y}} \rightarrow \mathbb{R}$ (see~\cite{10.5555/3279302}). Then, estimation of kernel-$KIM$ ($\hat{\kappa}_{k,l} (X,Y)$) can be reformulated as maximization of :
+Let $H_{\phi}$ and $H_{\psi}$ be two RKHS'es, defined by feature maps $\phi$ and $\psi$.
+\begin{equation}
+H_{K},H_{L}: (x,y) \rightarrow (\phi(x,.), \psi(y,.)) 
+\end{equation}
+where $k: \mathbb{R}^{d_{x}} \times \mathbb{R}^{d_{x}} \rightarrow \mathbb{R}$ and $l: \mathbb{R}^{d_{y}} \times \mathbb{R}^{d_{y}} \rightarrow \mathbb{R})$ (see~\cite{10.5555/3279302}). 
+
+Then, estimation of kernelized version of  ($\hat{\kappa}_{k,l} (X,Y)$) can be reformulated as maximization of :
 \begin{equation}
 \label{eq:kernel_estimator}
     \vert \frac{1}{n} \sum_{j=1}^{n} e^{i(<\alpha, k(x_{j},.)> + <\beta, l(y_{j}>,.)) } - \frac{1}{n^2} \sum_{j=1}^{n} e^{i <\alpha, k(x_{j},.)>}\sum_{k=1}^{n} e^{i<\beta, l(y_{k},.)>}\vert,
@@ -176,6 +184,15 @@ and representer theorem\cite{?} implies
 \end{equation}
 
 where $K$ and $L$ are Gram matrices, corresponding to $x_{i}$ and $y_{i}$. Note that the number of parameters of $\hat{\kappa}_{k,l} (X,Y)$ is dimension-idnependent and is equal to $2n_{b}$, where $n_{b}$ is batch size. Also, kernel-$KIM$ can be applied for structured data, via corresponding positive defined kernels.
+
+%HSIC is based on MMD approach of measuring distances between two porablistic distributions $P$ and $Q$. 
+
+%is and application of MMD-metric's for probability measures ($dP\timesdQ$, $dPQ$}). Fundamental assumption of HSIC:
+%\begin{equation}
+%k_{x,y}(x,y) = \sum_{i} k(x,x_{i}) l (y, y_{i})
+%\end{equation}
+%is Linear. If we sample samples (batches of realisations) of pairs ($X$,$y$), we arrive at interesting consequences. First, ant most important of them, that we naturally define empirical kernel
+\end{comment}
 
 \section{Experiments}
 \label{section:experiments}
@@ -210,6 +227,14 @@ Figure~\ref{fig:experiments_simulation} empirically shows that value of KacIM  n
 %Shubham
 
 \subsection{Feature extraction}
+
+Previous work in the field of supervised feature extraction (also parralel field termed dimensionality reduction), which rely on dependency-based cost functions, include [?,?,?]. 
+
+%Further we will extend [?,?] algorithms in the dimension of the dependence measure, as the parameter. In our reasoining, and formulations we will adopt Bayesian framework, embodied in this probability factorisation:
+%P(S|A,S') = F()/
+
+
+
 Let use denote by $T := (x_{i},y_{i})_{i=1}^{N}$ a supervised-learning dataset of $N$ pairs of $d_{x}$-dimensional inputs $x_{i}$, and $d_{y}$-dimensional one-hot-encoded outputs $y_{i}$.
 
 In feature extraction experiments we will use a set of classification data sets from OpenML~\cite{OpenML2013}, which cover different domains.  We use $KacIM$ in order to conduct supervised linear feature extraction by seeking 
