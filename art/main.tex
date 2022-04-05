@@ -197,11 +197,11 @@ where $K$ and $L$ are Gram matrices, corresponding to $x_{i}$ and $y_{i}$. Note 
 \section{Experiments}
 \label{section:experiments}
 
-Further we will conduct empirical investigation of KacIM in order to demonstrate that it can measure statistical dependencies in non-linear data sets, and that it can be practically useful as a component of cost functions (in feature selection and extraction, and regularisation problems).
+Further we will conduct empirical investigation of KacIM in order to demonstrate that it can measure non-linear statistical dependencies, and that it can be practically useful as a component of cost functions (in feature selection and extraction, and regularisation problems).
 
 \subsection{Generated data}
 
-\paragraph{Non-linear statistical dependence detection.} We begin with simple example, which demonstrates the efficiency of KacIM for simulated multivariate data with additive and multiplicative noise.
+\paragraph{Non-linear statistical dependence detection.} We begin with simulated multivariate data with additive and multiplicative noise.
 
 
 \begin{figure}%
@@ -221,11 +221,11 @@ Figure~\ref{fig:experiments_simulation} empirically shows that value of KacIM  n
 
 %Since in~\ref{alg:estimator_computation} we standartize data, KacIM is also scale-invariant (i.e. $\kappa(rx, ry) = \kappa(x,y)$), where $r>0$ is scale parameter.
 
-\paragraph{Comparison with distance correlation} We also evaluated distance correlation~\cite{dcor} on the same generated samples of data.From Figure.~\ref{fig:experiments_simulation_dcor} we see that as data dimensionality grows, for independent data, the values of measure not is significantly larger thatn zero, but it also grows (although is smaller comparing to the dependent data case), which demonstrates that distance correlation is vulnerable to curse of dimensionality. On the other side, KacIM even for larger dimensions osculates near zero for independent data, and significantly deviated from zero for dependent one.
+\paragraph{Comparison with distance correlation} We also evaluated distance correlation~\cite{dcor} on the same generated samples of data. From Figure.~\ref{fig:experiments_simulation_dcor} we see that as data dimensionality grows, for independent data, the values of measure not only is significantly larger than zero, but it also grows like values of measure of dependent data. This empirically demonstrates that distance correlation is vulnerable to curse of dimensionality. On the other side, KacIM even for larger dimensions oscilates near zero for independent data, and significantly deviates from zero for dependent data case.
 
 \begin{figure}%
 	\centering
-	\includegraphics[scale=0.40]{../experiments/basic_demonstration/dependence_detection_dcor_dim.png}%
+	\includegraphics[scale=0.50]{../experiments/basic_demonstration/dependence_detection_dcor_dim.png}%
 	\caption{The dimension of data is on the $x$ axis, and on $y$ axis is evaluation of distance correlation for independent (blue), and dependent(orange) data.}
 	\label{fig:experiments_simulation_dcor}
 \end{figure}
