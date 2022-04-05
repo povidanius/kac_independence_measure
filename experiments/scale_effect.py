@@ -42,7 +42,7 @@ if __name__ == "__main__":
         print("scale_level: {}".format(scale))
         history_dep = []
     
-        model = KacIndependenceMeasure(dim_x, dim_y, lr=0.001, input_projection_dim = input_proj_dim)
+        model = KacIndependenceMeasure(dim_x, dim_y, lr=0.001, input_projection_dim = input_proj_dim, device="cuda:0")
         #mf = scipy.signal.medfilt()
 
         for i in range(num_iter):
