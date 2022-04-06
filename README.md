@@ -10,7 +10,9 @@ This repository includes basic implementation of KacIM, toy-data demonstrations,
 
 
 
-Article/preprint is currently being prepared: [Article draft](https://github.com/povidanius/kac_independence_measure/tree/main/art/main.pdf?raw=false "Article draft")
+Article/preprint is currently being prepared: [Article draft](https://github.com/povidanius/kac_independence_measure/tree/main/art/main.pdf?raw=false "Article draft").
+In this article we show theoretically how KacIM is related to distance correlation. Also we point out connection with canonical correlation analysis.
+From the empirical aspect of our study, we investigate both generated data and real data scenarios. 
 
 This how KacIM evaluations during gradient optimization looks like for independent data (blue), dependent data with additive (orange) and multiplicative noise (green) (500 iterations):
 
