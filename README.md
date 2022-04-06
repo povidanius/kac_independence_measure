@@ -14,7 +14,8 @@ Article/preprint is currently being prepared: [Article draft](https://github.com
 In this article we identify that KacIM is related to distance correlation in common $L^{p}$-space framework. Also we point out connection with canonical correlation analysis.
 From the empirical aspect of our study, we investigate both generated data and real data scenarios. 
 
-This how KacIM evaluations during gradient optimization looks like for independent data (blue), dependent data with additive (orange) and multiplicative noise (green) (500 iterations):
+Example:
+This graph show KacIM evaluations during gradient optimization looks like for independent data (blue), dependent data with additive (orange) and multiplicative noise (green) (500 iterations):
 
 ![Alt text](./independent_dependent.png?raw=true "Title")
 
