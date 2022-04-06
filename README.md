@@ -6,7 +6,7 @@ between joint and product marginal characteristic functions (two complex random 
 ![Alt text](./kac_im.png?raw=true "KacIM")
 
 
-This repository includes basic implementation of KacIM, toy-data demonstrations, which show that KacIM works for high-dimensional data (e.g. 512-dimensional input, 512-dimensional output or similar), and feature extraction example, which demonstrates, that KacIM allows to improve classification accuracy on real data. In generated data scenario we provide empirical analysis of statistical indepndence and non-linear statistical dependene with additive noie.
+This repository includes basic implementation of KacIM, toy-data demonstrations, which show that KacIM works for high-dimensional data (e.g. 512-dimensional input, 512-dimensional output or similar), and feature extraction example, which demonstrates, that KacIM allows to improve classification accuracy on real data. In generated data scenario we provide empirical analysis of statistical indepndence and non-linear statistical dependene with additive noie. Therein we compare KacIM with distance correlation, and show that KacIM is not affected by curse of dimensionality.
 
 
 
