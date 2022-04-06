@@ -33,19 +33,19 @@ class KacIndependenceMeasure(nn.Module):
 
         param_list = []
         if self.input_projection_dim > 0:
-            self.a = Variable(2*torch.rand(self.input_projection_dim,device=self.device)-1, requires_grad=True)
+            self.a = Variable(torch.rand(self.input_projection_dim,device=self.device), requires_grad=True)
             #self.projection = weight_norm(nn.Linear(self.dim_x, self.input_projection_dim))
             self.projection_x = nn.Linear(self.dim_x, self.input_projection_dim).to(self.device)
             param_list = param_list + list(self.projection_x.parameters()) #  + [self.a] #[self.a, self.b]
         else:
-            self.a = Variable(2*torch.rand(self.dim_x, device=self.device)-1, requires_grad=True)
+            self.a = Variable(torch.rand(self.dim_x, device=self.device), requires_grad=True)
 
         if self.output_projection_dim > 0:
-            self.b = Variable(2*torch.rand(self.output_projection_dim,device=self.device)-1, requires_grad=True)
+            self.b = Variable(torch.rand(self.output_projection_dim,device=self.device), requires_grad=True)
             self.projection_y = nn.Linear(self.dim_y, self.output_projection_dim).to(self.device)
             param_list = param_list + list(self.projection_y.parameters()) #+ [self.b]
         else:            
-            self.b = Variable(2*torch.rand(self.dim_y,device=self.device)-1, requires_grad=True)
+            self.b = Variable(torch.rand(self.dim_y,device=self.device), requires_grad=True)
         
         
         self.optimizer = torch.optim.AdamW(param_list  + [self.a, self.b], lr=self.lr, weight_decay=self.weight_decay) 
