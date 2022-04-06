@@ -27,7 +27,6 @@ if __name__ == "__main__":
 
     n_batch = 8192 #8192
     #dim_x = 512 # 1024
-    dim_y = 512 # 32
     num_iter = 250 #200
     input_proj_dim = 0 #dim_x #0
     lr = 0.05 #0.05
@@ -39,7 +38,8 @@ if __name__ == "__main__":
 
     for dim_x in range(2,512,10):
         print("dim_x = {}".format(dim_x))
-        
+
+        dim_y = dim_x
         fig = plt.figure()
         plt.figure().clear()
 
@@ -127,7 +127,8 @@ if __name__ == "__main__":
 
         plt.plot(xx, final_values_multiplicative, label="Dependent_multiplicative")
         """
+        plt.savefig('./basic_demonstration/aaa_dependence_detection_kacim_by_dim.png')
 
-        plt.savefig('./basic_demonstration/aaa_dependence_detection_kacim_by_dim_{}.png'.format(dim_x))
+        #plt.savefig('./basic_demonstration/aaa_dependence_detection_kacim_by_dim_{}.png'.format(dim_x))
         plt.close(fig)
 

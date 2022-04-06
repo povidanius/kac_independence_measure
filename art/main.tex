@@ -49,26 +49,26 @@ Further we will focus on characteristic-function-based methods.
 
 \subsection{Characteristic-function-based methods}
 \label{section:previous_work_cf}
-Characteristic function of $d_{X}$-dimensional random vector $X$ defined in some probability space $(\Omega_{X}, \Sigma_{X}, \mathbb{P}_{X})$ is defined as 
+Characteristic function of $d_{X}$-dimensional random vector $X$ defined in some probability space $(\Omega_{X}, \Sigma_{X}, \mathbb{P}_{X})$ is defined as: 
 \begin{equation}
     \label{eq:characteristic_function}
-    \phi_{X}(\alpha) = \mathbb{E}_{X} e^{i\alpha^{T}X}, 
+    \phi_{X}(\alpha): = \mathbb{E}_{X} e^{i\alpha^{T}X}, 
 \end{equation}
-where $i=\sqrt{-1}$, $\alpha \in R^{d_{X}}$. Having $n$ i.i.d. realisations of $X$, corresponding empirical characteristic function is defined as
+where $i=\sqrt{-1}$, $\alpha \in R^{d_{X}}$. Having $n$ i.i.d. realisations of $X$, corresponding empirical characteristic function is defined as:
 \begin{equation}
     \label{eq:ecf}
-  \widehat{\phi_{X}}(\alpha) = \frac{1}{n} \sum_{j=1}^{n} e^{i <\alpha, x_{j}>}.
+  \widehat{\phi_{X}}(\alpha): = \frac{1}{n} \sum_{j=1}^{n} e^{i <\alpha, x_{j}>}.
 \end{equation}
 Having pair of two random vectors $(X,Y)$ defined in another probability space $(\Omega_{X,Y}, \Sigma_{X,Y}, \mathbb{P}_{X,Y})$  joint characteristic function is defined as:
 \begin{equation}
     \label{eq:joint_characteristic_function}
-    \phi_{X,Y}(\alpha,\beta) = \mathbb{E}_{X,Y} e^{i(\alpha^{T}X + \beta^{T}Y)},
+    \phi_{X,Y}(\alpha,\beta): = \mathbb{E}_{X,Y} e^{i(\alpha^{T}X + \beta^{T}Y)},
 \end{equation}
 where $\alpha \in R^{d_{X}}$ and $\beta \in R^{d_{Y}}$. Similarly, having 
-$n$ i.i.d. realisations of $(X,Y)$, joint empirical characteristic function is defined as
+$n$ i.i.d. realisations of $(X,Y)$, joint empirical characteristic function is defined as:
 \begin{equation}
     \label{eq:joint_ecf}
-\widehat{\phi_{X,Y}}(\alpha,\beta) = \frac{1}{n} \sum_{j=1}^{n} e^{i(<\alpha, x_{j}> + <\beta, y_{j}>) }.
+\widehat{\phi_{X,Y}}(\alpha,\beta): = \frac{1}{n} \sum_{j=1}^{n} e^{i(<\alpha, x_{j}> + <\beta, y_{j}>) }.
 \end{equation}
 
 If cumulative distribution function (cdf.) of $(X,Y)$, $F_{X,Y}(x,y)$, $x \in R^{d_{X}}$ and $y \in R^{d_{Y}}$ factorises as $F_{X}(x)F_{Y}(y)$ for all $x$ and $y$, $X$ and $Y$ are called independent (the same holds for probability density function, pdf.). However, this criterion is impractical due to need of evaluation of potentially high-dimensional cdf. or pdf., and often alternative independence criterions are more useful. For example, in terms of characteristic functions, statistical independence  of $X$ and $Y$ is equivalent to $\forall \alpha \in R^{d_X},\forall \beta \in R^{d_Y} $, 
@@ -82,7 +82,14 @@ If cumulative distribution function (cdf.) of $(X,Y)$, $F_{X,Y}(x,y)$, $x \in R^
 
 This formulation of statistical independence was used as the basis (first in~\cite{Feuerverger} for one-dimensional case, and afterwards extended and developed by~\cite{Szekely} for bivariate multidimensional random vectors) for construction of statistical independence tests and measures. Distance covariance and distance correlation, prosposed by ~\cite{Szekely} relies on weighted $L^{2}$-norm analysis of~\eqref{eq:kac_theorem}. They select weighting function in such a way, that dependence measure can be expressed in terms of correlection of data-dependent distances. Study~\cite{Bottcher} generalises~\cite{Szekely} to multivariable case and proposes distance multivariance and derivative dependence measure, called total distance multivariance.~\cite{CHAUDHURI201915} proposed computationally efficient algorithm for estimation of distance correlation measure, reducing computational complexity from $O(n^2)$ to $O(n\cdot \log n)$, where $n$ is sample size.
 
-Our motivation stems from the fact that~\cite{Szekely} measures in high dimensions are prone to the curse of dimensionality (as mentioned in~\cite{Edlemann}). Although staying in $L^{p}$-space framework, instead of $p = 2$ ($L^{2}$ space) we take a limit when  $p \rightarrow \infty$, and thereby avoid direct calculation of norm integral, since norm of $L^{p}$ converges to supremum norm when $p \rightarrow \infty$. Also, from practical point of view maximization is convenient, because it is efficiently implemented in modern deep learning frameworks (e.g. Pytorch~\cite{NEURIPS2019_9015}).
+\textbf{Motivation(isgryninti)} Taking \eqref{eq:kac_theorem} as the criterion of statistical independence we extend work~\cite{Szekely} with the framework of weighted $L^{p}$ spaces, using corresponding $L^{p}$-norms of~\eqref{eq:kac_theorem} as the statistical independence measures. 
+
+Taking into account that~\cite{Szekely} in high dimensions is affected with the curse of dimensionality~\cite{Edlemann}, we focus on the limit case $p \rightarrow \infty$, which corresponds to the supremum norm. This norm has several potential advantages.
+
+
+ 
+We hypothesise, that its locality could be exploited to detect statistical independence more efficiently, comparing to case $p=2$. 
+In addition, numerically calculation of $L^{\infty} $ norm would not require to direct calculate norm integral, since norm of $L^{p}$ converges to supremum norm when $p \rightarrow \infty$. Also, from practical point of view maximization is convenient, because it is efficiently implemented in modern deep learning frameworks (e.g. Pytorch~\cite{NEURIPS2019_9015}).
 
 
 \section{Proposed Independence Measure}
@@ -94,7 +101,7 @@ Our motivation stems from the fact that~\cite{Szekely} measures in high dimensio
 \noindent The above considerations serves as the basis for constructing of a novel dependence measure, which we further refer to as Kac independence measure (KacIM). Let $X$ and $Y$ be two standartized random random vectors. The proposed independence measure is defined as
 \begin{equation}
 \label{eq:kim}
-    \kappa(X,Y) = \max_{\alpha \in \mathbb{R}^{d_{X}}, \beta \in \mathbb{R}^{d_{Y}}} \vert \phi_{X,Y}(\alpha, \beta)  -\phi_{X}(\alpha) \phi_{Y}(\beta) \vert.
+    \kappa(X,Y): = \max_{\alpha \in \mathbb{R}^{d_{X}}, \beta \in \mathbb{R}^{d_{Y}}} \vert \phi_{X,Y}(\alpha, \beta)  -\phi_{X}(\alpha) \phi_{Y}(\beta) \vert.
 \end{equation}
 
 
