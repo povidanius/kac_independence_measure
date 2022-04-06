@@ -116,7 +116,7 @@ dep_history = []
 
 reg_alpha = 0.1 #0.1
 
-use_regularization = False
+use_regularization = True
 save_dep_figures = True
 mode = LOSS
 

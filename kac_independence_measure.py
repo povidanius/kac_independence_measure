@@ -33,19 +33,19 @@ class KacIndependenceMeasure(nn.Module):
 
         param_list = []
         if self.input_projection_dim > 0:
-            self.a = Variable(torch.rand(self.input_projection_dim,device=self.device), requires_grad=True)
+            self.a = Variable(2*torch.rand(self.input_projection_dim,device=self.device)-1, requires_grad=True)
             #self.projection = weight_norm(nn.Linear(self.dim_x, self.input_projection_dim))
             self.projection_x = nn.Linear(self.dim_x, self.input_projection_dim).to(self.device)
             param_list = param_list + list(self.projection_x.parameters()) #  + [self.a] #[self.a, self.b]
         else:
-            self.a = Variable(torch.rand(self.dim_x, device=self.device), requires_grad=True)
+            self.a = Variable(2*torch.rand(self.dim_x, device=self.device)-1, requires_grad=True)
 
         if self.output_projection_dim > 0:
-            self.b = Variable(torch.rand(self.output_projection_dim,device=self.device), requires_grad=True)
+            self.b = Variable(2*torch.rand(self.output_projection_dim,device=self.device)-1, requires_grad=True)
             self.projection_y = nn.Linear(self.dim_y, self.output_projection_dim).to(self.device)
             param_list = param_list + list(self.projection_y.parameters()) #+ [self.b]
         else:            
-            self.b = Variable(torch.rand(self.dim_y,device=self.device), requires_grad=True)
+            self.b = Variable(2*torch.rand(self.dim_y,device=self.device)-1, requires_grad=True)
         
         
         self.optimizer = torch.optim.AdamW(param_list  + [self.a, self.b], lr=self.lr, weight_decay=self.weight_decay) 
@@ -54,6 +54,7 @@ class KacIndependenceMeasure(nn.Module):
    
 
     def project(self, x, normalize=True):
+        x = x.to(self.device)
         if normalize:
             x = (x - x.mean(axis=0, keepdim=True))/(0.00001 + x.std(axis=0, keepdim=True))
 
@@ -61,6 +62,8 @@ class KacIndependenceMeasure(nn.Module):
         return proj
 
     def forward(self, x, y, update = True, normalize=True):
+        x = x.to(self.device)
+        y = y.to(self.device)
         if normalize:
             x = (x - x.mean(axis=0, keepdim=True))/(0.00001 + x.std(axis=0, keepdim=True))
             #if self.dim_y > 1:

@@ -54,9 +54,9 @@ if __name__ == "__main__":
             
             x = scale * x
             y = scale * y
-            dep = model(x,y, input_normalization)
+            dep = model(x.to("cuda:0"),y.to("cuda:0"), input_normalization)
 
-            history_dep.append(dep.detach().numpy())
+            history_dep.append(dep.cpu().detach().numpy())
             #print("{} {}".format(i, dep))
         #history_dep = mf(history_dep, 17)            
         to_plot.append(history_dep[-1])
