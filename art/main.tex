@@ -49,7 +49,7 @@ Further we will focus on characteristic-function-based methods.
 
 \subsection{Characteristic-function-based methods}
 \label{section:previous_work_cf}
-Characteristic function of $d_{X}$-dimensional random vector $X$ defined in some probability space $(\Omega_{X}, \Sigma_{X}, \mathbb{P}_{X})$ is defined as: 
+Characteristic function of $d_{X}$-dimensional random vector $X$ defined in some probability space $(\Omega_{X}, \mathcal{F}_{X}, \mathbb{P}_{X})$ is defined as: 
 \begin{equation}
     \label{eq:characteristic_function}
     \phi_{X}(\alpha): = \mathbb{E}_{X} e^{i\alpha^{T}X}, 
@@ -59,7 +59,7 @@ where $i=\sqrt{-1}$, $\alpha \in R^{d_{X}}$. Having $n$ i.i.d. realisations of $
     \label{eq:ecf}
   \widehat{\phi_{X}}(\alpha): = \frac{1}{n} \sum_{j=1}^{n} e^{i <\alpha, x_{j}>}.
 \end{equation}
-Having pair of two random vectors $(X,Y)$ defined in another probability space $(\Omega_{X,Y}, \Sigma_{X,Y}, \mathbb{P}_{X,Y})$  joint characteristic function is defined as:
+Having pair of two random vectors $(X,Y)$ defined in another probability space $(\Omega_{X,Y}, \mathcal{F}_{X,Y}, \mathbb{P}_{X,Y})$  joint characteristic function is defined as:
 \begin{equation}
     \label{eq:joint_characteristic_function}
     \phi_{X,Y}(\alpha,\beta): = \mathbb{E}_{X,Y} e^{i(\alpha^{T}X + \beta^{T}Y)},
