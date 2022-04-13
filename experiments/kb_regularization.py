@@ -13,8 +13,10 @@ from collections import OrderedDict
 import time
 
 #torch.manual_seed(31337)
+#https://www.kaggle.com/datasets/hasnainjaved/melanoma-skin-cancer-dataset-of-10000-images
 
-data_path='/home/tank/Downloads/chest_xray/chest_xray/chest_xray/merged'
+#data_path='/home/tank/Downloads/chest_xray/chest_xray/chest_xray/merged'
+data_path='/home/tank/Downloads/melanoma/joined'
 
 sys.path.insert(0, "../")
 from kac_independence_measure import KacIndependenceMeasure
@@ -70,7 +72,7 @@ full_dataset = ImageFolder(data_path, transform=train_transform)
 #print(len_val)
 
 print(len(full_dataset.samples))
-training_dataset, testing_dataset = torch.utils.data.random_split(full_dataset, [5000, 856])
+training_dataset, testing_dataset = torch.utils.data.random_split(full_dataset, [9000, 1605])
 len_train= len(training_dataset)
 len_test= len(testing_dataset)
 #breakpoint()
@@ -188,7 +190,7 @@ for epoch in range(number_of_epoch):
         dep_history.append(reg0.detach().cpu().numpy())
 
         if epoch % 2 == 0 and use_regularization:   
-            print("REG epoch {}, iteration{}, reg {}".format(epoch, iteration, reg0))
+            print("REG epoch {}, iteration {}, reg {}".format(epoch, iteration, reg0))
             continue
 
 
@@ -196,7 +198,9 @@ for epoch in range(number_of_epoch):
             reg = kim.forward(z1, z2, update=False)
             regprim = kimfy.forward(torch.cat((bottleneck1, bottleneck2),dim=0), torch.cat((y_1, y_2),dim=0), update=False)
 
-            print("LOSS epoch {}, iteration{}, loss  {0:.3f} , reg0  {0:.3f}, reg  {0:.3f}".format(epoch, iteration, loss, reg0, reg))
+            print("LOSS epoch {}, iteration {}".format(epoch, iteration),end=" ") 
+            print("loss  {} , reg0  {}, reg  {}".format(loss, reg0, reg))
+
             loss = loss + reg_alpha * reg - 0.1*regprim
             dep_history.append(reg.detach().cpu().numpy())
 
