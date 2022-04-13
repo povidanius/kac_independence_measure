@@ -18,7 +18,7 @@
 
 \newtheorem{theorem}{Theorem}
 
-\title{Statistical independence measure based on maximum norm and characteristic function factorisation}
+\title{Measuring statistical dependencies via maximum norm and characteristic functions}
 \author{Povilas Daniu\v{s}is, povilasd@neurotechnology.com\footnote{This preprint currently is not officially related to Neurotechnology}}
 \date{November 2021}
 
@@ -31,10 +31,9 @@
 %
 
 \begin{abstract}
-    In this paper we propose statistical independence measure based on the maximum norm of the absolute value of difference between joint and product-marginal characteristic functions, and its estimation procedure (including open-source repository). We also extend the proposed measure to the reproducing kernel Hilbert spaces (RKHS), which allows to apply it to structured data.
-    
-    We conduct experiments both with simulated and real data. Our experiments reveal, that the proposed measure can exploit statistical dependence in non-linear data sets, and that it can improve real-data classification accuracy, when applied for feature extraction and regularisation.
-    
+    In this paper we focus on the problem of statistical dependence estimation. We propose statistical dependence measure based on the maximum-norm of the absolute value of difference between joint and product-marginal characteristic functions, and its iterative estimation algorithm. The proposed measure is differentiable, can be efficiently applied to high-dimensional data, and integrated into modern machine learning pipelines. We also conduct experiments both with simulated and real data, which reveal that the proposed measure can exploit statistical dependence in non-linear data sets more efficiently, comparing to the previous work in this line of research, and that it can improve real-data classification accuracy, when applied for feature extraction and regularisation.
+
+    %We also extend the proposed measure to the reproducing kernel Hilbert spaces (RKHS), which allows to apply it to structured data.
 \end{abstract}
 
 \section{Introduction}
@@ -314,35 +313,7 @@ one-hundred-plants-shape & (1600,64,100)   &  0.1013  &  \textbf{0.4913}  &  0.4
 	\label{table:classification_accuracies}	
 \end{table}
 
-\begin{comment}
-\begin{table}	
-	\centering
-	\begin{tabular}{ |p{3cm}|p{2.0cm}|p{1.2cm}|p{1.7cm}|p{1.2cm}|  }
-		%\hline
-		%\multicolumn{5}{|c|}{Classification accuracies} \\
-		\hline
-		Dataset & $N$/$d_{x}$/$n_{c}$. & Raw & KacIMFE & NCA  \\
-		\hline
-		micro-mass  &  (360,1300,10)  &   0.88  &   0.93  &   0.89 \\
-		ionosphere  &  (351,34,2)  &   0.88  &   0.92  &   0.94 \\
-		spambase  &  (4601,57,2)  &   0.69  &   0.83  &   0.87 \\
-		lsvt  &  (126,310,2)  &   0.67  &   0.68  &   0.78 \\		
-		one-hundred-plants-texture  &  (1599,64,100)  &   0.62  &   0.77  &   0.80 \\
-		tokyo1  &  (959,44,2)  &   0.72  &   0.89  &   0.91 \\				
-		clean1  &  (476,168,2)  &   0.77  &   0.99  &   0.98 \\
-		one-hundred-plants-shape  &  (1600,64,100)  &   0.10  &   0.48  &   0.47 \\	
-		pc4  &  (1458,37,2)  &   0.88  &   0.87  &   0.87 \\
-		madelon  &  (2600,500,2)  &   0.60  &   0.55  &   0.57 \\
-		scene  &  (2407,299,2)  &   0.89  &   0.98  &   0.93 \\
-		%gina\_agnostic  &  (3468,970,2)  &   0.85  &   0.80  &   0.81 \\
-		isolet  &  (7797,617,26)  &   0.93  &   0.95  &   0.95 \\			
-								
-		\hline
-	\end{tabular}
-	\caption{Classification accuracies. $N$ denotes full data set size, $d_{x}$ - input dimensionality, and $n_{c}$ - number of classes. In this table feature dimension is equal to a half of original input dimension. }
-	\label{table:classification_accuracies}	
-\end{table}
-\end{comment}
+
 
 
 \subsection{Regularisation}

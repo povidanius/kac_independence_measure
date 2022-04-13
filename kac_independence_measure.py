@@ -47,7 +47,7 @@ class KacIndependenceMeasure(nn.Module):
         else:            
             self.b = Variable(-torch.ones(self.dim_y,device=self.device), requires_grad=True)
         
-        
+        self.trainable_parameters = param_list  + [self.a, self.b]        
         self.optimizer = torch.optim.AdamW(param_list  + [self.a, self.b], lr=self.lr, weight_decay=self.weight_decay) 
 
 
@@ -69,7 +69,7 @@ class KacIndependenceMeasure(nn.Module):
             #if self.dim_y > 1:
             #    y = (y - y.mean(axis=1, keepdim=True))/y.std(axis=1, keepdim=True)
             #else:    
-            y = (y - y.mean(axis=0, keepdim=True))/(y.std(axis=0, keepdim=True))
+            y = (y - y.mean(axis=0, keepdim=True))/(0.00001 + y.std(axis=0, keepdim=True))
         
 
         if self.input_projection_dim > 0:                
