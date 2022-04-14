@@ -11,10 +11,14 @@ import sys
 import os
 from collections import OrderedDict
 import time
+from torch.utils.tensorboard import SummaryWriter
+writer = SummaryWriter()
+
 
 #torch.manual_seed(31337)
 
-data_path='/home/tank/Downloads/chest_xray/chest_xray/chest_xray/merged'
+#data_path='/home/tank/Downloads/chest_xray/chest_xray/chest_xray/merged'
+data_path='/home/tank/Downloads/melanoma/joined'
 
 sys.path.insert(0, "../")
 from kac_independence_measure import KacIndependenceMeasure
@@ -37,7 +41,7 @@ def get_activation(name):
 REGULARIZER = 0
 LOSS = 1
 
-kim = KacIndependenceMeasure(32, 2, lr=0.005, input_projection_dim = 0, weight_decay=0.01,device=device) #0.007
+kim = KacIndependenceMeasure(32, 2, lr=0.005, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
 
 
 train_transform = transforms.Compose([transforms.Grayscale(num_output_channels=3), 
@@ -69,7 +73,8 @@ full_dataset = ImageFolder(data_path, transform=train_transform)
 #print(len_val)
 
 print(len(full_dataset.samples))
-training_dataset, testing_dataset = torch.utils.data.random_split(full_dataset, [5000, 856])
+#training_dataset, testing_dataset = torch.utils.data.random_split(full_dataset, [5000, 856])
+training_dataset, testing_dataset = torch.utils.data.random_split(full_dataset, [9000, 1605])
 len_train= len(training_dataset)
 len_test= len(testing_dataset)
 #breakpoint()
@@ -104,7 +109,7 @@ model.layer3[1].register_forward_hook(get_activation('layer3_1'))
 model.layer4[0].register_forward_hook(get_activation('layer4_0'))
 model.layer4[1].register_forward_hook(get_activation('layer4_1'))
 """
-model.fc[2].register_forward_hook(get_activation('fc_2'))
+model.fc[2].register_forward_hook(get_activation('bottleneck'))
 
 
 model.to(device)
@@ -122,9 +127,14 @@ num_kac_iters = 300
 
 dep_history = []
 
-reg_alpha = 0.15 #0.1
+reg_alpha = 0.1 #0.1
 
-use_regularization = True
+if sys.argv[1] == "0":
+    use_regularization = False
+else:
+    use_regularization = True
+
+
 mode = LOSS
 
 number_of_epoch = 4
@@ -153,24 +163,26 @@ for epoch in range(number_of_epoch):
         pred = model(data)     
 
         #breakpoint()
-        bottleneck = activation['fc_2'].squeeze()
+        bottleneck = activation['bottleneck'].squeeze()
         y = torch.nn.functional.one_hot(label).float()
         #print(label)
 
 
         loss = loss_fn(pred, label) 
-        if epoch % 2 != 0:
+        if epoch % 2 == 0 and use_regularization:
                 #print(y.shape)
                 
                 reg0 = kim.forward(bottleneck.clone().detach().to(device), y.clone().detach().to(device), update=True)
                 print("Dep iteration: epoch {}, iteration {},  reg_estim {} ".format(epoch, iteration,  reg0))
                 dep_history.append(reg0.detach().cpu().numpy())
-        
-        
-        reg = kim.forward(bottleneck, y, update=False)
-        dep_history.append(reg.detach().cpu().numpy())
-        print("Loss iteration: epoch {}, iteration {}, loss {}, reg {} ".format(epoch, iteration, loss, reg))
-        loss = (1 - reg_alpha) * loss - reg_alpha * reg # loss -> min.., dep -> max
+                iteration = iteration + 1
+                continue
+
+        if epoch % 2 != 0 and use_regularization:
+            reg = kim.forward(bottleneck, y, update=False)
+            dep_history.append(reg.detach().cpu().numpy())
+            print("Loss iteration: epoch {}, iteration {}, loss {}, reg {} ".format(epoch, iteration, loss, reg))
+            loss =  loss - reg_alpha * reg # loss -> min.., dep -> max
 
         loss.backward()
         optimizer.step()
@@ -225,7 +237,7 @@ accuracy = 100 * float(corrected)/ len_test
 print(f'Test accuracy is {accuracy :.3f}')
 print("Regularization: {}".format(use_regularization))
 
-with open("./14result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
+with open("./17result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
 #with open("./13result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
     #f.write("{} {} \n".format(accuracy, test_accuracy[-1]))
     f.write("{}\n".format(accuracy))

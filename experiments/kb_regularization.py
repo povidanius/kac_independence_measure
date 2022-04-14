@@ -39,8 +39,8 @@ def get_activation(name):
 REGULARIZER = 0
 LOSS = 1
 
-kim = KacIndependenceMeasure(2, 2, lr=0.002, input_projection_dim = 0, weight_decay=0.01,device=device) #0.007
-kimfy = KacIndependenceMeasure(2, 2, lr=0.002, input_projection_dim = 0, weight_decay=0.01,device=device) #0.007
+kim = KacIndependenceMeasure(2, 2, lr=0.005, input_projection_dim = 0, weight_decay=0.01,device=device) #0.007
+kimfy = KacIndependenceMeasure(2, 2, lr=0.005, input_projection_dim = 0, weight_decay=0.01,device=device) #0.007
 
 
 train_transform = transforms.Compose([transforms.Grayscale(num_output_channels=3), 
@@ -128,8 +128,14 @@ dep_history = []
 
 reg_alpha = 0.1 #0.1
 
-use_regularization = True
-save_dep_figures = False
+if sys.argv[1] == "0":
+    use_regularization = False
+else:
+    use_regularization = True
+
+print("Regularization: {}".format(use_regularization))
+
+save_dep_figures = True
 
 number_of_epoch = 4
 if use_regularization:
@@ -235,7 +241,7 @@ if save_dep_figures:
     plt.plot(dep_history)
     #plt.show()
     timestr = time.strftime("%Y%m%d-%H%M%S")
-    plt.savefig('./kb_{}.png'.format(timestr))
+    plt.savefig('./kb.png')
 
 
 corrected = 0
@@ -255,7 +261,7 @@ accuracy = 100 * float(corrected)/ len_test
 print(f'Test accuracy is {accuracy :.3f}')
 print("Regularization: {}".format(use_regularization))
 
-with open("./15result_kb_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
+with open("./16result_kb_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
     #f.write("{} {} \n".format(accuracy, test_accuracy[-1]))
     f.write("{}\n".format(accuracy))
   

@@ -13,6 +13,7 @@
 \usepackage{textcomp}
 \usepackage{comment}
 
+\newcommand{\cov}{\mathrm{cov}}
 
 %\usepackage{prletters}
 
@@ -100,9 +101,8 @@ In addition, numerically calculation of $L^{\infty} $ norm would not require to 
 \noindent The above considerations serves as the basis for constructing of a novel dependence measure, which we further refer to as Kac independence measure (KacIM). Let $X$ and $Y$ be two standartized random random vectors. The proposed independence measure is defined as
 \begin{equation}
 \label{eq:kim}
-    \kappa(X,Y): = \max_{\alpha \in \mathbb{R}^{d_{X}}, \beta \in \mathbb{R}^{d_{Y}}} \vert \phi_{X,Y}(\alpha, \beta)  -\phi_{X}(\alpha) \phi_{Y}(\beta) \vert.
+    \kappa(X,Y):= \max_{\alpha \in \mathbb{R}^{d_{X}}, \beta \in \mathbb{R}^{d_{Y}}} |\Delta_{X,Y}(\alpha,\beta)|.
 \end{equation}
-
 
 %In contrary to~\cite{Szekely} the proposed~\eqref{eq:kim} measure relies on maximum norm of difference between joint and product-marginal characteristic functions.
 
@@ -132,10 +132,10 @@ Scale invariance (Property $\textit{4.}$) is trivial result of the standartisati
 
 \subsection{Estimation}
 
-Having i.i.d. standartized data $(x_{j}, y_{j})$, $j = 1,2,...,n$, an empirical scale-invariant estimator of~\eqref{eq:kim} is defined via corresponding empirical characteristic functions~\eqref{eq:joint_ecf} and~\eqref{eq:ecf}:
+Having i.i.d. observations $(x_{j}, y_{j})$, $j = 1,2,...,n$, an empirical scale-invariant estimator of~\eqref{eq:kim} is defined via corresponding empirical characteristic functions~\eqref{eq:joint_ecf} and~\eqref{eq:ecf}:
 \begin{equation}
 \label{eq:estimator}
-    \hat{\kappa}(X,Y) = \max_{\alpha, \beta} \vert \widehat{\phi_{X,Y}}(\alpha,\beta)  - \widehat{\phi_{X}}(\alpha) \widehat{\phi_{Y}}(\beta) \vert.
+    \hat{\kappa}(X,Y) := \max_{\alpha, \beta} \vert \widehat{\phi_{X,Y}}(\alpha,\beta)  - \widehat{\phi_{X}}(\alpha) \widehat{\phi_{Y}}(\beta) \vert.
 \end{equation}
 
 \noindent Empirical estimator~\eqref{eq:estimator} also is symmetric and and bounded (Theorem~\ref{thm:properties}). It can be calculated iteratively by Algorithm~\ref{alg:estimator_computation} (Pytorch~\cite{NEURIPS2019_9015} implementation can be accessed from \url{https://github.com/povidanius/kac_independence_measure}). 
@@ -144,7 +144,7 @@ Having i.i.d. standartized data $(x_{j}, y_{j})$, $j = 1,2,...,n$, an empirical 
 \begin{algorithm}
 \caption{KacIM estimation iteration}\label{alg:estimator_computation}
 \begin{algorithmic}
-\Require data batch $(x,y)$, gradient-based optimiser $GradOpt(loss)$
+\Require data batch $(x,y)_{i=1}^{n_{b}}$, gradient-based optimiser $GradOpt(loss)$
 \State Normalize $(x,y)$ to zero mean and unit variance (scale invariance).
 \State Calculate KacIM estimator $\hat{\kappa}(x,y)$, without maximization step (i.e. using current $\alpha, \beta$).
 \State Perform one maximization iteration of computed $\hat{\kappa}(x,y)$ via $\alpha, \beta \rightarrow GradOpt(\hat{\kappa}(x,y))$.
@@ -154,18 +154,26 @@ Having i.i.d. standartized data $(x_{j}, y_{j})$, $j = 1,2,...,n$, an empirical 
 
 
 
-Algorithm~\ref{alg:estimator_computation} requires to initialise $\alpha$ and $\beta$ (we empirically found that uniform initialisation resulted in faster convergence), select stoping criteria (e.g. $k \in \mathbf{N}$), and optimiser. In our implementation we use decoupled weight decay regularization optimizer~\cite{Loshchilov2019DecoupledWD}. 
-We also emprically observed that normalisation of parameters $\alpha$ and $\beta$ on to unit sphere increases estimation stability (why?).After the estimation of KacIM via Algorithm~\ref{alg:estimator_computation}, the evaluation the estimator ~\eqref{eq:estimator} has computation complexity $O(n)$, where $n$ is sample size.
+Algorithm~\ref{alg:estimator_computation} requires to initialise $\alpha$ and $\beta$, select stopping criteria (e.g. $k \in \mathbf{N}$), and optimiser. In our implementation we use decoupled weight decay regularization optimizer~\cite{Loshchilov2019DecoupledWD}. 
+We also empirically observed that normalisation of parameters $\alpha$ and $\beta$ on to unit sphere increases estimation stability (why?).After the estimation of KacIM via Algorithm~\ref{alg:estimator_computation}, the evaluation the estimator ~\eqref{eq:estimator} has computation complexity $O(n)$, where $n$ is sample size.
 
 Note, that e.g. Shannon and Renyi mutual information~\cite{Cover2006} are also estimated via transforming them into maximisation problem by Donsker-Varadhan representation~\cite{pmlr-v80-belghazi18a}, in order to avoid density estimation.
 
-\subsection{Connection to canonical correlation}
-If both $X$ and $Y$ are zero mean Gaussian random vectors we have:
+\subsection{Interpretation and connection to canonical correlation}
+Since 
+\begin{equation}
+\kappa(X,Y) = \max_{\alpha \in \mathbb{R}^{d_{X}}, \beta \in \mathbb{R}^{d_{Y}}} |\cov(e^{i\alpha^{T}X},e^{i\beta^{T}Y})|
+\end{equation}
+corresponds to maximum covariance $e^{i\alpha^{T}X}$ and $e^{i\beta^{T}Y}$.
+
+In the case when both $X$ and $Y$ are zero mean Gaussian random vectors we have:
 \begin{equation}
 \label{eq:gaussian_kacim}
 \kappa(X,Y) = \max_{\alpha, \beta} | e^{-\frac{1}{2} (\alpha^{T}\Sigma_{x}\alpha + \beta{^T}\Sigma_{y}\beta)}(e^{-\alpha{^T}\Sigma_{x,y}\beta} - 1)|.
 \end{equation}
-Assuming constant $\alpha^{T}\Sigma_{x}\alpha$ and  $\beta{^T}\Sigma_{y}\beta$, the maximization of~\eqref{eq:gaussian_kacim} can be achieved by maximization of  $\alpha{^T}\Sigma_{x,y}\beta$, which coincides with the cost function of canonical correlation analysis~\cite{10.5555/3279302}. Here $\Sigma_{x}$, $\Sigma_{y}$ and  $\Sigma_{x,y}$ are covariance matrices of $X$, $Y$, and $(X,Y)$, respectively. %$(X^{T},Y^{T})^{T}$.
+Assuming constant $\alpha^{T}\Sigma_{x}\alpha$ and  $\beta{^T}\Sigma_{y}\beta$, the maximization of~\eqref{eq:gaussian_kacim} can be achieved by maximization of  $\alpha{^T}\Sigma_{x,y}\beta$, which coincides with the cost function of canonical correlation analysis~\cite{10.5555/3279302}. Here $\Sigma_{x}$, $\Sigma_{y}$ and  $\Sigma_{x,y}$ are covariance matrices of $X$, $Y$, and $(X,Y)$, respectively.
+
+
 
 \begin{comment}
 \subsection{Kernel version}
@@ -262,7 +270,7 @@ In feature extraction experiments we will use a set of classification data sets 
 \label{eq:kim_feature_extraction}    
 W^{*} = arg \max_{W} \kappa(Wx, y) - \alpha Tr\{(W^{T}W-I)^{T}(W^{T}W-I) \},
 \end{equation}
-where the regularisation term, controlled by multiplier $\alpha \geq 0$, enforces orthogonality of projection matrix $W^{*}$, and $Tr\{.\}$ denotes matrix trace operator.
+where the regularisation term, controlled by multiplier $\alpha \geq 0$, enforces semi-orthogonality of projection matrix $W^{*}$, and $Tr\{.\}$ denotes matrix trace operator.
 
 
 In all the experiments~\eqref{eq:kim_feature_extraction} the cost function is optimised iteratively ($250$ iterations), simultaneously optimising parameters of KacIM ($\alpha$ and $\beta$) and projection matrix $W$.

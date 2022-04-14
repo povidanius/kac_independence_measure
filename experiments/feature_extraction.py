@@ -127,7 +127,7 @@ if __name__ == "__main__":
     
     n_batch = 1024 #X_train.shape[0]
 
-    kim = KacIndependenceMeasure(dim_x, dim_y, lr=0.007, input_projection_dim = num_features, weight_decay=0.01) #0.007
+    kim = KacIndependenceMeasure(dim_x, dim_y, lr=0.007, input_projection_dim = num_features, weight_decay=0.01, orthogonality_enforcer=0.0) #0.007
     #knn = KNeighborsClassifier(n_neighbors=3)
     #logistic = linear_model.LogisticRegression(max_iter=1000)
     #svc = SVC(kernel='poly', gamma='auto', degree=2)
@@ -197,7 +197,7 @@ if __name__ == "__main__":
     try:
         train = pd.read_csv('feature_extraction/{}.csv'.format(sys.argv[1]))
         train_tensor = torch.tensor(train.values)
-        if train_tensor.shape[0] > 25:
+        if train_tensor.shape[0] > 27:
             print("Enough!")    
             handle_exception = False         
         else: 
