@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.6.4)  14 APR 2022 20:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.6.4)  15 APR 2022 21:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -929,7 +929,7 @@ n/10 !
  []
 
 [4] Excluding 'comment' comment.
-<../experiments/basic_demonstration/dependence_detection.png, id=182, 462.528pt
+<../experiments/basic_demonstration/dependence_detection.png, id=183, 462.528pt
  x 346.896pt>
 File: ../experiments/basic_demonstration/dependence_detection.png Graphic file 
 (type png)
@@ -937,15 +937,14 @@ File: ../experiments/basic_demonstration/dependence_detection.png Graphic file
 Package pdftex.def Info: ../experiments/basic_demonstration/dependence_detectio
 n.png  used on input line 223.
 (pdftex.def)             Requested size: 148.01198pt x 111.00897pt.
-<../experiments/noise_effect/summary.png, id=184, 462.528pt x 346.896pt>
+<../experiments/noise_effect/summary.png, id=185, 462.528pt x 346.896pt>
 File: ../experiments/noise_effect/summary.png Graphic file (type png)
 <use ../experiments/noise_effect/summary.png>
 Package pdftex.def Info: ../experiments/noise_effect/summary.png  used on input
  line 225.
 (pdftex.def)             Requested size: 148.01198pt x 111.00897pt.
- [5 <../experiments/basic_demonstration/dependence_detection.png> <../experimen
-ts/noise_effect/summary.png>]
-<../experiments/basic_demonstration/dependence_detection_dcor_dim.png, id=207, 
+ [5]
+<../experiments/basic_demonstration/dependence_detection_dcor_dim.png, id=205, 
 462.528pt x 346.896pt>
 File: ../experiments/basic_demonstration/dependence_detection_dcor_dim.png Grap
 hic file (type png)
@@ -954,7 +953,7 @@ Package pdftex.def Info: ../experiments/basic_demonstration/dependence_detectio
 n_dcor_dim.png  used on input line 244.
 (pdftex.def)             Requested size: 148.01198pt x 111.00897pt.
 <../experiments/basic_demonstration/aaa_dependence_detection_kacim_by_dim_502.p
-ng, id=208, 462.528pt x 346.896pt>
+ng, id=206, 462.528pt x 346.896pt>
 File: ../experiments/basic_demonstration/aaa_dependence_detection_kacim_by_dim_
 502.png Graphic file (type png)
 <use ../experiments/basic_demonstration/aaa_dependence_detection_kacim_by_dim_5
@@ -962,9 +961,8 @@ File: ../experiments/basic_demonstration/aaa_dependence_detection_kacim_by_dim_
 Package pdftex.def Info: ../experiments/basic_demonstration/aaa_dependence_dete
 ction_kacim_by_dim_502.png  used on input line 246.
 (pdftex.def)             Requested size: 148.01198pt x 111.00897pt.
- [6 <../experiments/basic_demonstration/dependence_detection_dcor_dim.png> <../
-experiments/basic_demonstration/aaa_dependence_detection_kacim_by_dim_502.png>]
-
+ [6 <../experiments/basic_demonstration/dependence_detection.png> <../experimen
+ts/noise_effect/summary.png>]
 Overfull \hbox (1.42801pt too wide) in paragraph at lines 302--302
 []\OT1/cmr/m/n/10 (7797,617,26)| 
  []
@@ -984,19 +982,21 @@ Overfull \hbox (1.42801pt too wide) in paragraph at lines 316--316
 []\OT1/cmr/m/n/10 (1600,64,100)| 
  []
 
-[7]
-<./img/IM-0170-0001.jpeg, id=240, 2156.055pt x 1501.61pt>
+[7 <../experiments/basic_demonstration/dependence_detection_dcor_dim.png> <../e
+xperiments/basic_demonstration/aaa_dependence_detection_kacim_by_dim_502.png>]
+<./img/IM-0170-0001.jpeg, id=241, 2156.055pt x 1501.61pt>
 File: ./img/IM-0170-0001.jpeg Graphic file (type jpg)
 <use ./img/IM-0170-0001.jpeg>
 Package pdftex.def Info: ./img/IM-0170-0001.jpeg  used on input line 335.
 (pdftex.def)             Requested size: 150.93927pt x 105.12343pt.
-<./img/person1_bacteria_1.jpeg, id=241, 714.67pt x 440.64626pt>
+<./img/person1_bacteria_1.jpeg, id=242, 714.67pt x 440.64626pt>
 File: ./img/person1_bacteria_1.jpeg Graphic file (type jpg)
 <use ./img/person1_bacteria_1.jpeg>
 Package pdftex.def Info: ./img/person1_bacteria_1.jpeg  used on input line 337.
 
 (pdftex.def)             Requested size: 142.93146pt x 88.12769pt.
- [8 <./img/IM-0170-0001.jpeg> <./img/person1_bacteria_1.jpeg>]
+
+[8 <./img/IM-0170-0001.jpeg> <./img/person1_bacteria_1.jpeg>]
 Excluding 'comment' comment. (./main.bbl [9] [10])
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 413.
  [11]
@@ -1040,10 +1040,10 @@ b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
 </usr/share/texmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf/fo
 nts/type1/public/cm-super/sfrm0800.pfb></usr/share/texmf/fonts/type1/public/cm-
 super/sfti0800.pfb>
-Output written on main.pdf (11 pages, 1304969 bytes).
+Output written on main.pdf (11 pages, 1305241 bytes).
 PDF statistics:
- 369 PDF objects out of 1000 (max. 8388607)
- 316 compressed objects within 4 object streams
+ 370 PDF objects out of 1000 (max. 8388607)
+ 317 compressed objects within 4 object streams
  82 named destinations out of 1000 (max. 500000)
  135 words of extra memory for PDF output out of 10000 (max. 10000000)
 

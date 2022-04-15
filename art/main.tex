@@ -160,11 +160,11 @@ We also empirically observed that normalisation of parameters $\alpha$ and $\bet
 Note, that e.g. Shannon and Renyi mutual information~\cite{Cover2006} are also estimated via transforming them into maximisation problem by Donsker-Varadhan representation~\cite{pmlr-v80-belghazi18a}, in order to avoid density estimation.
 
 \subsection{Interpretation and connection to canonical correlation}
-Since 
+Since \eqref{eq:kim} can be reformulated as
 \begin{equation}
-\kappa(X,Y) = \max_{\alpha,\beta} |\cov(e^{i\alpha^{T}X},e^{i\beta^{T}Y})|
+\kappa(X,Y) = \max_{\alpha,\beta} |\cov(e^{i\alpha^{T}X},e^{i\beta^{T}Y})|,
 \end{equation}
-it corresponds to the maximum covariance between $e^{i\alpha^{T}X}$ and $e^{i\beta^{T}Y}$.
+by to Euler's formula, it corresponds to the maximum covariance between $e^{i\alpha^{T}X} = cos(\alpha^{T}X) + i \cdot sin(\alpha^{T}X)$ and $e^{i\beta^{T}Y} = cos(\beta^{T}Y) + i \cdot sin(\beta^{T}Y)$.
 
 In the case when both $X$ and $Y$ are zero mean Gaussian random vectors we have:
 \begin{equation}
@@ -388,7 +388,7 @@ Conducted empirical analysis show, that KacIM can detect and measure statistical
 
 \section{Acknowledgements}
 
-We sincerely thank Dr. Pranas Vaitkus, Dr. Linas Petkevi\v{c}ius, and colleagues from Neurotechnology for discussions. We also thank Neurotechnology for supporting this research.
+We sincerely thank Dr. Pranas Vaitkus, Dr. Linas Petkevi\v{c}ius, Dr. Aleksandras Voicikas, and colleagues from Neurotechnology for discussions. We also thank Neurotechnology for supporting this research.
 
 %\subsection{KacIM for information bottleneck}
 %\subsection{Canonical component analysis, independent component analysis}
