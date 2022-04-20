@@ -40,7 +40,7 @@
 \section{Introduction}
 Statistical dependence measures plays important role in various statistical and machine learning methods (e.g. hypothesis testing~\cite{Gretton2005MeasuringSD}, feature selection and extraction~\cite{EigenHSIC,HSCA}, information bottleneck methods \cite{Ma2020TheHB}, causal inference~\cite{NIPS2008_f7664060}, self-supervised learning~\cite{li2021selfsupervised}, representation learning~\cite{Ragonesi2021LearningUR}, among others).  Earliest statistical dependence estimation ideas (e.g. conditional probability) share nearly-common origin with the beginning of formal statistical reasoning itself. During last two centuries ideas of correlation and (relative) entropy (including various generalizations) were proposed and became very popular in numerous applications and theoretical developments. However, with the increasing popularity of machine learning, new statistical dependence estimation methods, that are robust, applicable to noisy, high-dimensional, structured data, and which can be efficiently integrated with modern machine learning methods are helpful for the development both of the theory and application.
 
-In this article we focus on quantitative estimation of statistical depdendencies, using characteristic functions. We begin with the short review of some important previous dependence estimation approaches (Section~\ref{section:previous_work}), devoting special attention to ones based on characteristic functions (Section~\ref{section:previous_work_cf}). Afterwards, we formulate the proposed characteristic function-based statistical dependence measure and its empirical estimator (Section~\ref{section:proposed_method}), including an extension into reproducing kernel Hilbert spaces (RKHS'es), which are the main theoretical contribution of our paper. Section~\ref{section:experiments} is devoted to experiments with simulated and real data sets, where we apply the proposed dependence measure for feature extraction and deep neural network (DNN) regularisation,  and finalizing Section~\ref{section:conclusion} concludes this article.
+In this article we focus on quantitative estimation of statistical depdendencies, using characteristic functions. We begin with the short review of some important previous dependence estimation approaches (Section~\ref{section:previous_work}), devoting special attention to ones based on characteristic functions (Section~\ref{section:previous_work_cf}). Afterwards, in (Section~\ref{section:proposed_method}), we formulate the proposed measure, its empirical estimator, and conduct theoretical analysis, which are the main theoretical contribution of our paper. Section~\ref{section:experiments} is devoted to experiments with simulated and real data sets, where we apply the proposed dependence measure for feature extraction and deep neural network (DNN) regularisation,  and finalizing Section~\ref{section:conclusion} concludes this article.
 
 \section{Previous Work}
 \label{section:previous_work}
@@ -165,6 +165,14 @@ Since \eqref{eq:kim} can be reformulated as
 \kappa(X,Y) = \max_{\alpha,\beta} |\cov(e^{i\alpha^{T}X},e^{i\beta^{T}Y})|,
 \end{equation}
 by Euler's formula, it corresponds to the maximum covariance between $e^{i\alpha^{T}X} = cos(\alpha^{T}X) + i \cdot sin(\alpha^{T}X)$ and $e^{i\beta^{T}Y} = cos(\beta^{T}Y) + i \cdot sin(\beta^{T}Y)$.
+\begin{comment}
+\begin{equation}
+\kappa_{n}(X,Y) = \max_{\alpha,\beta} |corr(e^{i\alpha^{T}X},e^{i\beta^{T}Y})| = \max_{\alpha,\beta} \frac{|\cov(e^{i\alpha^{T}X},e^{i\beta^{T}Y})|}{\sqrt{|\phi_{X}(2\alpha)-\phi_{X}^{2}(\alpha)||\phi_{Y}(2\beta)-\phi_{Y}^{2}(\beta)|}},
+\end{equation}
+\begin{equation}
+\max_{\alpha,\beta} |corr(e^{i\alpha^{T}X},e^{i\beta^{T}Y})| = \max_{\alpha,\beta} \frac{|\cov(e^{i\alpha^{T}X},e^{i\beta^{T}Y})|}{\sqrt{|\phi_{X}(2\alpha)-\phi_{X}^{2}(\alpha)||\phi_{Y}(2\beta)-\phi_{Y}^{2}(\beta)|}},
+\end{equation}
+\end{comment}
 
 In special case when both $X$ and $Y$ are zero mean Gaussian random vectors we have:
 \begin{equation}
@@ -325,17 +333,21 @@ one-hundred-plants-shape & (1600,64,100)   &  0.1013  &  \textbf{0.4913}  &  0.4
 
 
 \subsection{Regularisation}
-In regularisation experiments we investigate chest x-ray classification task. It is represented as binary classification data set, consisting of x-ray scans ($5216$ for training, and $642$ for testing), which should be classified as pneumonia or normal (e.g. Figure~\ref{fig:Pneumonia_dataset_examples}). As classifier we use \emph{ResNet18}, trained with batches of $128$ elements.
+In regularisation experiments we investigate skin lession classification task. It is represented as binary classification data set, consisting of images ($9000$ for training, and $1605$ for testing), which should be classified as benign or maligant (e.g. Figure~\ref{fig:Pneumonia_dataset_examples}).
+
+ As classifier we use \emph{ResNet18}, trained with batches of $128$ elements.
 We denote classifier as $f(\phi(x|\theta_{0})|\theta_{1})$, where $\theta_{0}$ are bottleneck parameters, $\theta_{1}$ final (linear) layer parameters, and $x$ is $224\times 224$ input image.
 For optimisation we use decoupled weight decay regularization optimizer~\cite{Loshchilov2019DecoupledWD} with learning rate set to $0.0002$, and weight decay parameter set to $0.00001$ ($7$ epochs).
-We used the following data augmentations: random horizontal flip, random rotation (up to 10 degrees), color jitter.
+We used the following data augmentations: random horizontal flip, random rotation (up to 10 degrees), color jitter. 
+
+In each experiment we train classifier $20$ times with randomly splitted training and testing data set of aforementioned sizes. The average accuracies are reported in Table~\ref{table:regularisation_classification_accuracies}.
  
 \begin{figure}%
 	\centering
-	\subfloat{{\includegraphics[scale=0.07]{./img/IM-0170-0001.jpeg} }}%
+	\subfloat{{\includegraphics[scale=0.4]{./benign.png} }}%
 	\qquad
-	\subfloat{{\includegraphics[scale=0.20]{./img/person1_bacteria_1.jpeg} }}%
-	\caption{Left figure: example of healthy lung x-ray. Right: pneumonia.}
+	\subfloat{{\includegraphics[scale=0.4]{./maligant.png} }}%
+	\caption{Top figure: benign moles, bottom figure: maligant tumors.}
 	\label{fig:Pneumonia_dataset_examples}
 \end{figure}
 
@@ -362,17 +374,17 @@ Cost(\theta_{0},\theta_{1}, W) := CE(f(\phi(x|\theta_{0})|\theta_{1}),y) - \beta
 		With regularisation  &   0.8427 \\		
 		\hline
 	\end{tabular}
-	\caption{Classification accuracy comparison of regularised and not regularised model (pneumonia dataset).  }
+	\caption{Classification accuracy comparison of regularised and not regularised model. Bold text indicates that model with regulariser was more accurate (Wilcoxon's signed rank test~\cite{Wilcoxon1992}, 20 runs, $p$-value threshold $0.01$))}
 	\label{table:regularisation_classification_accuracies}	
 \end{table}
 
-The results of classification accuracy without and with aforementioned regularisation is reported in Table~\ref{table:regularisation_classification_accuracies}.
+
 
 
 \section{Conclusion} 
 
 \label{section:conclusion}
-In this article we propose statistical dependence measure, KacIM, which corresponds to the $L^{\infty}$ norm of the absolute value of difference between joint characteristic function and the product of marginal ones. The proposed measure, in theory can detect both linear and non-linear statistical depdendence between a pairs of random variables of possibly different dimension, extended to various known statistical generalisations (e.g. reproducing kernel Hilbert spaces, multivariablity), machine learning scenarios (e.g. feature extraction, regularisation, among others), and is empirically tractable on these problems. On the other side, it raises a corresponding set of unanswered questions, both theoretical and empirical. For example, the interpretability when it approaches its maximal value remains insufficiently clear, however empirical experiments with simulated data reveals, that increasing independence between two random variables is reflected in a decreasing trend on the estimated values of the proposed dependence measure. In contrary to e.g. HSIC or distance correlation, the estimation of the porposed measure is iterative optimisation process. Therefore, parameter initialization, meta-parameter (e.g. stopping criteria, batch size) selection are needed in order to evaluate it efficiently.
+In this article we propose statistical dependence measure, KacIM, which corresponds to the $L^{\infty}$ norm of the absolute value of difference between joint characteristic function and the product of marginal ones. The proposed measure, in theory can detect both linear and non-linear statistical depdendence between a pairs of random variables of possibly different dimension, extended to various directions(e.g. kernels, multivariablity), applied to several machine learning tasks (e.g. feature extraction, regularisation, among others). On the other side, it raises a corresponding set of unanswered questions, both theoretical and empirical. For example, the interpretability when it approaches its maximal value remains insufficiently clear, however empirical experiments with simulated data reveals, that increasing independence between two random variables is reflected in a decreasing trend on the estimated values of the proposed dependence measure. In contrary to e.g. HSIC or distance correlation, the estimation of the porposed measure is iterative optimisation process. Therefore, parameter initialization, meta-parameter (e.g. stopping criteria, batch size) selection are needed in order to evaluate it efficiently.
 
 Beside demonstrated applications in Section~\ref{section:experiments}, the proposed measure is differentiable and thereby can be integrated with various modern deep-learning methods, applied to high-dimensional and structured data. From empirical point of view, we see exploration of KacIM in causality, information bottleneck theory, self-supervised learning, and other modern problems, where dependence measures define a criterion of optimisation, as important future work. %We also would like to note, that exhaustive survey of measures of statistical dependence, accompanied with open-source code repository, would be helpful both for the theorists and for practicioneers.
 

@@ -41,7 +41,7 @@ def get_activation(name):
 REGULARIZER = 0
 LOSS = 1
 
-kim = KacIndependenceMeasure(32, 2, lr=0.005, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
+kim = KacIndependenceMeasure(512, 2, lr=0.001, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
 
 
 train_transform = transforms.Compose([transforms.Grayscale(num_output_channels=3), 
@@ -97,7 +97,6 @@ model.fc = nn.Sequential(
     nn.Linear(32, 2)
 )
 
-#breakpoint()
 # intermediate activations
 """
 model.layer1[0].register_forward_hook(get_activation('layer1_0'))
@@ -109,7 +108,7 @@ model.layer3[1].register_forward_hook(get_activation('layer3_1'))
 model.layer4[0].register_forward_hook(get_activation('layer4_0'))
 model.layer4[1].register_forward_hook(get_activation('layer4_1'))
 """
-model.fc[2].register_forward_hook(get_activation('bottleneck'))
+model.avgpool.register_forward_hook(get_activation('bottleneck'))
 
 
 model.to(device)
@@ -127,7 +126,13 @@ num_kac_iters = 300
 
 dep_history = []
 
-reg_alpha = 0.1 #0.1
+reg_alpha = 7.0 #0.1
+
+if len(sys.argv) < 2:
+    print(sys.argv)
+    breakpoint()
+    print("Usage {} 1/0".format(sys.argv[0]))
+    sys.exit(0)
 
 if sys.argv[1] == "0":
     use_regularization = False
@@ -139,10 +144,10 @@ mode = LOSS
 
 number_of_epoch = 4
 if use_regularization:
-    numer_of_epoch = 2*number_of_epoch
+    number_of_epoch = 2*number_of_epoch
     
 
-
+global_iteration = 0
 for epoch in range(number_of_epoch):
     
     train_correct = 0
@@ -157,6 +162,8 @@ for epoch in range(number_of_epoch):
     iteration = 0
     for data,label in train_loader:
         
+        global_iteration += 1
+
         optimizer.zero_grad()
         data = data.to(device)
         label = label.to(device)        
@@ -169,20 +176,26 @@ for epoch in range(number_of_epoch):
 
 
         loss = loss_fn(pred, label) 
-        if epoch % 2 == 0 and use_regularization:
-                #print(y.shape)
+             
                 
-                reg0 = kim.forward(bottleneck.clone().detach().to(device), y.clone().detach().to(device), update=True)
-                print("Dep iteration: epoch {}, iteration {},  reg_estim {} ".format(epoch, iteration,  reg0))
-                dep_history.append(reg0.detach().cpu().numpy())
-                iteration = iteration + 1
-                continue
-
+        reg0 = kim.forward(bottleneck.clone().detach().to(device), y.clone().detach().to(device), update=True)
+        print("Dep iteration: epoch {}, iteration {},  reg_estim {} ".format(epoch, iteration,  reg0))
+        dep_history.append(reg0.detach().cpu().numpy())
+        writer.add_scalar("Dep/train", reg_alpha * reg0, global_iteration)
+        iteration = iteration + 1
         if epoch % 2 != 0 and use_regularization:
+           continue
+
+        if epoch % 2 == 0 and use_regularization:
             reg = kim.forward(bottleneck, y, update=False)
             dep_history.append(reg.detach().cpu().numpy())
+            writer.add_scalar("Dep0/train", reg_alpha * reg, global_iteration)
+
             print("Loss iteration: epoch {}, iteration {}, loss {}, reg {} ".format(epoch, iteration, loss, reg))
             loss =  loss - reg_alpha * reg # loss -> min.., dep -> max
+            writer.add_scalar("Loss/train", loss, global_iteration)
+
+            #reg0 = kim.forward(bottleneck.clone().detach().to(device), y.clone().detach().to(device), update=True)
 
         loss.backward()
         optimizer.step()
@@ -215,29 +228,30 @@ for epoch in range(number_of_epoch):
 
     print ('Epoch {}/{}, Training Loss: {:.3f}, Training Accuracy: {:.3f}'.format(epoch+1, number_of_epoch, train_loss[-1], train_accuracy[-1]))
 
-plt.plot(dep_history)
+#plt.plot(dep_history)
 #plt.show()
-timestr = time.strftime("%Y%m%d-%H%M%S")
-plt.savefig('./chest_{}.png'.format(timestr))
+#timestr = time.strftime("%Y%m%d-%H%M%S")
+#plt.savefig('./chest_{}.png'.format(timestr))
 
-corrected = 0
+    corrected = 0
 
-model.eval()
-for data, label in test_loader:
-    data = data.to(device)
-    label = label.to(device)
+    model.eval()
+    for data, label in test_loader:
+        data = data.to(device)
+        label = label.to(device)
+        
+        pred = model(data)
+        _, predicted = torch.max(pred, 1)
+        
+        corrected += (predicted == label).sum()
+        
+    accuracy = 100 * float(corrected)/ len_test
     
-    pred = model(data)
-    _, predicted = torch.max(pred, 1)
-    
-    corrected += (predicted == label).sum()
-    
-accuracy = 100 * float(corrected)/ len_test
+    print(f'Test accuracy is {accuracy :.3f}')
+    print("Regularization: {}".format(use_regularization))
+writer.close()
 
-print(f'Test accuracy is {accuracy :.3f}')
-print("Regularization: {}".format(use_regularization))
-
-with open("./17result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
+with open("./18result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
 #with open("./13result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
     #f.write("{} {} \n".format(accuracy, test_accuracy[-1]))
     f.write("{}\n".format(accuracy))
