@@ -337,7 +337,7 @@ In regularisation experiments we investigate skin lession classification task. I
 
  As classifier we use \emph{ResNet18}, trained with batches of $128$ elements.
 We denote classifier as $f(\phi(x|\theta_{0})|\theta_{1})$, where $\theta_{0}$ are bottleneck parameters, $\theta_{1}$ final (linear) layer parameters, and $x$ is $224\times 224$ input image.
-For optimisation we use decoupled weight decay regularization optimizer~\cite{Loshchilov2019DecoupledWD} with learning rate set to $0.0002$, and weight decay parameter set to $0.00001$ ($7$ epochs).
+For optimisation we use decoupled weight decay regularization optimizer~\cite{Loshchilov2019DecoupledWD} with learning rate set to $0.0002$, and weight decay parameter set to $0.00001$ ($3$ epochs).
 We used the following data augmentations: random horizontal flip, random rotation (up to 10 degrees), color jitter. 
 
 In each experiment we train classifier $20$ times with randomly splitted training and testing data set of aforementioned sizes. The average accuracies are reported in Table~\ref{table:regularisation_classification_accuracies}.
@@ -347,7 +347,7 @@ In each experiment we train classifier $20$ times with randomly splitted trainin
 	\subfloat{{\includegraphics[scale=0.4]{./benign.png} }}%
 	\qquad
 	\subfloat{{\includegraphics[scale=0.4]{./maligant.png} }}%
-	\caption{Top figure: benign moles, bottom figure: maligant tumors.}
+	\caption{Top figure - benign moles, bottom figure - maligant tumors.}
 	\label{fig:Pneumonia_dataset_examples}
 \end{figure}
 
@@ -363,18 +363,18 @@ Cost(\theta_{0},\theta_{1}, W) := CE(f(\phi(x|\theta_{0})|\theta_{1}),y) - \beta
 
 \begin{table}	
 	\centering
-	\begin{tabular}{ |p{4cm}|p{2cm}|}
+	\begin{tabular}{ |p{4cm}|p{3cm}|}
 		%\hline
 		%\multicolumn{5}{|c|}{Classification accuracies} \\
 		\hline
-		Mode & esting  \\
+		Mode & Average accuracy  \\
 		\hline
-		Without regularisation   &    0.8338 \\		
+		Without regularisation   &    0.8727 \\		
 		\hline
-		With regularisation  &   0.8427 \\		
+		With regularisation  &   \textbf{0.8775} \\		
 		\hline
 	\end{tabular}
-	\caption{Classification accuracy comparison of regularised and not regularised model. Bold text indicates that model with regulariser was more accurate (Wilcoxon's signed rank test~\cite{Wilcoxon1992}, 20 runs, $p$-value threshold $0.01$))}
+	\caption{Classification accuracy comparison of regularised and not regularised model. Bold text indicates that model with regulariser was more accurate (Wilcoxon's signed rank test~\cite{Wilcoxon1992}, 20 runs, $p$-value threshold $0.06$))}
 	\label{table:regularisation_classification_accuracies}	
 \end{table}
 

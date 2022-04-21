@@ -126,7 +126,7 @@ num_kac_iters = 300
 
 dep_history = []
 
-reg_alpha = 7.0 #0.1
+reg_alpha = 9.0 #0.1
 
 if len(sys.argv) < 2:
     print(sys.argv)
@@ -142,7 +142,7 @@ else:
 
 mode = LOSS
 
-number_of_epoch = 4
+number_of_epoch = 3
 if use_regularization:
     number_of_epoch = 2*number_of_epoch
     
@@ -189,11 +189,12 @@ for epoch in range(number_of_epoch):
         if epoch % 2 == 0 and use_regularization:
             reg = kim.forward(bottleneck, y, update=False)
             dep_history.append(reg.detach().cpu().numpy())
-            writer.add_scalar("Dep0/train", reg_alpha * reg, global_iteration)
+            writer.add_scalar("Dep_loss/train", reg_alpha * reg, global_iteration)
+            writer.add_scalar("Loss/train", loss, global_iteration)
 
             print("Loss iteration: epoch {}, iteration {}, loss {}, reg {} ".format(epoch, iteration, loss, reg))
             loss =  loss - reg_alpha * reg # loss -> min.., dep -> max
-            writer.add_scalar("Loss/train", loss, global_iteration)
+            writer.add_scalar("LossReg/train", loss, global_iteration)
 
             #reg0 = kim.forward(bottleneck.clone().detach().to(device), y.clone().detach().to(device), update=True)
 
@@ -249,6 +250,8 @@ for epoch in range(number_of_epoch):
     
     print(f'Test accuracy is {accuracy :.3f}')
     print("Regularization: {}".format(use_regularization))
+    writer.add_scalar("Acc/test", accuracy, global_iteration)
+
 writer.close()
 
 with open("./18result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
