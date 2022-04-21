@@ -15,7 +15,7 @@ from scipy.stats import wilcoxon
 #acc_reg = loadtxt("./14result_chest_True_0.15.txt", comments="#", delimiter=",", unpack=False)
 
 acc_reg = loadtxt("./18result_chest_True_9.0.txt", comments="#", delimiter=",", unpack=False)
-acc = loadtxt("./18result_chest_False_12.0.txt", comments="#", delimiter=",", unpack=False)
+acc = loadtxt("./18result_chest_False_9.0.txt", comments="#", delimiter=",", unpack=False)
 
 print("acc_reg {}, acc {}".format(np.mean(acc_reg), np.mean(acc)))
 n = np.min([len(acc_reg), len(acc)])
