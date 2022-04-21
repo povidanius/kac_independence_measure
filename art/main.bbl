@@ -135,6 +135,11 @@ Bernhard Sch\"{o}lkopf, Alexander~J. Smola, and Francis Bach.
   Optimization, and Beyond}.
 \newblock The MIT Press, 2018.
 
+\bibitem{10.1145/1839490.1839495}
+Yin Zhang and Zhi-Hua Zhou.
+\newblock Multilabel dimensionality reduction via dependence maximization.
+\newblock {\em ACM Trans. Knowl. Discov. Data}, 4(3), oct 2010.
+
 \bibitem{OpenML2013}
 Joaquin Vanschoren, Jan~N. van Rijn, Bernd Bischl, and Luis Torgo.
 \newblock Openml: Networked science in machine learning.

@@ -1,11 +1,16 @@
 This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
 Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: main.aux
+Case mismatch error between cite keys hsca and HSCA
+---line 79 of file main.aux
+ : \citation{hsca
+ :               }
+I'm skipping whatever remains of this command
 The style file: unsrt.bst
 Database file #1: bibliography.bib
 Warning--entry type for "Bottcher" isn't style-file defined
 --line 35 of file bibliography.bib
-Warning--I didn't find a database entry for "?"
+Warning--I didn't find a database entry for "LCT"
 Name 2 in "Daniušis, P. and Vaitkus, Pr., and Petkevičius, L." has a comma at the end for entry HSCA
 while executing---line 944 of file unsrt.bst
 Too many commas in name 1 of "David Applebaum, B.V. Rajarama Bhat, Johan Kustermans, J. Martin Lindsay, Michael Schuermann, Uwe Franz" for entry KacTheorem
@@ -16,45 +21,45 @@ Too many commas in name 1 of "David Applebaum, B.V. Rajarama Bhat, Johan Kusterm
 while executing---line 944 of file unsrt.bst
 Warning--empty journal in KacTheorem
 Warning--can't use both author and editor fields in Wilcoxon1992
-You've used 24 entries,
+You've used 25 entries,
             1791 wiz_defined-function locations,
-            625 strings with 9074 characters,
-and the built_in function-call counts, 6482 in all, are:
-= -- 542
-> -- 357
+            633 strings with 9263 characters,
+and the built_in function-call counts, 6640 in all, are:
+= -- 555
+> -- 365
 < -- 9
-+ -- 126
-- -- 102
-* -- 446
-:= -- 1019
-add.period$ -- 78
-call.type$ -- 24
-change.case$ -- 21
++ -- 129
+- -- 104
+* -- 457
+:= -- 1047
+add.period$ -- 81
+call.type$ -- 25
+change.case$ -- 22
 chr.to.int$ -- 0
-cite$ -- 26
-duplicate$ -- 302
-empty$ -- 611
-format.name$ -- 102
-if$ -- 1472
+cite$ -- 27
+duplicate$ -- 310
+empty$ -- 626
+format.name$ -- 104
+if$ -- 1506
 int.to.chr$ -- 0
-int.to.str$ -- 24
-missing$ -- 27
-newline$ -- 122
-num.names$ -- 34
-pop$ -- 97
+int.to.str$ -- 25
+missing$ -- 28
+newline$ -- 127
+num.names$ -- 35
+pop$ -- 98
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 150
+skip$ -- 155
 stack$ -- 0
 substring$ -- 339
-swap$ -- 92
+swap$ -- 93
 text.length$ -- 9
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 2
-while$ -- 55
-width$ -- 26
-write$ -- 267
-(There were 4 error messages)
+while$ -- 56
+width$ -- 27
+write$ -- 278
+(There were 5 error messages)

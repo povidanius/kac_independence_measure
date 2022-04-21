@@ -38,9 +38,9 @@
 \end{abstract}
 
 \section{Introduction}
-Statistical dependence measures plays important role in various statistical and machine learning methods (e.g. hypothesis testing~\cite{Gretton2005MeasuringSD}, feature selection and extraction~\cite{EigenHSIC,HSCA}, information bottleneck methods \cite{Ma2020TheHB}, causal inference~\cite{NIPS2008_f7664060}, self-supervised learning~\cite{li2021selfsupervised}, representation learning~\cite{Ragonesi2021LearningUR}, among others).  Earliest statistical dependence estimation ideas (e.g. conditional probability) share nearly-common origin with the beginning of formal statistical reasoning itself. During last two centuries ideas of correlation and (relative) entropy (including various generalizations) were proposed and became very popular in numerous applications and theoretical developments. However, with the increasing popularity of machine learning, new statistical dependence estimation methods, that are robust, applicable to noisy, high-dimensional, structured data, and which can be efficiently integrated with modern machine learning methods are helpful for the development both of the theory and application.
+Interpretations of  statistical dependence plays important role in various empirical learning methods (e.g. hypothesis testing~\cite{Gretton2005MeasuringSD}, feature selection and extraction~\cite{EigenHSIC,HSCA}, information bottleneck methods \cite{Ma2020TheHB}, causal inference~\cite{NIPS2008_f7664060}, self-supervised learning~\cite{li2021selfsupervised}, representation learning~\cite{Ragonesi2021LearningUR}, among others).  Hystorically, earliest statistical dependence estimation ideas (e.g. conditional probability) share nearly-common origin with the beginning of formal statistical reasoning itself. During last two centuries ideas of correlation and (relative) entropy (including various generalizations) were proposed and became very popular in numerous applications and theoretical developments. However, with the increasing popularity of machine and deep learning developments, new statistical dependence estimation methods, that are robust, applicable to noisy, high-dimensional, structured data, and which can be efficiently integrated with modern machine learning methods are helpful for the development both of the theory and application.
 
-In this article we focus on quantitative estimation of statistical depdendencies, using characteristic functions. We begin with the short review of some important previous dependence estimation approaches (Section~\ref{section:previous_work}), devoting special attention to ones based on characteristic functions (Section~\ref{section:previous_work_cf}). Afterwards, in (Section~\ref{section:proposed_method}), we formulate the proposed measure, its empirical estimator, and conduct theoretical analysis, which are the main theoretical contribution of our paper. Section~\ref{section:experiments} is devoted to experiments with simulated and real data sets, where we apply the proposed dependence measure for feature extraction and deep neural network (DNN) regularisation,  and finalizing Section~\ref{section:conclusion} concludes this article.
+In this article we focus on quantitative estimation of statistical depdendencies, using characteristic functions. We begin with the short review of some important previous dependence estimation approaches (Section~\ref{section:previous_work}), devoting special attention to ones based on characteristic functions (Section~\ref{section:previous_work_cf}). Afterwards, in (Section~\ref{section:proposed_method}), we formulate the proposed measure, its empirical estimator, and conduct preliminary theoretical analysis, which are the main theoretical contribution of our paper. Section~\ref{section:experiments} is devoted to experiments with simulated and real data sets, where we apply the proposed dependence measure for feature extraction and deep neural network (DNN) regularisation,  and finalizing Section~\ref{section:conclusion} concludes this article.
 
 \section{Previous Work}
 \label{section:previous_work}
@@ -71,6 +71,8 @@ $n$ i.i.d. realisations of $(X,Y)$, joint empirical characteristic function is d
 \widehat{\phi_{X,Y}}(\alpha,\beta): = \frac{1}{n} \sum_{j=1}^{n} e^{i(<\alpha, x_{j}> + <\beta, y_{j}>) }.
 \end{equation}
 
+By \textit{Levy continuity theorem} \cite{LCT}
+
 If cumulative distribution function (cdf.) of $(X,Y)$, $F_{X,Y}(x,y)$, $x \in R^{d_{X}}$ and $y \in R^{d_{Y}}$ factorises as $F_{X}(x)F_{Y}(y)$ for all $x$ and $y$, $X$ and $Y$ are called independent (the same holds for probability density function, pdf.). However, this criterion is impractical due to need of evaluation of potentially high-dimensional cdf. or pdf., and often alternative independence criterions are more useful. For example, in terms of characteristic functions, statistical independence  of $X$ and $Y$ is equivalent to $\forall \alpha \in R^{d_X},\forall \beta \in R^{d_Y} $, 
 
 \begin{equation}
@@ -79,8 +81,8 @@ If cumulative distribution function (cdf.) of $(X,Y)$, $F_{X,Y}(x,y)$, $x \in R^
 \Delta_{X,Y}(\alpha, \beta) := \phi_{X,Y}(\alpha,\beta) - \phi_{X}(\alpha) \phi_{Y}(\beta) = 0.
 \end{equation}
 %where $d_{x}$ and $d_{y}$ are dimensions of $X$ and $Y$, respectively.
-
-This formulation of statistical independence was used as the basis (first in~\cite{Feuerverger} for one-dimensional case, and afterwards extended and developed by~\cite{Szekely} for bivariate multidimensional random vectors) for construction of statistical independence tests and measures. Distance covariance and distance correlation, prosposed by ~\cite{Szekely} relies on weighted $L^{2}$-norm analysis of~\eqref{eq:kac_theorem}. They select weighting function in such a way, that dependence measure can be expressed in terms of correlection of data-dependent distances. Recent result of~\cite{Bottcher} generalises~\cite{Szekely} to multivariable case.~\cite{CHAUDHURI201915} proposed computationally efficient algorithm for estimation of distance correlation measure, reducing computational complexity from $O(n^2)$ to $O(n\cdot \log n)$, where $n$ is sample size.
+Let us correspondingly denote empirical $\widehat{\Delta}_{X,Y}(\alpha, \beta) := \widehat{\phi}_{X,Y}(\alpha,\beta) - \widehat{\phi}_{X}(\alpha) \hat{\phi_{Y}}(\beta)$.
+Formulation of statistical independence~\eqref{eq:kac_theorem} was used as the basis (first in~\cite{Feuerverger} for one-dimensional case, and afterwards extended and developed by~\cite{Szekely} for bivariate multidimensional random vectors) for construction of statistical independence tests and measures. Distance covariance and distance correlation, prosposed by ~\cite{Szekely} relies on weighted $L^{2}$-norm analysis of~\eqref{eq:kac_theorem}. They select weighting function in such a way, that dependence measure can be expressed in terms of correlection of data-dependent distances. Recent result of~\cite{Bottcher} generalises~\cite{Szekely} to multivariable case.~\cite{CHAUDHURI201915} proposed computationally efficient algorithm for estimation of distance correlation measure, reducing computational complexity from $O(n^2)$ to $O(n\cdot \log n)$, where $n$ is sample size.
 
 \textbf{Motivation and Connection To Previous Work} Taking \eqref{eq:kac_theorem} as the criterion of statistical independence we extend work~\cite{Szekely} with the framework of weighted $L^{p}$ spaces, using corresponding $L^{p}$-norms of~\eqref{eq:kac_theorem} as the statistical independence measures. 
 
@@ -142,12 +144,15 @@ Having i.i.d. observations $(x_{j}, y_{j})$, $j = 1,2,...,n$, an empirical scale
 
 
 \begin{algorithm}
-\caption{KacIM estimation iteration}\label{alg:estimator_computation}
+\caption{KacIM estimation}\label{alg:estimator_computation}
 \begin{algorithmic}
-\Require data batch $(x,y)_{i=1}^{n_{b}}$, gradient-based optimiser $GradOpt(loss)$
-\State Normalize $(x,y)$ to zero mean and unit variance (scale invariance).
-\State Calculate KacIM estimator $\hat{\kappa}(x,y)$, without maximization step (i.e. using current $\alpha, \beta$).
-\State Perform one maximization iteration of computed $\hat{\kappa}(x,y)$ via $\alpha, \beta \rightarrow GradOpt(\hat{\kappa}(x,y))$.
+\Require Number of iterations $N$, gradient-based optimiser $GradOpt([parameters],loss)$
+\For{iteration=1 to N}
+\State Sample data batch $(X,Y):=(x_{i},y_{i})_{i=1}^{n_{b}}$.
+\State Normalize $(X,Y)$ to zero mean and unit variance (scale invariance).
+\State Calculate  $\widehat{\Delta}(X,Y)$.
+\State Perform one maximization iteration of $\widehat{\Delta}(X,Y)$ via $\alpha, \beta \rightarrow GradOpt([\alpha, \beta], \widehat{\Delta}(X,Y))$.
+\EndFor
 \end{algorithmic}
 \end{algorithm}
 
@@ -159,8 +164,8 @@ We also empirically observed that normalisation of parameters $\alpha$ and $\bet
 
 Note, that e.g. Shannon and Renyi mutual information~\cite{Cover2006} are also estimated via transforming them into maximisation problem by Donsker-Varadhan representation~\cite{pmlr-v80-belghazi18a}, in order to avoid density estimation.
 
-\subsection{Interpretation and connection to canonical correlation}
-Since \eqref{eq:kim} can be reformulated as
+\subsection{Interpretation and connection previous approaches}
+\textbf{Interpretation in general case}. Since \eqref{eq:kim} can be reformulated as
 \begin{equation}
 \kappa(X,Y) = \max_{\alpha,\beta} |\cov(e^{i\alpha^{T}X},e^{i\beta^{T}Y})|,
 \end{equation}
@@ -174,14 +179,14 @@ by Euler's formula, it corresponds to the maximum covariance between $e^{i\alpha
 \end{equation}
 \end{comment}
 
-In special case when both $X$ and $Y$ are zero mean Gaussian random vectors we have:
+\textbf{Interpretation in Gaussian case}. In special case when both $X$ and $Y$ are zero mean Gaussian random vectors we have:
 \begin{equation}
 \label{eq:gaussian_kacim}
 \kappa(X,Y) = \max_{\alpha, \beta} | e^{-\frac{1}{2} (\alpha^{T}\Sigma_{x}\alpha + \beta{^T}\Sigma_{y}\beta)}(e^{-\alpha{^T}\Sigma_{x,y}\beta} - 1)|.
 \end{equation}
 Assuming constant $\alpha^{T}\Sigma_{x}\alpha$ and  $\beta{^T}\Sigma_{y}\beta$, the maximization corresponds to the maximization of  $\alpha{^T}\Sigma_{x,y}\beta$, which coincides with canonical correlation analysis~\cite{10.5555/3279302}. Here $\Sigma_{x}$, $\Sigma_{y}$, and  $\Sigma_{x,y}$ are covariance matrices of $X$, $Y$, and cross-covariance matrix between $X$ and $Y$, respectively.
 
-
+\textbf{Generative models}. In the environment of generative models with Gaussian outputs, estimation of KacIM in equivalent to finding first cannonical correlation pair between corresponding outputs.
 
 \begin{comment}
 \subsection{Kernel version}
@@ -219,7 +224,7 @@ where $K$ and $L$ are Gram matrices, corresponding to $x_{i}$ and $y_{i}$. Note 
 \section{Experiments}
 \label{section:experiments}
 
-Further we will conduct empirical investigation of KacIM in order to demonstrate that it can measure non-linear statistical dependencies, and that it can be practically useful as a component of cost functions (in feature selection and extraction, and regularisation problems).
+Further we will conduct empirical investigation of KacIM in order to demonstrate that it can measure non-linear statistical dependencies, and that it can be practically useful as a component of cost functions (we investigate feature extraction, and regularisation problems).
 
 \subsection{Generated data}
 
@@ -257,14 +262,11 @@ Figure~\ref{fig:experiments_simulation} empirically shows that value of KacIM  n
 \label{fig:experiments_simulation_dcor}
 \end{figure}
 
-%\subsection{Feature selection}
-%Shubham
 
 
 \subsection{Feature extraction}
 
-Previous work in the field of supervised feature extraction (also parralel field termed dimensionality reduction), which rely on dependency-based cost functions, include [?,?,?]. 
-
+Previous work in the field of supervised feature extraction, which rely on dependency-based cost functions, include \cite{EigenHSIC,HSCA,10.1145/1839490.1839495} (HSIC),....().
 %Further we will extend [?,?] algorithms in the dimension of the dependence measure, as the parameter. In our reasoining, and formulations we will adopt Bayesian framework, embodied in this probability factorisation:
 %P(S|A,S') = F()/
 
@@ -338,9 +340,9 @@ In regularisation experiments we investigate skin lession classification task. I
  As classifier we use \emph{ResNet18}, trained with batches of $128$ elements.
 We denote classifier as $f(\phi(x|\theta_{0})|\theta_{1})$, where $\theta_{0}$ are bottleneck parameters, $\theta_{1}$ final (linear) layer parameters, and $x$ is $224\times 224$ input image.
 For optimisation we use decoupled weight decay regularization optimizer~\cite{Loshchilov2019DecoupledWD} with learning rate set to $0.0002$, and weight decay parameter set to $0.00001$ ($3$ epochs).
-We used the following data augmentations: random horizontal flip, random rotation (up to 10 degrees), color jitter. 
+We used the following data augmentations: random flips, random rotation (up to 10 degrees), color jitter. 
 
-In each experiment we train classifier $20$ times with randomly splitted training and testing data set of aforementioned sizes. The average accuracies are reported in Table~\ref{table:regularisation_classification_accuracies}.
+In each experiment we train classifier $30$ times with randomly splitted training and testing data set of aforementioned sizes. The average accuracies are reported in Table~\ref{table:regularisation_classification_accuracies}.
  
 \begin{figure}%
 	\centering
@@ -356,10 +358,10 @@ We will investigate additive regularizer, which maximises depency of bottleneck 
 
 
 \begin{equation}
-Cost(\theta_{0},\theta_{1}, W) := CE(f(\phi(x|\theta_{0})|\theta_{1}),y) - \beta \kappa(W\phi(x|\theta_{0}),y),
+Cost(\theta_{0},\theta_{1}, W) := CE(f(\phi(x|\theta_{0})|\theta_{1}),y) - \beta \kappa(\phi(x|\theta_{0}),y),
 \end{equation}
 
-\noindent where $CE(.,.)$ is cross-entropy loss, $W$ is $32\times 512$ projection matrix, and $\beta \geq 0$ is regularisation parameter (in our experiments $\beta = 0.1$).
+\noindent where $CE(.,.)$ is cross-entropy loss, $\rho \geq 0$ is regularisation parameter (in our experiments $\rho = 9.0$). This regularizer is designed to directly transfer information from $y$ to the input of classification network $f(.|\theta_{1})$, and we hypothethise that this would provide possibility to improve classification accuracy.
 
 \begin{table}	
 	\centering
@@ -367,14 +369,14 @@ Cost(\theta_{0},\theta_{1}, W) := CE(f(\phi(x|\theta_{0})|\theta_{1}),y) - \beta
 		%\hline
 		%\multicolumn{5}{|c|}{Classification accuracies} \\
 		\hline
-		Mode & Average accuracy  \\
+		Mode & Average accuracy (\%)  \\
 		\hline
-		Without regularisation   &    0.8727 \\		
+		Without regularisation   &   87.08 \\		
 		\hline
-		With regularisation  &   \textbf{0.8775} \\		
+		With regularisation  &   \textbf{87.69} \\		
 		\hline
 	\end{tabular}
-	\caption{Classification accuracy comparison of regularised and not regularised model. Bold text indicates that model with regulariser was more accurate (Wilcoxon's signed rank test~\cite{Wilcoxon1992}, 20 runs, $p$-value threshold $0.06$))}
+	\caption{Classification accuracy comparison of regularised and not regularised model. Bold text indicates that model with regulariser was more accurate (Wilcoxon's signed rank test~\cite{Wilcoxon1992}, 30 runs, $p$-value threshold $0.04$))}
 	\label{table:regularisation_classification_accuracies}	
 \end{table}
 
@@ -384,7 +386,7 @@ Cost(\theta_{0},\theta_{1}, W) := CE(f(\phi(x|\theta_{0})|\theta_{1}),y) - \beta
 \section{Conclusion} 
 
 \label{section:conclusion}
-In this article we propose statistical dependence measure, KacIM, which corresponds to the $L^{\infty}$ norm of the absolute value of difference between joint characteristic function and the product of marginal ones. The proposed measure, in theory can detect both linear and non-linear statistical depdendence between a pairs of random variables of possibly different dimension, extended to various directions(e.g. kernels, multivariablity), applied to several machine learning tasks (e.g. feature extraction, regularisation, among others). On the other side, it raises a corresponding set of unanswered questions, both theoretical and empirical. For example, the interpretability when it approaches its maximal value remains insufficiently clear, however empirical experiments with simulated data reveals, that increasing independence between two random variables is reflected in a decreasing trend on the estimated values of the proposed dependence measure. In contrary to e.g. HSIC or distance correlation, the estimation of the porposed measure is iterative optimisation process. Therefore, parameter initialization, meta-parameter (e.g. stopping criteria, batch size) selection are needed in order to evaluate it efficiently.
+In this article we propose statistical dependence measure, KacIM, which corresponds to the $L^{\infty}$ norm of the absolute value of difference between joint characteristic function and the product of marginal ones. The proposed measure, in theory can detect both linear and non-linear statistical depdendence between a pairs of random variables of possibly different dimension, extended to various directions(e.g. kernels, multivariablity, cannonical correlation), applied to several machine learning tasks (e.g. feature extraction, regularisation, among others). On the other side, it raises a corresponding set of unanswered questions, both theoretical and empirical. For example, the interpretability when it approaches its maximal value remains insufficiently clear, however empirical experiments with simulated data reveals, that increasing independence between two random variables is reflected in a decreasing trend on the estimated values of the proposed dependence measure. In contrary to e.g. HSIC or distance correlation, the estimation of the porposed measure is iterative optimisation process. Therefore, parameter initialization, meta-parameter (e.g. stopping criteria, batch size) selection are needed in order to evaluate it efficiently.
 
 Beside demonstrated applications in Section~\ref{section:experiments}, the proposed measure is differentiable and thereby can be integrated with various modern deep-learning methods, applied to high-dimensional and structured data. From empirical point of view, we see exploration of KacIM in causality, information bottleneck theory, self-supervised learning, and other modern problems, where dependence measures define a criterion of optimisation, as important future work. %We also would like to note, that exhaustive survey of measures of statistical dependence, accompanied with open-source code repository, would be helpful both for the theorists and for practicioneers.
 

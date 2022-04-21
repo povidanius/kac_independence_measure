@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.6.4)  21 APR 2022 04:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.6.4)  22 APR 2022 00:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -918,14 +918,31 @@ ed to high-dimensional
 
 [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 145.
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 
-Underfull \hbox (badness 1418) in paragraph at lines 150--151
-[]\OT1/cmr/m/n/10 Per-form one max-i-miza-tion it-er-a-tion of com-puted $[](\O
-ML/cmm/m/it/10 x; y\OT1/cmr/m/n/10 )$ via $\OML/cmm/m/it/10 ; ^^L \OMS/cmsy/m/
-n/10 !
+LaTeX Warning: Citation `LCT' on page 2 undefined on input line 74.
+
+[2]
+Overfull \hbox (5.3047pt too wide) in paragraph at lines 82--86
+\OT1/cmr/m/n/10 Let us cor-re-spond-ingly de-note em-pir-i-cal $[](\OML/cmm/m/i
+t/10 ; ^^L\OT1/cmr/m/n/10 ) := [](\OML/cmm/m/it/10 ; ^^L\OT1/cmr/m/n/10 ) \OM
+S/cmsy/m/n/10 ^^@ []\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 \OT1/cmr/m/n/10 )[](\OML
+/cmm/m/it/10 ^^L\OT1/cmr/m/n/10 )$.
+ []
+
+[3]
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
+put line 147.
+
+Underfull \hbox (badness 10000) in paragraph at lines 149--150
+[]\OT1/cmr/m/n/10 Number of it-er-a-tions $\OML/cmm/m/it/10 N$\OT1/cmr/m/n/10 ,
+ gradient-based op-ti-miser
+ []
+
+
+Underfull \hbox (badness 7888) in paragraph at lines 154--155
+[] \OT1/cmr/m/n/10 Per-form one max-i-miza-tion it-er-a-tion of $[](\OML/cmm/m/
+it/10 X; Y\OT1/cmr/m/n/10 )$ via $\OML/cmm/m/it/10 ; ^^L \OMS/cmsy/m/n/10 !
  []
 
 [4] Excluding 'comment' comment. Excluding 'comment' comment.
@@ -935,13 +952,13 @@ File: ../experiments/basic_demonstration/dependence_detection.png Graphic file
 (type png)
 <use ../experiments/basic_demonstration/dependence_detection.png>
 Package pdftex.def Info: ../experiments/basic_demonstration/dependence_detectio
-n.png  used on input line 231.
+n.png  used on input line 236.
 (pdftex.def)             Requested size: 148.01198pt x 111.00897pt.
 <../experiments/noise_effect/summary.png, id=184, 462.528pt x 346.896pt>
 File: ../experiments/noise_effect/summary.png Graphic file (type png)
 <use ../experiments/noise_effect/summary.png>
 Package pdftex.def Info: ../experiments/noise_effect/summary.png  used on input
- line 233.
+ line 238.
 (pdftex.def)             Requested size: 148.01198pt x 111.00897pt.
  [5]
 <../experiments/basic_demonstration/dependence_detection_dcor_dim.png, id=204, 
@@ -950,7 +967,7 @@ File: ../experiments/basic_demonstration/dependence_detection_dcor_dim.png Grap
 hic file (type png)
 <use ../experiments/basic_demonstration/dependence_detection_dcor_dim.png>
 Package pdftex.def Info: ../experiments/basic_demonstration/dependence_detectio
-n_dcor_dim.png  used on input line 252.
+n_dcor_dim.png  used on input line 257.
 (pdftex.def)             Requested size: 148.01198pt x 111.00897pt.
 <../experiments/basic_demonstration/aaa_dependence_detection_kacim_by_dim_502.p
 ng, id=205, 462.528pt x 346.896pt>
@@ -959,62 +976,76 @@ File: ../experiments/basic_demonstration/aaa_dependence_detection_kacim_by_dim_
 <use ../experiments/basic_demonstration/aaa_dependence_detection_kacim_by_dim_5
 02.png>
 Package pdftex.def Info: ../experiments/basic_demonstration/aaa_dependence_dete
-ction_kacim_by_dim_502.png  used on input line 254.
+ction_kacim_by_dim_502.png  used on input line 259.
 (pdftex.def)             Requested size: 148.01198pt x 111.00897pt.
- [6 <../experiments/basic_demonstration/dependence_detection.png> <../experimen
-ts/noise_effect/summary.png>]
-Overfull \hbox (1.42801pt too wide) in paragraph at lines 310--310
+
+Overfull \hbox (19.02841pt too wide) in paragraph at lines 269--272
+\OT1/cmr/m/n/10 Previous work in the field of su-per-vised fea-ture ex-trac-tio
+n, which rely on dependency-
+ []
+
+[6 <../experiments/basic_demonstration/dependence_detection.png> <../experiment
+s/noise_effect/summary.png>]
+Overfull \hbox (1.42801pt too wide) in paragraph at lines 312--312
 []\OT1/cmr/m/n/10 (7797,617,26)| 
  []
 
 
-Overfull \hbox (1.42801pt too wide) in paragraph at lines 314--314
+Overfull \hbox (1.42801pt too wide) in paragraph at lines 316--316
 []\OT1/cmr/m/n/10 (360,1300,10)| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 324--324
+Underfull \hbox (badness 10000) in paragraph at lines 326--326
 []\OT1/cmr/m/n/10 one-hundred-
  []
 
 
-Overfull \hbox (1.42801pt too wide) in paragraph at lines 324--324
+Overfull \hbox (1.42801pt too wide) in paragraph at lines 326--326
 []\OT1/cmr/m/n/10 (1600,64,100)| 
  []
 
 [7 <../experiments/basic_demonstration/dependence_detection_dcor_dim.png> <../e
 xperiments/basic_demonstration/aaa_dependence_detection_kacim_by_dim_502.png>]
-<./benign.png, id=241, 775.89874pt x 134.5025pt>
+<./benign.png, id=245, 775.89874pt x 134.5025pt>
 File: ./benign.png Graphic file (type png)
 <use ./benign.png>
-Package pdftex.def Info: ./benign.png  used on input line 347.
+Package pdftex.def Info: ./benign.png  used on input line 349.
 (pdftex.def)             Requested size: 310.354pt x 53.80003pt.
-<./maligant.png, id=242, 780.9175pt x 140.525pt>
+<./maligant.png, id=246, 780.9175pt x 140.525pt>
 File: ./maligant.png Graphic file (type png)
 <use ./maligant.png>
-Package pdftex.def Info: ./maligant.png  used on input line 349.
+Package pdftex.def Info: ./maligant.png  used on input line 351.
 (pdftex.def)             Requested size: 312.36147pt x 56.20898pt.
 
-[8] Excluding 'comment' comment. (./main.bbl [9 <./benign.png> <./maligant.png>
-] [10])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 425.
+Underfull \hbox (badness 10000) in paragraph at lines 372--373
+[]\OT1/cmr/m/n/10 Average ac-cu-racy
+ []
+
+[8] [9 <./benign.png> <./maligant.png>] Excluding 'comment' comment.
+(./main.bbl [10])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 427.
  [11]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 425.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 427.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 425.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 425.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 427.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 427.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: CDB8818CE3BF775B587534F8EDDE0571;811.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 425.
+(rerunfilecheck)             Checksum: D7BBE71D50A72295813A548C448303DA;806.
+
+
+LaTeX Warning: There were undefined references.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 427.
  ) 
 Here is how much of TeX's memory you used:
- 8951 strings out of 492982
- 132049 string characters out of 6134897
- 228936 words of memory out of 5000000
- 12297 multiletter control sequences out of 15000+600000
+ 8960 strings out of 492982
+ 132202 string characters out of 6134897
+ 228967 words of memory out of 5000000
+ 12305 multiletter control sequences out of 15000+600000
  15346 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 44i,11n,43p,1242b,493s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 44i,11n,43p,1266b,492s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dis
@@ -1039,10 +1070,10 @@ b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
 </usr/share/texmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf/fo
 nts/type1/public/cm-super/sfrm0800.pfb></usr/share/texmf/fonts/type1/public/cm-
 super/sfti0800.pfb>
-Output written on main.pdf (11 pages, 803196 bytes).
+Output written on main.pdf (11 pages, 806558 bytes).
 PDF statistics:
- 373 PDF objects out of 1000 (max. 8388607)
- 317 compressed objects within 4 object streams
- 82 named destinations out of 1000 (max. 500000)
+ 378 PDF objects out of 1000 (max. 8388607)
+ 322 compressed objects within 4 object streams
+ 83 named destinations out of 1000 (max. 500000)
  135 words of extra memory for PDF output out of 10000 (max. 10000000)
 
