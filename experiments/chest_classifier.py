@@ -43,7 +43,7 @@ LOSS = 1
 
 kim = KacIndependenceMeasure(512, 2, lr=0.001, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
 
-
+"""
 train_transform = transforms.Compose([transforms.Grayscale(num_output_channels=3), 
                                       transforms.Resize((224,224)),
                                       transforms.RandomHorizontalFlip(),
@@ -55,6 +55,20 @@ train_transform = transforms.Compose([transforms.Grayscale(num_output_channels=3
 
 test_transform = transforms.Compose([transforms.Grayscale(num_output_channels=3), 
                                      transforms.Resize((224,224)),
+                                     transforms.ToTensor(),
+                                     #transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]
+                                     transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))])
+"""
+
+train_transform = transforms.Compose([transforms.Resize((224,224)),
+                                      transforms.RandomHorizontalFlip(),
+                                      transforms.RandomRotation(10), #
+                                      transforms.ColorJitter(brightness=1, contrast=1, saturation=1),
+                                      transforms.ToTensor(),
+                                      #transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]
+                                      transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))])
+
+test_transform = transforms.Compose([transforms.Resize((224,224)),
                                      transforms.ToTensor(),
                                      #transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]
                                      transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))])
@@ -254,7 +268,7 @@ for epoch in range(number_of_epoch):
 
 writer.close()
 
-with open("./18result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
+with open("./19result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
 #with open("./13result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
     #f.write("{} {} \n".format(accuracy, test_accuracy[-1]))
     f.write("{}\n".format(accuracy))
