@@ -119,12 +119,12 @@ Further we will focus on characteristic-function-based methods.
 
 \subsection{Characteristic-function-based methods}
 \label{section:previous_work_cf}
-Characteristic function of $d_{X}$-dimensional random vector $X$ defined in some probability space $(\Omega_{X}, \mathcal{F}_{X}, \mathbb{P}_{X})$ is defined as: 
+Characteristic function (CF) of $d_{X}$-dimensional random vector $X$ defined in some probability space $(\Omega_{X}, \mathcal{F}_{X}, \mathbb{P}_{X})$ is defined as: 
 \begin{equation}
 \label{eq:characteristic_function}
 \phi_{X}(\alpha): = \mathbb{E}_{X} e^{i\alpha^{T}X}, 
 \end{equation}
-where $i=\sqrt{-1}$, $\alpha \in R^{d_{X}}$. Having $n$ i.i.d. realisations of $X$, corresponding empirical characteristic function is defined as:
+where $i=\sqrt{-1}$, $\alpha \in R^{d_{X}}$. Having $n$ i.i.d. realisations of $X$, corresponding empirical characteristic function (ECF) is defined as:
 \begin{equation}
 \label{eq:ecf}
 \widehat{\phi_{X}}(\alpha): = \frac{1}{n} \sum_{j=1}^{n} e^{i <\alpha, x_{j}>}.
@@ -142,8 +142,9 @@ $n$ i.i.d. realisations of $(X,Y)$, joint empirical characteristic function is d
 \end{equation}
 
 By \textit{Levy continuity theorem} \cite{LCT} ECF weakly converges CF.
+Uniqueness theorem states that two random variables $X$ and $Y$ have the same distribution if and only if their CF's are identical.
 
-If cumulative distribution function (cdf.) of $(X,Y)$, $F_{X,Y}(x,y)$, $x \in R^{d_{X}}$ and $y \in R^{d_{Y}}$ factorises as $F_{X}(x)F_{Y}(y)$ for all $x$ and $y$, $X$ and $Y$ are called independent (the same holds for probability density function, pdf.). However, this criterion is impractical due to need of evaluation of potentially high-dimensional cdf. or pdf., and often alternative independence criterions are more useful. For example, in terms of characteristic functions, statistical independence  of $X$ and $Y$ is equivalent to $\forall \alpha \in R^{d_X},\forall \beta \in R^{d_Y} $, 
+If cumulative distribution function (CDF) of $(X,Y)$, $F_{X,Y}(x,y)$, $x \in R^{d_{X}}$ and $y \in R^{d_{Y}}$ factorises as $F_{X}(x)F_{Y}(y)$ for all $x$ and $y$, $X$ and $Y$ are called independent (the same holds for probability density function, pdf.). However, this criterion is impractical due to need of evaluation of potentially high-dimensional cdf. or pdf., and often alternative independence criterions are more useful. For example, in terms of characteristic functions, statistical independence  of $X$ and $Y$ is equivalent to $\forall \alpha \in R^{d_X},\forall \beta \in R^{d_Y} $, 
 
 \begin{equation}
 %\mathbb{E}_{X,Y} e^{i <\alpha, X> + i <\beta, Y>} = \mathbb{E}_{X} e^{i <\alpha, X>} \mathbb{E}_{Y} e^{i <\beta, Y>},
@@ -272,9 +273,9 @@ Further we will conduct empirical investigation of KacIM in order to demonstrate
 
 \begin{figure}%
 	\centering
-	\subfloat{{\includegraphics[scale=0.32]{../experiments/basic_demonstration/dependence_detection.png} }}%
+	\subfloat{{\includegraphics[scale=0.40]{../experiments/basic_demonstration/dependence_detection.png} }}%
 	\qquad
-	\subfloat{{\includegraphics[scale=0.32]{../experiments/noise_effect/summary.png} }}%
+	\subfloat{{\includegraphics[scale=0.40]{../experiments/noise_effect/summary.png} }}%
 	\caption{Left figure: KacIM evaluation for independent data (blue), additive (orange) and multiplicative (green) noise scenarios ($x$ axis - iteration, and $y$ - corresponding value of KacIM). Right figure: noise level ($x$ axis) vs final iteration KacIM value ($y$ axis). KacIM values for larger noise levels saturates as in tail of graph}
 	\label{fig:experiments_simulation}
 \end{figure}
@@ -293,9 +294,9 @@ Figure~\ref{fig:experiments_simulation} empirically shows that value of KacIM  n
 
 \begin{figure}%
 	\centering
-	\subfloat{{\includegraphics[scale=0.32]{../experiments/basic_demonstration/dependence_detection_dcor_dim.png} }}%
+	\subfloat{{\includegraphics[scale=0.40]{../experiments/basic_demonstration/dependence_detection_dcor_dim.png} }}%
 	\qquad
-	\subfloat{{\includegraphics[scale=0.32]{../experiments/basic_demonstration/aaa_dependence_detection_kacim_by_dim_502.png} }}%
+	\subfloat{{\includegraphics[scale=0.40]{../experiments/basic_demonstration/aaa_dependence_detection_kacim_by_dim_502.png} }}%
 	
 	\caption{The dimension of data is on the $x$ axis, and on $y$ axis is evaluation of distance correlation (left) and KacIM (right). Blue graph corresponds of independent data of dimension, indicated by $x$ axis, and orange one corresponds to dependent data.}
 	\label{fig:experiments_simulation_dcor}
@@ -381,7 +382,6 @@ We denote classifier as $f(\phi(x|\theta_{0})|\theta_{1})$, where $\theta_{0}$ a
 For optimisation we use decoupled weight decay regularization optimizer~\cite{Loshchilov2019DecoupledWD} with learning rate set to $0.0002$, and weight decay parameter set to $0.00001$ ($3$ epochs).
 We used the following data augmentations: random flips, random rotation (up to 10 degrees), color jitter. 
 
-In each experiment we train classifier $30$ times with randomly splitted training and testing data set of aforementioned sizes. The average accuracies are reported in Table~\ref{table:regularisation_classification_accuracies}.
 
 \begin{figure}%
 	\centering
@@ -397,6 +397,7 @@ We will investigate additive regularizer, which maximises depency of bottleneck 
 
 
 \begin{equation}
+\label{eq:regularizer1}
 Cost(\theta_{0},\theta_{1}, W) := CE(f(\phi(x|\theta_{0})|\theta_{1}),y) - \beta \kappa(\phi(x|\theta_{0}),y),
 \end{equation}
 
@@ -420,7 +421,7 @@ Cost(\theta_{0},\theta_{1}, W) := CE(f(\phi(x|\theta_{0})|\theta_{1}),y) - \beta
 \end{table}
 
 
-
+In each experiment we train classifier $30$ times with randomly splitted training and testing data set of aforementioned sizes. The average accuracies reported in Table~\ref{table:regularisation_classification_accuracies}, that application~\eqref{eq:regularizer1} slightly (but with statistical significance) increased classification accuracy.
 
 \section{Conclusion} 
 
@@ -429,9 +430,6 @@ In this article we propose statistical dependence measure, KacIM, which correspo
 
 Beside demonstrated applications in Section~\ref{section:experiments}, the proposed measure is differentiable and thereby can be integrated with various modern deep-learning methods, applied to high-dimensional and structured data. From empirical point of view, we see exploration of KacIM in causality, information bottleneck theory, self-supervised learning, and other modern problems, where dependence measures define a criterion of optimisation, as important future work. %We also would like to note, that exhaustive survey of measures of statistical dependence, accompanied with open-source code repository, would be helpful both for the theorists and for practicioneers.
 
-\section{Acknowledgements}
-
-We sincerely thank Dr. Pranas Vaitkus, Dr. Linas Petkevi\v{c}ius, Dr. Aleksandras Voicikas, and colleagues from Neurotechnology for discussions. We also thank Neurotechnology for supporting this research.
 
 \begin{comment}
 
@@ -801,6 +799,7 @@ We sincerely thank Dr. Pranas Vaitkus, Dr. Linas Petkevi\v{c}ius, Dr. Aleksandra
 {\footnotesize
 	\bibliography{bibliography}}
 
+\begin{comment}
 
 References follow the acknowledgments. Use unnumbered first-level heading for
 the references. Any choice of citation style is acceptable as long as you are
@@ -923,6 +922,7 @@ Checklist section heading above along with the questions/answers below.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\end{comment}
 
 \appendix
 
