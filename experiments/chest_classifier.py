@@ -41,7 +41,7 @@ def get_activation(name):
 REGULARIZER = 0
 LOSS = 1
 
-kim = KacIndependenceMeasure(512, 2, lr=0.007, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
+kim = KacIndependenceMeasure(512, 2, lr=0.007, input_projection_dim = 32, weight_decay=0.01, device=device) #0.007
 #kim = KacIndependenceMeasure(2, 2, lr=0.007, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
 
 """
@@ -113,7 +113,7 @@ model.fc = nn.Sequential(
 )
 
 # intermediate activations
-"""
+
 model.layer1[0].register_forward_hook(get_activation('layer1_0'))
 model.layer1[1].register_forward_hook(get_activation('layer1_1'))
 model.layer2[0].register_forward_hook(get_activation('layer2_0'))
@@ -122,7 +122,7 @@ model.layer3[0].register_forward_hook(get_activation('layer3_0'))
 model.layer3[1].register_forward_hook(get_activation('layer3_1'))
 model.layer4[0].register_forward_hook(get_activation('layer4_0'))
 model.layer4[1].register_forward_hook(get_activation('layer4_1'))
-"""
+
 model.avgpool.register_forward_hook(get_activation('bottleneck'))
 model.fc[3].register_forward_hook(get_activation('output'))
 
@@ -184,9 +184,11 @@ for epoch in range(number_of_epoch):
 
         #breakpoint()
         bottleneck = activation['bottleneck'].squeeze()
+        output = activation['output'].squeeze()
+
         y = torch.nn.functional.one_hot(label).float()
         #print(label)
-
+        breakpoint()
 
         loss = loss_fn(pred, label) 
              

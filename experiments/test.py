@@ -19,12 +19,12 @@ from scipy.stats import wilcoxon
 #acc = loadtxt("./18result_chest_False_9.0.txt", comments="#", delimiter=",", unpack=False)
 
 acc_reg = loadtxt("./21result_chest_True_0.2.txt", comments="#", delimiter=",", unpack=False)
-acc = loadtxt("./21result_chest_False_0.2.txt", comments="#", delimiter=",", unpack=False)
+acc = loadtxt("./backup/21result_chest_False_0.2.txt", comments="#", delimiter=",", unpack=False)
 
 print("acc_reg {}, acc {}".format(np.mean(acc_reg), np.mean(acc)))
 n = np.min([len(acc_reg), len(acc)])
-print(len(acc_reg))
-print(len(acc))
+print("acc_reg {}, acc {}".format(len(acc_reg), len(acc)))
+#print(len(acc))
 print(n)
 d = acc_reg[:n] - acc[:n]
 print("acc_reg")

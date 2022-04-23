@@ -112,9 +112,9 @@
 \end{abstract}
 
 \section{Introduction}
-Interpretations of  statistical dependence plays important role in various empirical learning methods (e.g. hypothesis testing~\cite{Gretton2005MeasuringSD}, feature selection and extraction~\cite{EigenHSIC,HSCA}, information bottleneck methods \cite{Ma2020TheHB}, causal inference~\cite{NIPS2008_f7664060}, self-supervised learning~\cite{li2021selfsupervised}, representation learning~\cite{Ragonesi2021LearningUR}, among others).  Hystorically, earliest statistical dependence estimation ideas (e.g. conditional probability) share nearly-common origin with the beginning of formal statistical reasoning itself. During last two centuries ideas of correlation and (relative) entropy (including various generalizations) were proposed and became very popular in numerous applications and theoretical developments. However, with the increasing popularity of machine and deep learning developments, new statistical dependence estimation methods, that are robust, applicable to noisy, high-dimensional, structured data, and which can be efficiently integrated with modern machine learning methods are helpful for the development both of the theory and application.
+The measurement of  statistical dependence plays important role in various empirical learning methods (e.g. hypothesis testing~\cite{Gretton2005MeasuringSD}, feature selection and extraction~\cite{EigenHSIC,HSCA}, information bottleneck methods \cite{Ma2020TheHB}, causal inference~\cite{NIPS2008_f7664060}, self-supervised learning~\cite{li2021selfsupervised}, representation learning~\cite{Ragonesi2021LearningUR}, among others).  Hystorically, earliest statistical dependence estimation ideas (e.g. conditional probability) share nearly-common origin with the beginning of formal statistical reasoning itself. During last two centuries ideas of correlation and (relative) entropy (including various generalizations) were proposed and became very popular in numerous applications and theoretical developments. However, with the increasing growth of machine and deep learning, new statistical dependence estimation methods, that are robust, applicable to noisy, high-dimensional, structured data, and which can be efficiently integrated with modern machine learning and deep learning methods are helpful for the development both of the theory and application.
 
-In this article we focus on quantitative estimation of statistical depdendencies, using characteristic functions. We begin with the short review of some important previous dependence estimation approaches (Section~\ref{section:previous_work}), devoting special attention to ones based on characteristic functions (Section~\ref{section:previous_work_cf}). Afterwards, in (Section~\ref{section:proposed_method}), we formulate the proposed measure, its empirical estimator, and conduct preliminary theoretical analysis, which are the main theoretical contribution of our paper. Section~\ref{section:experiments} is devoted to experiments with simulated and real data sets, where we apply the proposed dependence measure for feature extraction and deep neural network (DNN) regularisation,  and finalizing Section~\ref{section:conclusion} concludes this article.
+In this article we focus on quantitative estimation of statistical depdendencies, using characteristic functions. We begin with the short review of some important previous dependence estimation approaches (Section~\ref{section:previous_work}), devoting special attention to ones based on characteristic functions (Section~\ref{section:previous_work_cf}). Afterwards, in (Section~\ref{section:proposed_method}), we formulate the proposed measure, its empirical estimator, and conduct preliminary theoretical analysis, which are the main theoretical contribution of our paper. Section~\ref{section:experiments} is devoted to experiments with simulated and real data sets, where we apply the proposed statistical measure for feature extraction and deep neural network (DNN) regularisation. Finalizing Section~\ref{section:conclusion} discusses and concludes this article.
 
 
 \section{Previous Work}
@@ -139,7 +139,7 @@ Having pair of two random vectors $(X,Y)$ defined in another probability space $
 \label{eq:joint_characteristic_function}
 \phi_{X,Y}(\alpha,\beta): = \mathbb{E}_{X,Y} e^{i(\alpha^{T}X + \beta^{T}Y)},
 \end{equation}
-where $\alpha \in R^{d_{X}}$ and $\beta \in R^{d_{Y}}$. Similarly, having 
+where $\alpha \in \mathbb{R}^{d_{X}}$ and $\beta \in \mathbb{R}^{d_{Y}}$. Similarly, having 
 $n$ i.i.d. realisations of $(X,Y)$, joint ECF is defined as:
 \begin{equation}
 \label{eq:joint_ecf}
@@ -147,34 +147,36 @@ $n$ i.i.d. realisations of $(X,Y)$, joint ECF is defined as:
 \end{equation}
 
 
-Uniqueness theorem states that two random variables $X$ and $Y$ have the same distribution if and only if their CF's are identical. Therefore,
-CF's can be regarded as an alternative description of distribution.
+Uniqueness theorem states that two random variables $X$ and $Y$ have the same distribution if and only if their CF's are identical \cite{?}. Therefore, CF's can be regarded as an alternative description of distribution. Roughly speaking, CF can be regarded as Fourier transform of probability density funciton (PDF).
 
-
-If cumulative distribution function (CDF) of $(X,Y)$, $F_{X,Y}(x,y)$, $x \in \mathbb{R}^{d_{X}}$ and $y \in \mathbb{R}^{d_{Y}}$ factorises as $F_{X}(x)F_{Y}(y)$ for all $x$ and $y$, $X$ and $Y$ are called independent (the same holds for probability density function, pdf.). However, this criterion is impractical due to need of evaluation of potentially high-dimensional cdf. or pdf., and often alternative independence criterions are more useful. For example, in terms of CF's, statistical independence  of $X$ and $Y$ is equivalent to $\forall \alpha \in \mathbb{R}^{d_X},\forall \beta \in \mathbb{R}^{d_Y} $, 
+If cumulative distribution function (CDF) of $(X,Y)$, $F_{X,Y}(x,y)$, $x \in \mathbb{R}^{d_{X}}$ and $y \in \mathbb{R}^{d_{Y}}$ factorises as $F_{X}(x)F_{Y}(y)$ for all $x$ and $y$, $X$ and $Y$ are called independent (the same holds for probability density function, PDF). However, this criterion is impractical due to need of evaluation of potentially high-dimensional CDF or PDF, and often alternative independence criterions are more useful. Let us define 
 
 \begin{equation}
 %\mathbb{E}_{X,Y} e^{i <\alpha, X> + i <\beta, Y>} = \mathbb{E}_{X} e^{i <\alpha, X>} \mathbb{E}_{Y} e^{i <\beta, Y>},
 \label{eq:kac_theorem}
-\Delta_{X,Y}(\alpha, \beta) := \phi_{X,Y}(\alpha,\beta) - \phi_{X}(\alpha) \phi_{Y}(\beta) = 0.
+\Delta_{X,Y}(\alpha, \beta) := \phi_{X,Y}(\alpha,\beta) - \phi_{X}(\alpha) \phi_{Y}(\beta),
 \end{equation}
 %where $d_{x}$ and $d_{y}$ are dimensions of $X$ and $Y$, respectively.
-Let us correspondingly denote an empirical counterpart of $\Delta_{X,Y}(\alpha, \beta)$:
+an its empirical counterpart:
 \begin{equation}
 \label{eq:empirical_delta}
 \widehat{\Delta}_{X,Y}(\alpha, \beta) := \widehat{\phi}_{X,Y}(\alpha,\beta) - \widehat{\phi}_{X}(\alpha) \widehat{\phi_{Y}}(\beta).
 \end{equation}
-Formulation of statistical independence~\eqref{eq:kac_theorem} was used as the basis (first in~\cite{Feuerverger} for one-dimensional case, and afterwards extended and developed by~\cite{Szekely} for bivariate multidimensional random vectors) for construction of statistical independence tests and measures. Distance covariance and distance correlation, prosposed by ~\cite{Szekely} relies on weighted $L^{2}$-norm analysis of~\eqref{eq:kac_theorem}. They select weighting function in such a way, that dependence measure can be expressed in terms of correlection of data-dependent distances. Recent result of~\cite{Bottcher} generalises~\cite{Szekely} to multivariable case.~\cite{CHAUDHURI201915} proposed computationally efficient algorithm for estimation of distance correlation measure, reducing computational complexity from $O(n^2)$ to $O(n\cdot \log n)$, where $n$ is sample size.
 
-\textbf{Motivation and Connection To Previous Work} Taking $\Delta_{X,Y}(\alpha, \beta) = 0$~\eqref{eq:kac_theorem} as the criterion of statistical independence we view the work~\cite{Szekely} from the perspective of weighted $L^{p}$ spaces, using corresponding $L^{p}$-norms of~\eqref{eq:kac_theorem} as the statistical independence measures. 
+In terms of CF's, statistical independence  of $X$ and $Y$ is equivalent to $\forall \alpha \in \mathbb{R}^{d_X},\forall \beta \in \mathbb{R}^{d_Y} $, $\Delta_{X,Y}(\alpha, \beta) = 0$~\cite{KacTheorem}.
+
+Historically, $\Delta_{X,Y}(\alpha, \beta)$ was used as the basis (first in~\cite{Feuerverger} for one-dimensional case, and afterwards extended and developed by~\cite{Szekely} for bivariate multidimensional random vectors) for construction of statistical independence tests and measures. Distance covariance and distance correlation, prosposed by ~\cite{Szekely} relies on weighted $L^{2}$-norm analysis of~\eqref{eq:kac_theorem}. They select weighting function in such a way, that dependence measure can be expressed in terms of correlection of data-dependent distances. Recent result of~\cite{Bottcher} generalises~\cite{Szekely} to multivariable case.~\cite{CHAUDHURI201915} proposed computationally efficient algorithm for estimation of distance correlation measure, reducing computational complexity from $O(n^2)$ to $O(n\cdot \log n)$, where $n$ is sample size.
+
+\textbf{Motivation and Connection To Previous Work} 
+Taking $\Delta_{X,Y}(\alpha, \beta) = 0$~\eqref{eq:kac_theorem} as the criterion of statistical independence we view the work~\cite{Szekely} from the perspective of weighted $L^{p}$ spaces, measuing statistical dependence by the corresponding $L^{p}$-norms of~\eqref{eq:kac_theorem}.
 
 Taking into account that~\cite{Szekely} in high dimensions is affected with the curse of dimensionality~\cite{Edlemann}, we focus on the limit case $p \rightarrow \infty$($L^{\infty}$ space), which is associated to the supremum norm. This norm has several potential advantages.
 
 
 
 We hypothesise, that its locality could be exploited to detect statistical independence more efficiently, comparing to case $p=2$. 
-In addition, numerically calculation of $L^{\infty} $ norm would not require to directly calculate norm integral, since norm of $L^{p}$ converges to supremum norm when $p \rightarrow \infty$. Also, from practical point of view maximization is convenient, because it is efficiently implemented in modern deep learning frameworks (e.g. Pytorch~\cite{NEURIPS2019_9015}).
-
+In addition, numerically calculation of $L^{\infty} $ norm would not require to directly calculate norm integral, since norm of $L^{p}$ converges to supremum norm when $p \rightarrow \infty$. Also, from practical point of view maximization is convenient, because it is efficiently implemented in modern deep learning frameworks (e.g. Pytorch~\cite{NEURIPS2019_9015}). 
+In addition, in our opinion it is worth to note, that applications of characteristic functions in machine learning are quite scarce, despite that they provide quite convenient theoretical proxy to access distributions.
 
 \section{Proposed Measure}
 \label{section:proposed_method}
@@ -212,7 +214,7 @@ In addition, numerically calculation of $L^{\infty} $ norm would not require to 
 	Proof of property $\textit{3.}$ directly follows from properties of CF's (see e.g.~\cite{Jacod}, Corollary 14.1)\footnote{This property also is known as Kac's theorem~\cite{KacTheorem}. Although it is quite simple mathematical fact, this provides the basis of the proposed measure's name.}.	
 \end{proof}
 
-Although $KacIM$ is not scale invariant in general, scale invariance can be achieved by assuming standartization of $X$ and $Y$.
+Although~\eqref{eq:kim} is not scale invariant in general, scale invariance can be achieved by assuming standartization of $X$ and $Y$.
 
 
 \subsection{Estimation}
@@ -246,7 +248,7 @@ Having i.i.d. observations $(x_{j}, y_{j})$, $j = 1,2,...,n$, an empirical estim
 Algorithm~\ref{alg:estimator_computation} requires to initialise $\alpha$ and $\beta$, and optimiser. In our implementation we use uniform initialisation of parameters, and decoupled weight decay regularization optimizer~\cite{Loshchilov2019DecoupledWD}. 
 We also empirically observed that normalisation of parameters $\alpha$ and $\beta$ on to unit sphere increases estimation stability. After the estimation of KacIM via Algorithm~\ref{alg:estimator_computation}, the evaluation the estimator  has computation complexity $O(n)$, where $n$ is sample size.
 
-Note, that mutual information~\cite{Cover2006} (and $f$-divergence-based analogues in general) are also estimated via transforming them into maximisation problem by Donsker-Varadhan representation~\cite{pmlr-v80-belghazi18a}, in order to avoid density estimation. In this case, optimisation is conducted over the space of neural network parameters, which is substantially larger than the number of parameters needed to estimate $KacIM$, which is only $d_{x} + d_{y}$.
+Note, that mutual information~\cite{Cover2006} (and $f$-divergence-based analogues in general) are also estimated via transforming them into maximisation problem by Donsker-Varadhan representation~\cite{pmlr-v80-belghazi18a}, in order to avoid density estimation. In this case, optimisation is conducted over the space of neural network parameters, which is substantially larger than the number of parameters needed to estimate $KacIM$ (i.e. $d_{x} + d_{y}$ parameters).
 
 \subsection{Interpretation and connection previous approaches}
 \textbf{Interpretation in general case}. Since \eqref{eq:kim} can be reformulated as
@@ -257,7 +259,7 @@ by Euler's formula, it corresponds to the maximum pseudocovariance between compl
 Since $\var(e^{i\alpha^{T}X}) = \phi(2\alpha) - \phi(\alpha)^2$, one can also define the normalised version of KacIM (refine or remove this):
 %\begin{comment}
 \begin{equation}
-\kappa_{norm}(X,Y) = \max_{\alpha,\beta} |\corr(e^{i\alpha^{T}X},e^{i\beta^{T}Y})| = \max_{\alpha,\beta} \frac{|\cov(e^{i\alpha^{T}X},e^{i\beta^{T}Y})|}{\sqrt{|\phi_{X}(2\alpha)-\phi_{X}^{2}(\alpha)||\phi_{Y}(2\beta)-\phi_{Y}^{2}(\beta)|}}.
+\kappa_{norm}(X,Y) = \max_{\alpha,\beta} |\corr(e^{i\alpha^{T}X},e^{i\beta^{T}Y})| = \max_{\alpha,\beta}  \frac{|\cov(e^{i\alpha^{T}X},e^{i\beta^{T}Y})|}{\sqrt{|\phi_{X}(2\alpha)-\phi_{X}^{2}(\alpha)||\phi_{Y}(2\beta)-\phi_{Y}^{2}(\beta)|}}.
 \end{equation}
 
 %\end{comment}
@@ -348,7 +350,7 @@ We use two baselines: raw features (RAW column in Table~\ref{table:classificatio
 
 
 
-The classification accuracies, reported in Table~\ref{table:classification_accuracies} demonstrate that KacIM-based feature extraction procedure (KacIMFE column) indeed allows to increase classification accuracy when applied to real data sets from different domains, including high-dimensional and ill-defined ones (e.g. \textit{micro-mass} dataset). In contrast to our feature extraction approach, NCA explicitly optimises for classification accuracy, rather than more abstract dependency of features $f(x)$ with dependent variable $y$.
+The classification accuracies, reported in Table~\ref{table:classification_accuracies} demonstrate that KacIM-based feature extraction procedure (KacIMFE column) indeed allows to increase classification accuracy when applied to real data sets from different domains, including high-dimensional and ill-defined ones (e.g. \textit{micro-mass} dataset). In contrast to our feature extraction approach, NCA explicitly optimises for classification accuracy, rather than more abstract dependency of features $f(x)$ with the dependent variable $y$.
 
 
 
