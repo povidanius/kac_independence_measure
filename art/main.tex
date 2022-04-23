@@ -14,7 +14,7 @@
 \usepackage{comment}
 
 \newcommand{\cov}{\mathrm{cov}}
-
+\newcommand{\CE}{\mathrm{CE}}
 %\usepackage{prletters}
 
 \newtheorem{theorem}{Theorem}
@@ -358,10 +358,10 @@ We will investigate additive regularizer, which maximises depency of bottleneck 
 
 
 \begin{equation}
-Cost(\theta_{0},\theta_{1}, W) := CE(f(\phi(x|\theta_{0})|\theta_{1}),y) - \beta \kappa(\phi(x|\theta_{0}),y),
+\Cost(\theta_{0},\theta_{1}, W) := \CE(f(\phi(x|\theta_{0})|\theta_{1}),y) - \beta \kappa(\phi(x|\theta_{0}),y),
 \end{equation}
 
-\noindent where $CE(.,.)$ is cross-entropy loss, $\rho \geq 0$ is regularisation parameter (in our experiments $\rho = 9.0$). This regularizer is designed to directly transfer information from $y$ to the input of classification network $f(.|\theta_{1})$, and we hypothethise that this would provide possibility to improve classification accuracy.
+\noindent where $\CE(.,.)$ is cross-entropy loss, $\rho \geq 0$ is regularisation parameter (in our experiments $\rho = 9.0$). This regularizer is designed to directly transfer information from $y$ to the input of classification network $f(.|\theta_{1})$, and we hypothethise that this would provide possibility to improve classification accuracy.
 
 \begin{table}	
 	\centering

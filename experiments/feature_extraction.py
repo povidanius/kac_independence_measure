@@ -127,7 +127,7 @@ if __name__ == "__main__":
     
     n_batch = 1024 #X_train.shape[0]
 
-    kim = KacIndependenceMeasure(dim_x, dim_y, lr=0.007, input_projection_dim = num_features, weight_decay=0.01, orthogonality_enforcer=0.0) #0.007
+    kim = KacIndependenceMeasure(dim_x, dim_y, lr=0.007, input_projection_dim = num_features, weight_decay=0.01, orthogonality_enforcer=1.0) #0.007
     #knn = KNeighborsClassifier(n_neighbors=3)
     #logistic = linear_model.LogisticRegression(max_iter=1000)
     #svc = SVC(kernel='poly', gamma='auto', degree=2)

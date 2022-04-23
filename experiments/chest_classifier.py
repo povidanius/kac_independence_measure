@@ -41,7 +41,8 @@ def get_activation(name):
 REGULARIZER = 0
 LOSS = 1
 
-kim = KacIndependenceMeasure(512, 2, lr=0.001, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
+kim = KacIndependenceMeasure(512, 2, lr=0.007, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
+#kim = KacIndependenceMeasure(2, 2, lr=0.007, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
 
 """
 train_transform = transforms.Compose([transforms.Grayscale(num_output_channels=3), 
@@ -62,8 +63,8 @@ test_transform = transforms.Compose([transforms.Grayscale(num_output_channels=3)
 
 train_transform = transforms.Compose([transforms.Resize((224,224)),
                                       transforms.RandomHorizontalFlip(),
-                                      transforms.RandomRotation(10), #
-                                      transforms.ColorJitter(brightness=1, contrast=1, saturation=1),
+                                      #transforms.RandomRotation(10), #
+                                      #transforms.ColorJitter(brightness=1, contrast=1, saturation=1),
                                       transforms.ToTensor(),
                                       #transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]
                                       transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))])
@@ -123,6 +124,7 @@ model.layer4[0].register_forward_hook(get_activation('layer4_0'))
 model.layer4[1].register_forward_hook(get_activation('layer4_1'))
 """
 model.avgpool.register_forward_hook(get_activation('bottleneck'))
+model.fc[3].register_forward_hook(get_activation('output'))
 
 
 model.to(device)
@@ -134,13 +136,10 @@ test_loss = []
 train_accuracy = []
 test_accuracy = []
 
-num_kac_iters = 300
-#optimize_kac_every_iters = 20
-#switch_to_loss_every_iters = 100
 
 dep_history = []
 
-reg_alpha = 9.0 #0.1
+reg_alpha = 0.2 #9.0 #0.1
 
 if len(sys.argv) < 2:
     print(sys.argv)
@@ -156,9 +155,9 @@ else:
 
 mode = LOSS
 
-number_of_epoch = 3
-if use_regularization:
-    number_of_epoch = 2*number_of_epoch
+number_of_epoch = 2
+#if use_regularization:
+#    number_of_epoch = 2*number_of_epoch
     
 
 global_iteration = 0
@@ -193,24 +192,27 @@ for epoch in range(number_of_epoch):
              
                 
         reg0 = kim.forward(bottleneck.clone().detach().to(device), y.clone().detach().to(device), update=True)
-        print("Dep iteration: epoch {}, iteration {},  reg_estim {} ".format(epoch, iteration,  reg0))
         dep_history.append(reg0.detach().cpu().numpy())
         writer.add_scalar("Dep/train", reg_alpha * reg0, global_iteration)
         iteration = iteration + 1
-        if epoch % 2 != 0 and use_regularization:
-           continue
+        #if epoch % 2 == 0 and use_regularization:
+        #   print("Dep iteration: epoch {}, iteration {},  reg_estim {} ".format(epoch, iteration,  reg0))
+        #   continue
 
-        if epoch % 2 == 0 and use_regularization:
+        #if epoch % 2 != 0 and use_regularization:
+        if use_regularization:
             reg = kim.forward(bottleneck, y, update=False)
             dep_history.append(reg.detach().cpu().numpy())
-            writer.add_scalar("Dep_loss/train", reg_alpha * reg, global_iteration)
+            writer.add_scalar("Reg_alpha/train", reg_alpha * reg, global_iteration)
             writer.add_scalar("Loss/train", loss, global_iteration)
 
             print("Loss iteration: epoch {}, iteration {}, loss {}, reg {} ".format(epoch, iteration, loss, reg))
-            loss =  loss - reg_alpha * reg # loss -> min.., dep -> max
+            loss =  (1-reg_alpha)*loss - reg_alpha * reg # loss -> min.., dep -> max
             writer.add_scalar("LossReg/train", loss, global_iteration)
 
             #reg0 = kim.forward(bottleneck.clone().detach().to(device), y.clone().detach().to(device), update=True)
+
+
 
         loss.backward()
         optimizer.step()
@@ -268,7 +270,7 @@ for epoch in range(number_of_epoch):
 
 writer.close()
 
-with open("./19result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
+with open("./21result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
 #with open("./13result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
     #f.write("{} {} \n".format(accuracy, test_accuracy[-1]))
     f.write("{}\n".format(accuracy))

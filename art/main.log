@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.6.4)  22 APR 2022 00:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.6.4)  23 APR 2022 12:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1018,6 +1018,16 @@ File: ./maligant.png Graphic file (type png)
 Package pdftex.def Info: ./maligant.png  used on input line 351.
 (pdftex.def)             Requested size: 312.36147pt x 56.20898pt.
 
+! Undefined control sequence.
+l.361 \Cost
+           (\theta_{0},\theta_{1}, W) := \CE(f(\phi(x|\theta_{0})|\theta_{1}...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 372--373
 []\OT1/cmr/m/n/10 Average ac-cu-racy
  []
@@ -1039,10 +1049,10 @@ LaTeX Warning: There were undefined references.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 427.
  ) 
 Here is how much of TeX's memory you used:
- 8960 strings out of 492982
- 132202 string characters out of 6134897
- 228967 words of memory out of 5000000
- 12305 multiletter control sequences out of 15000+600000
+ 8961 strings out of 492982
+ 132204 string characters out of 6134897
+ 228974 words of memory out of 5000000
+ 12306 multiletter control sequences out of 15000+600000
  15346 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  44i,11n,43p,1266b,492s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1070,7 +1080,7 @@ b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
 </usr/share/texmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf/fo
 nts/type1/public/cm-super/sfrm0800.pfb></usr/share/texmf/fonts/type1/public/cm-
 super/sfti0800.pfb>
-Output written on main.pdf (11 pages, 806558 bytes).
+Output written on main.pdf (11 pages, 806074 bytes).
 PDF statistics:
  378 PDF objects out of 1000 (max. 8388607)
  322 compressed objects within 4 object streams

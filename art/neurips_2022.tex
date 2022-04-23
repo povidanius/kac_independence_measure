@@ -47,10 +47,15 @@
 \usepackage{comment}
 
 \newcommand{\cov}{\mathrm{cov}}
+\newcommand{\corr}{\mathrm{corr}}
+\newcommand{\var}{\mathrm{var}}
+\newcommand{\CE}{\mathrm{CE}}
+\newcommand{\KacIM}{\mathrm{KacIM}}
 
 %\usepackage{prletters}
 
 \newtheorem{theorem}{Theorem}
+\newtheorem{collorary}{Collorary}
 
 \title{Measuring statistical dependencies via maximum norm and characteristic functions}
 
@@ -129,22 +134,24 @@ where $i=\sqrt{-1}$, $\alpha \in R^{d_{X}}$. Having $n$ i.i.d. realisations of $
 \label{eq:ecf}
 \widehat{\phi_{X}}(\alpha): = \frac{1}{n} \sum_{j=1}^{n} e^{i <\alpha, x_{j}>}.
 \end{equation}
-Having pair of two random vectors $(X,Y)$ defined in another probability space $(\Omega_{X,Y}, \mathcal{F}_{X,Y}, \mathbb{P}_{X,Y})$  joint characteristic function is defined as:
+Having pair of two random vectors $(X,Y)$ defined in another probability space $(\Omega_{X,Y}, \mathcal{F}_{X,Y}, \mathbb{P}_{X,Y})$  joint CF is defined as:
 \begin{equation}
 \label{eq:joint_characteristic_function}
 \phi_{X,Y}(\alpha,\beta): = \mathbb{E}_{X,Y} e^{i(\alpha^{T}X + \beta^{T}Y)},
 \end{equation}
 where $\alpha \in R^{d_{X}}$ and $\beta \in R^{d_{Y}}$. Similarly, having 
-$n$ i.i.d. realisations of $(X,Y)$, joint empirical characteristic function is defined as:
+$n$ i.i.d. realisations of $(X,Y)$, joint ECF is defined as:
 \begin{equation}
 \label{eq:joint_ecf}
 \widehat{\phi_{X,Y}}(\alpha,\beta): = \frac{1}{n} \sum_{j=1}^{n} e^{i(<\alpha, x_{j}> + <\beta, y_{j}>) }.
 \end{equation}
 
-By \textit{Levy continuity theorem} \cite{LCT} ECF weakly converges CF.
-Uniqueness theorem states that two random variables $X$ and $Y$ have the same distribution if and only if their CF's are identical.
 
-If cumulative distribution function (CDF) of $(X,Y)$, $F_{X,Y}(x,y)$, $x \in R^{d_{X}}$ and $y \in R^{d_{Y}}$ factorises as $F_{X}(x)F_{Y}(y)$ for all $x$ and $y$, $X$ and $Y$ are called independent (the same holds for probability density function, pdf.). However, this criterion is impractical due to need of evaluation of potentially high-dimensional cdf. or pdf., and often alternative independence criterions are more useful. For example, in terms of characteristic functions, statistical independence  of $X$ and $Y$ is equivalent to $\forall \alpha \in R^{d_X},\forall \beta \in R^{d_Y} $, 
+Uniqueness theorem states that two random variables $X$ and $Y$ have the same distribution if and only if their CF's are identical. Therefore,
+CF's can be regarded as an alternative description of distribution.
+
+
+If cumulative distribution function (CDF) of $(X,Y)$, $F_{X,Y}(x,y)$, $x \in \mathbb{R}^{d_{X}}$ and $y \in \mathbb{R}^{d_{Y}}$ factorises as $F_{X}(x)F_{Y}(y)$ for all $x$ and $y$, $X$ and $Y$ are called independent (the same holds for probability density function, pdf.). However, this criterion is impractical due to need of evaluation of potentially high-dimensional cdf. or pdf., and often alternative independence criterions are more useful. For example, in terms of CF's, statistical independence  of $X$ and $Y$ is equivalent to $\forall \alpha \in \mathbb{R}^{d_X},\forall \beta \in \mathbb{R}^{d_Y} $, 
 
 \begin{equation}
 %\mathbb{E}_{X,Y} e^{i <\alpha, X> + i <\beta, Y>} = \mathbb{E}_{X} e^{i <\alpha, X>} \mathbb{E}_{Y} e^{i <\beta, Y>},
@@ -152,10 +159,14 @@ If cumulative distribution function (CDF) of $(X,Y)$, $F_{X,Y}(x,y)$, $x \in R^{
 \Delta_{X,Y}(\alpha, \beta) := \phi_{X,Y}(\alpha,\beta) - \phi_{X}(\alpha) \phi_{Y}(\beta) = 0.
 \end{equation}
 %where $d_{x}$ and $d_{y}$ are dimensions of $X$ and $Y$, respectively.
-%Let us correspondingly denote empirical $\widehat{\Delta}_{X,Y}(\alpha, \beta) := \widehat{\phi}_{X,Y}(\alpha,\beta) - \widehat{\phi}_{X}(\alpha) \widehat{\phi_{Y}}(\beta)$.
+Let us correspondingly denote an empirical counterpart of $\Delta_{X,Y}(\alpha, \beta)$:
+\begin{equation}
+\label{eq:empirical_delta}
+\widehat{\Delta}_{X,Y}(\alpha, \beta) := \widehat{\phi}_{X,Y}(\alpha,\beta) - \widehat{\phi}_{X}(\alpha) \widehat{\phi_{Y}}(\beta).
+\end{equation}
 Formulation of statistical independence~\eqref{eq:kac_theorem} was used as the basis (first in~\cite{Feuerverger} for one-dimensional case, and afterwards extended and developed by~\cite{Szekely} for bivariate multidimensional random vectors) for construction of statistical independence tests and measures. Distance covariance and distance correlation, prosposed by ~\cite{Szekely} relies on weighted $L^{2}$-norm analysis of~\eqref{eq:kac_theorem}. They select weighting function in such a way, that dependence measure can be expressed in terms of correlection of data-dependent distances. Recent result of~\cite{Bottcher} generalises~\cite{Szekely} to multivariable case.~\cite{CHAUDHURI201915} proposed computationally efficient algorithm for estimation of distance correlation measure, reducing computational complexity from $O(n^2)$ to $O(n\cdot \log n)$, where $n$ is sample size.
 
-\textbf{Motivation and Connection To Previous Work} Taking \eqref{eq:kac_theorem} as the criterion of statistical independence we extend work~\cite{Szekely} with the framework of weighted $L^{p}$ spaces, using corresponding $L^{p}$-norms of~\eqref{eq:kac_theorem} as the statistical independence measures. 
+\textbf{Motivation and Connection To Previous Work} Taking $\Delta_{X,Y}(\alpha, \beta) = 0$~\eqref{eq:kac_theorem} as the criterion of statistical independence we view the work~\cite{Szekely} from the perspective of weighted $L^{p}$ spaces, using corresponding $L^{p}$-norms of~\eqref{eq:kac_theorem} as the statistical independence measures. 
 
 Taking into account that~\cite{Szekely} in high dimensions is affected with the curse of dimensionality~\cite{Edlemann}, we focus on the limit case $p \rightarrow \infty$($L^{\infty}$ space), which is associated to the supremum norm. This norm has several potential advantages.
 
@@ -171,7 +182,7 @@ In addition, numerically calculation of $L^{\infty} $ norm would not require to 
 
 
 
-\noindent The above considerations serves as the basis for constructing of a novel dependence measure, which we further refer to as Kac independence measure (KacIM). Let $X$ and $Y$ be two standartized random random vectors. The proposed independence measure is defined as
+\noindent The above considerations serves as the basis for constructing of a novel dependence measure, which we further refer to as Kac independence measure (KacIM). Having two random vectors $X$ and $Y$, KacIM is defined as
 \begin{equation}
 \label{eq:kim}
 \kappa(X,Y):= \max_{\alpha \in \mathbb{R}^{d_{X}}, \beta \in \mathbb{R}^{d_{Y}}} |\Delta_{X,Y}(\alpha,\beta)|.
@@ -182,73 +193,74 @@ In addition, numerically calculation of $L^{\infty} $ norm would not require to 
 \subsection{Basic Properties}
 \begin{theorem}
 	\label{thm:properties}
-	Statistical independence measure~\eqref{eq:kim} has the following properties:
+	KacIM~\eqref{eq:kim} has the following properties:
 	\begin{enumerate} 
 		\item $\kappa(X,Y) = \kappa(Y,X)$,
 		\item $0 \leq \kappa(X,Y) \leq 1$,
 		\item $\kappa(X,Y) = 0$ iff $X\perp Y$.
-		\item $\kappa(X,Y)$ is scale invariant.
 	\end{enumerate}    
 \end{theorem}
 
 
 \begin{proof}
-	Property $\textit{1.}$ is obvious from definition~\eqref{eq:kim} (commutativity of addition and multiplication), and property $\textit{2.}$ directly follows from Cauchy inequality and that absolute value of characteristic function is bounded by $1$:
+	Property $\textit{1.}$ is obvious from definition~\eqref{eq:kim} (commutativity of addition and multiplication), and property $\textit{2.}$ directly follows from Cauchy inequality and that absolute value of CF is bounded by $1$:
 	\begin{multline*}
 	|\phi_{X,Y}(\alpha, \beta)  -\phi_{X}(\alpha) \phi_{Y}(\beta)|^{2} =
 	\mathbb{E}_{X,Y} |( e^{i\alpha^{T}X} - \phi_{X}(\alpha) )(e^{i\beta^{T}Y}- \phi_{Y}(\beta) )|^{2} \leq \\
 	\mathbb{E}_{X,Y} |( e^{i\alpha^{T}X} - \phi_{X}(\alpha) )|^{2} |(e^{i\beta^{T}Y}- \phi_{Y}(\beta) )|^{2}  = (1 - |\phi_{X}(\alpha)|^{2}) (1 - |\phi_{Y}(\beta)|^{2}).
 	\end{multline*}
-	Proof of property $\textit{3.}$ directly follows from properties of characteristic functions (see e.g.~\cite{Jacod}, Corollary 14.1)\footnote{This property also is known as Kac's theorem~\cite{KacTheorem}. Although it is quite simple mathematical fact, this provides the basis of the proposed measure's name.}.
-	Scale invariance (Property $\textit{4.}$) is trivial result of the standartisation requirement for $X$ and $Y$.
+	Proof of property $\textit{3.}$ directly follows from properties of CF's (see e.g.~\cite{Jacod}, Corollary 14.1)\footnote{This property also is known as Kac's theorem~\cite{KacTheorem}. Although it is quite simple mathematical fact, this provides the basis of the proposed measure's name.}.	
 \end{proof}
+
+Although $KacIM$ is not scale invariant in general, scale invariance can be achieved by assuming standartization of $X$ and $Y$.
+
 
 \subsection{Estimation}
 
-Having i.i.d. observations $(x_{j}, y_{j})$, $j = 1,2,...,n$, an empirical scale-invariant estimator of~\eqref{eq:kim} is defined via corresponding empirical characteristic functions~\eqref{eq:joint_ecf} and~\eqref{eq:ecf}:
+Having i.i.d. observations $(x_{j}, y_{j})$, $j = 1,2,...,n$, an empirical estimator of~\eqref{eq:kim} is defined via corresponding ECF's~\eqref{eq:joint_ecf} and~\eqref{eq:ecf}:
 \begin{equation}
 \label{eq:estimator}
-\hat{\kappa}(X,Y) := \max_{\alpha, \beta} \vert \widehat{\phi_{X,Y}}(\alpha,\beta)  - \widehat{\phi_{X}}(\alpha) \widehat{\phi_{Y}}(\beta) \vert.
+\hat{\kappa}(X,Y) := \max_{\alpha, \beta} \vert \widehat{\Delta}_{X,Y}(\alpha, \beta) \vert =\max_{\alpha, \beta} \vert \widehat{\phi_{X,Y}}(\alpha,\beta)  - \widehat{\phi_{X}}(\alpha) \widehat{\phi_{Y}}(\beta) \vert.
 \end{equation}
 
-\noindent Empirical estimator~\eqref{eq:estimator} also is symmetric and and bounded (Theorem~\ref{thm:properties}). It can be calculated iteratively by Algorithm~\ref{alg:estimator_computation} (Pytorch~\cite{NEURIPS2019_9015} implementation can be accessed from \url{https://github.com/povidanius/kac_independence_measure}). 
+\noindent By \textit{Levy continuity theorem} \cite{LCT} ECF converges to CF. Therefore empirical estimator~\eqref{eq:estimator} converges (?) into KacIM~\eqref{eq:kim} (in what sense, check?).
+
+\noindent It can be calculated iteratively by Algorithm~\ref{alg:estimator_computation} (Pytorch~\cite{NEURIPS2019_9015} implementation can be accessed from \url{https://github.com/povidanius/kac_independence_measure}). 
 
 
 \begin{algorithm}
 	\caption{KacIM estimation}\label{alg:estimator_computation}
 	\begin{algorithmic}
-		\Require Number of iterations $N$, gradient-based optimiser $GradOpt([parameters],loss)$
+		\Require Number of iterations $N$, gradient-based optimiser $GradOpt([parameters],.)$, initial $\alpha \in \mathbb{R}^{d_{X}}, \beta \in \mathbb{R}^{d_{Y}}$.
 		\For{iteration=1 to N}
 		\State Sample data batch $(X,Y):=(x_{i},y_{i})_{i=1}^{n_{b}}$.
 		\State Normalize $(X,Y)$ to zero mean and unit variance (scale invariance).
-		\State Calculate  $\widehat{\Delta}(X,Y)$.
-		\State Perform one maximization iteration of $\widehat{\Delta}(X,Y)$ via $\alpha, \beta \rightarrow GradOpt([\alpha, \beta], \widehat{\Delta}(X,Y))$.
+		\State Calculate  $\widehat{\Delta}_{\alpha, \beta}(X,Y)$.
+		\State Perform one maximization iteration of $\widehat{\Delta}(X,Y)$ via $\alpha, \beta \rightarrow GradOpt([\alpha, \beta], \widehat{\Delta}_{\alpha, \beta}(X,Y))$.
 		\EndFor
 	\end{algorithmic}
 \end{algorithm}
 
 
 
+Algorithm~\ref{alg:estimator_computation} requires to initialise $\alpha$ and $\beta$, and optimiser. In our implementation we use uniform initialisation of parameters, and decoupled weight decay regularization optimizer~\cite{Loshchilov2019DecoupledWD}. 
+We also empirically observed that normalisation of parameters $\alpha$ and $\beta$ on to unit sphere increases estimation stability. After the estimation of KacIM via Algorithm~\ref{alg:estimator_computation}, the evaluation the estimator  has computation complexity $O(n)$, where $n$ is sample size.
 
-Algorithm~\ref{alg:estimator_computation} requires to initialise $\alpha$ and $\beta$, select stopping criteria, and optimiser. In our implementation we use uniform initialisation of parameters, stopping criteria defined in number of iterations, and decoupled weight decay regularization optimizer~\cite{Loshchilov2019DecoupledWD}. 
-We also empirically observed that normalisation of parameters $\alpha$ and $\beta$ on to unit sphere increases estimation stability (why?). After the estimation of KacIM via Algorithm~\ref{alg:estimator_computation}, the evaluation the estimator ~\eqref{eq:estimator} has computation complexity $O(n)$, where $n$ is sample size.
-
-Note, that e.g. Shannon and Renyi mutual information~\cite{Cover2006} are also estimated via transforming them into maximisation problem by Donsker-Varadhan representation~\cite{pmlr-v80-belghazi18a}, in order to avoid density estimation.
+Note, that mutual information~\cite{Cover2006} (and $f$-divergence-based analogues in general) are also estimated via transforming them into maximisation problem by Donsker-Varadhan representation~\cite{pmlr-v80-belghazi18a}, in order to avoid density estimation. In this case, optimisation is conducted over the space of neural network parameters, which is substantially larger than the number of parameters needed to estimate $KacIM$, which is only $d_{x} + d_{y}$.
 
 \subsection{Interpretation and connection previous approaches}
 \textbf{Interpretation in general case}. Since \eqref{eq:kim} can be reformulated as
 \begin{equation}
 \kappa(X,Y) = \max_{\alpha,\beta} |\cov(e^{i\alpha^{T}X},e^{i\beta^{T}Y})|,
 \end{equation}
-by Euler's formula, it corresponds to the maximum covariance between $e^{i\alpha^{T}X} = cos(\alpha^{T}X) + i \cdot sin(\alpha^{T}X)$ and $e^{i\beta^{T}Y} = cos(\beta^{T}Y) + i \cdot sin(\beta^{T}Y)$.
-\begin{comment}
+by Euler's formula, it corresponds to the maximum pseudocovariance between complex exponents $e^{i\alpha^{T}X} = cos(\alpha^{T}X) + i \cdot sin(\alpha^{T}X)$ and $e^{i\beta^{T}Y} = cos(\beta^{T}Y) + i \cdot sin(\beta^{T}Y)$.
+Since $\var(e^{i\alpha^{T}X}) = \phi(2\alpha) - \phi(\alpha)^2$, one can also define the normalised version of KacIM (refine or remove this):
+%\begin{comment}
 \begin{equation}
-\kappa_{n}(X,Y) = \max_{\alpha,\beta} |corr(e^{i\alpha^{T}X},e^{i\beta^{T}Y})| = \max_{\alpha,\beta} \frac{|\cov(e^{i\alpha^{T}X},e^{i\beta^{T}Y})|}{\sqrt{|\phi_{X}(2\alpha)-\phi_{X}^{2}(\alpha)||\phi_{Y}(2\beta)-\phi_{Y}^{2}(\beta)|}},
+\kappa_{norm}(X,Y) = \max_{\alpha,\beta} |\corr(e^{i\alpha^{T}X},e^{i\beta^{T}Y})| = \max_{\alpha,\beta} \frac{|\cov(e^{i\alpha^{T}X},e^{i\beta^{T}Y})|}{\sqrt{|\phi_{X}(2\alpha)-\phi_{X}^{2}(\alpha)||\phi_{Y}(2\beta)-\phi_{Y}^{2}(\beta)|}}.
 \end{equation}
-\begin{equation}
-\max_{\alpha,\beta} |corr(e^{i\alpha^{T}X},e^{i\beta^{T}Y})| = \max_{\alpha,\beta} \frac{|\cov(e^{i\alpha^{T}X},e^{i\beta^{T}Y})|}{\sqrt{|\phi_{X}(2\alpha)-\phi_{X}^{2}(\alpha)||\phi_{Y}(2\beta)-\phi_{Y}^{2}(\beta)|}},
-\end{equation}
-\end{comment}
+
+%\end{comment}
 
 \textbf{Interpretation in Gaussian case}. In special case when both $X$ and $Y$ are zero mean Gaussian random vectors we have:
 \begin{equation}
@@ -257,7 +269,7 @@ by Euler's formula, it corresponds to the maximum covariance between $e^{i\alpha
 \end{equation}
 Assuming constant $\alpha^{T}\Sigma_{x}\alpha$ and  $\beta{^T}\Sigma_{y}\beta$, the maximization corresponds to the maximization of  $\alpha{^T}\Sigma_{x,y}\beta$, which coincides with canonical correlation analysis~\cite{10.5555/3279302}. Here $\Sigma_{x}$, $\Sigma_{y}$, and  $\Sigma_{x,y}$ are covariance matrices of $X$, $Y$, and cross-covariance matrix between $X$ and $Y$, respectively.
 
-\textbf{Generative models}. In the environment of generative models  with Gaussian outputs (e.g. variational autoencoder), estimation of KacIM in equivalent to finding first cannonical correlation pair between corresponding outputs.
+%\textbf{Generative models}. In the environment of generative models  with Gaussian outputs (e.g. variational autoencoder), estimation of KacIM in equivalent to finding first cannonical correlation pair between corresponding outputs.
 
 
 
@@ -288,8 +300,7 @@ Figure~\ref{fig:experiments_simulation} empirically shows that value of KacIM  n
 
 %Since in~\ref{alg:estimator_computation} we standartize data, KacIM is also scale-invariant (i.e. $\kappa(rx, ry) = \kappa(x,y)$), where $r>0$ is scale parameter.
 
-\paragraph{Comparison with distance correlation} We also evaluated distance correlation~\cite{Szekely} on the same generated samples of data, comparing it with KacIM. From Figure.~\ref{fig:experiments_simulation_dcor} we see that as data dimensionality grows, for independent data, the values of measure not only is significantly larger than zero, but it also grows like values of measure of dependent data. This empirically demonstrates that distance correlation is affected by the curse of dimensionality. On the other side, KacIM even for larger dimensions oscilates near zero for independent data, and significantly deviates from zero for dependent data case, as indicated in right component of Figure.~\ref{fig:experiments_simulation_dcor}.
-
+\paragraph{Comparison with distance correlation} We also evaluated distance correlation~\cite{Szekely} on the same generated samples of data, comparing it with KacIM. From Figure.~\ref{fig:experiments_simulation_dcor} we see that as data dimensionality grows, for independent data, the values of measure not only is significantly larger than zero, but it also grows like values of measure of dependent data. This empirically demonstrates that distance correlation is affected by the curse of dimensionality. On the other side, KacIM even for larger dimensions oscilates near zero for independent data, and significantly deviates from zero for dependent data case, as indicated in right component of Figure.~\ref{fig:experiments_simulation_dcor}. 
 
 
 \begin{figure}%
@@ -329,7 +340,7 @@ After the optimisation, the feature extraction is conducted by $f(x) = W^{*}x$, 
 
 
 We randomly split all the datasets in training and testing sets of equal size. % comparing unmodified inputs $x$, and features % of all possible dimensions up to $d_{x}$ with $10\%$ step.  
-In our experiments we set $\alpha$ to $1.0$ to quickly ensure orthogonal projection matrices, and further proceed to dependence maximization stage. In order to quantitatively evaluate features, we use logistic regression-based classification accuracy, measured on the testing set.
+In our experiments we set $\alpha$ to $1.0$ to quickly ensure orthogonal projection matrices, and further proceed to dependence maximization stage. In order to quantitatively evaluate features, we use logistic regression classifier accuracy, measured on the testing set.
 
 
 We use two baselines: raw features (RAW column in Table~\ref{table:classification_accuracies}) and neighborhood component analysis~\cite{NIPS2004_42fe8808} (NCA column in Table~\ref{table:classification_accuracies}).  The purpose of these experiments is to provide the preliminary evaluation of the applicability of KacIM for feature extraction, hence we use rather basic cost function and comparative baselines.
@@ -337,7 +348,7 @@ We use two baselines: raw features (RAW column in Table~\ref{table:classificatio
 
 
 
-The classification accuracies, reported in Table~\ref{table:classification_accuracies} demonstrate that KacIM-based feature extraction procedure (KacIMFE column) indeed allows to increase classification accuracy when applied to real data sets from different domains. In contrast to our feature extraction approach, NCA explicitly optimises for classification accuracy, rather than more abstract dependency of features $f(x)$ with dependent variable $y$.
+The classification accuracies, reported in Table~\ref{table:classification_accuracies} demonstrate that KacIM-based feature extraction procedure (KacIMFE column) indeed allows to increase classification accuracy when applied to real data sets from different domains, including high-dimensional and ill-defined ones (e.g. \textit{micro-mass} dataset). In contrast to our feature extraction approach, NCA explicitly optimises for classification accuracy, rather than more abstract dependency of features $f(x)$ with dependent variable $y$.
 
 
 
@@ -375,13 +386,12 @@ The classification accuracies, reported in Table~\ref{table:classification_accur
 
 
 \subsection{Regularisation}
-In regularisation experiments we investigate skin lession classification task. It is represented as binary classification data set, consisting of images ($9000$ for training, and $1605$ for testing), which should be classified as benign or maligant (e.g. Figure~\ref{fig:Pneumonia_dataset_examples}).
+In regularisation experiments we investigate skin lession classification task. It is a binary classification data set, consisting of $10605$ images, which should be classified as benign or maligant (e.g. Figure~\ref{fig:Pneumonia_dataset_examples}).
 
-As classifier we use \emph{ResNet18}, trained with batches of $128$ elements.
-We denote classifier as $f(\phi(x|\theta_{0})|\theta_{1})$, where $\theta_{0}$ are bottleneck parameters, $\theta_{1}$ final (linear) layer parameters, and $x$ is $224\times 224$ input image.
+We use \verb|ResNet18| backbone model (pretrained on ImageNet) with added classification head. Further we train this model with batches of $128$ elements.
+We denote our classification network as $f(\phi(x|\theta_{0})|\theta_{1})$, where $\theta_{0}$ are parameters of \verb|ResNet18|, $\theta_{1}$ are classification head parameters, and $x$ is $224\times 224$ input image.
 For optimisation we use decoupled weight decay regularization optimizer~\cite{Loshchilov2019DecoupledWD} with learning rate set to $0.0002$, and weight decay parameter set to $0.00001$ ($3$ epochs).
-We used the following data augmentations: random flips, random rotation (up to 10 degrees), color jitter. 
-
+The internal learning rate of estimator (see\~ref{algo}) was set to $0.07$ and weight decay parameters to $0.01$.
 
 \begin{figure}%
 	\centering
@@ -393,15 +403,15 @@ We used the following data augmentations: random flips, random rotation (up to 1
 \end{figure}
 
 
-We will investigate additive regularizer, which maximises depency of bottleneck the feature $\phi(x)$ and target variable $y$ (one-hot encoding): 
+We will investigate additive regularizer, which maximises depency of bottleneck the feature $\phi(x|\theta_{0})$ and target variable $y$ (one-hot encoding): 
 
 
 \begin{equation}
 \label{eq:regularizer1}
-Cost(\theta_{0},\theta_{1}, W) := CE(f(\phi(x|\theta_{0})|\theta_{1}),y) - \beta \kappa(\phi(x|\theta_{0}),y),
+Cost(\theta_{0},\theta_{1}, W) := (1-\rho)\CE(f(\phi(x|\theta_{0})|\theta_{1}),y) - \rho \kappa(\phi(x|\theta_{0}),y),
 \end{equation}
 
-\noindent where $CE(.,.)$ is cross-entropy loss, $\rho \geq 0$ is regularisation parameter (in our experiments $\rho = 9.0$). This regularizer is designed to directly transfer information from $y$ to the input of classification network $f(.|\theta_{1})$, and we hypothethise that this would provide possibility to improve classification accuracy.
+\noindent where $\CE(.,.)$ is cross-entropy loss, $\rho \geq 0$ is regularisation parameter (in our experiments $\rho = 0.2$). During backward pass, this regularizer is designed to directly transfer information from $y$ to the output \verb|ResNet18| $\phi(.|\theta_{0})$, and we hypothethise that this could provide possibility to learn more discriminative features.
 
 \begin{table}	
 	\centering
@@ -411,24 +421,28 @@ Cost(\theta_{0},\theta_{1}, W) := CE(f(\phi(x|\theta_{0})|\theta_{1}),y) - \beta
 		\hline
 		Mode & Average accuracy (\%)  \\
 		\hline
-		Without regularisation   &   87.08 \\		
+		Without regularisation   &   93.01 \\		
 		\hline
-		With regularisation  &   \textbf{87.69} \\		
+		With regularisation  &   \textbf{93.34} \\		
 		\hline
 	\end{tabular}
-	\caption{Classification accuracy comparison of regularised and not regularised model. Bold text indicates that model with regulariser was more accurate (Wilcoxon's signed rank test~\cite{Wilcoxon1992}, 30 runs, $p$-value threshold $0.04$))}
+	\caption{Melanoma classification accuracy comparison of regularised and not regularised model. Bold text indicates that model with regulariser was more accurate (Wilcoxon's signed rank test~\cite{Wilcoxon1992}, 30 runs, $p$-value threshold $0.04$))}
 	\label{table:regularisation_classification_accuracies}	
 \end{table}
 
 
-In each experiment we train classifier $30$ times with randomly splitted training and testing data set of aforementioned sizes. The average accuracies reported in Table~\ref{table:regularisation_classification_accuracies}, that application~\eqref{eq:regularizer1} slightly (but with statistical significance) increased classification accuracy.
+In each experiment we train classifier $30$ times with randomly splitted training and testing data ($9000$ images for training, and $1605$ for testing). The average accuracies reported in Table~\ref{table:regularisation_classification_accuracies}, that application~\eqref{eq:regularizer1} slightly (but with statistical significance) increased classification accuracy.
 
 \section{Conclusion} 
 
 \label{section:conclusion}
-In this article we propose statistical dependence measure, KacIM, which corresponds to the $L^{\infty}$ norm of the absolute value of difference between joint characteristic function and the product of marginal ones. The proposed measure, in theory can detect both linear and non-linear statistical depdendence between a pairs of random variables of possibly different dimension, extended to various directions(e.g. kernels, multivariablity, cannonical correlation), applied to several machine learning tasks (e.g. feature extraction, regularisation, among others). On the other side, it raises a corresponding set of unanswered questions, both theoretical and empirical. For example, the interpretability when it approaches its maximal value remains insufficiently clear, however empirical experiments with simulated data reveals, that increasing independence between two random variables is reflected in a decreasing trend on the estimated values of the proposed dependence measure. In contrary to e.g. HSIC or distance correlation, the estimation of the porposed measure is iterative optimisation process. Therefore, parameter initialization, meta-parameter (e.g. stopping criteria, batch size) selection are needed in order to evaluate it efficiently.
+In this article we propose statistical dependence measure, KacIM, which corresponds to the $L^{\infty}$ norm of the absolute value of difference between joint characteristic function and the product of marginal ones. The proposed measure, in theory can detect non-linear statistical depdendence between a pairs of random variables of possibly different dimension, extended to various directions (e.g. kernels, multiple variables), applied to several machine learning tasks (e.g. feature extraction, regularisation, among others). On the other side, it raises a corresponding set of unanswered questions, both theoretical and empirical. 
 
-Beside demonstrated applications in Section~\ref{section:experiments}, the proposed measure is differentiable and thereby can be integrated with various modern deep-learning methods, applied to high-dimensional and structured data. From empirical point of view, we see exploration of KacIM in causality, information bottleneck theory, self-supervised learning, and other modern problems, where dependence measures define a criterion of optimisation, as important future work. %We also would like to note, that exhaustive survey of measures of statistical dependence, accompanied with open-source code repository, would be helpful both for the theorists and for practicioneers.
+For example, although it converges, the variance of the estimator sometimes is high and it is still remains unclear how to control it, also the interpretability when it approaches its maximal value remains insufficiently clear. However empirical experiments with simulated data reveals, that increasing independence between two random variables is reflected in a decreasing trend on the estimated values of the proposed dependence measure(e.g. Figure~\ref{fig:experiments_simulation}). 
+
+ Therefore, parameter initialization, meta-parameter (e.g. stopping criteria, batch size) selection are needed in order to evaluate it efficiently.
+
+Beside demonstrated applications in Section~\ref{section:experiments}, the proposed measure is differentiable and thereby can be integrated with various modern deep-learning methods, applied to high-dimensional and structured data. We see exploration and comparative analaysis of KacIM in causality, information bottleneck theory, self-supervised learning, and other modern problems, where dependence measures define a criterion of optimisation, as future work. %We also would like to note, that exhaustive survey of measures of statistical dependence, accompanied with open-source code repository, would be helpful both for the theorists and for practicioneers.
 
 
 \begin{comment}
