@@ -42,7 +42,7 @@ REGULARIZER = 0
 LOSS = 1
 
 kim = KacIndependenceMeasure(512, 2, lr=0.007, input_projection_dim = 32, weight_decay=0.01, device=device) #0.007
-#kim = KacIndependenceMeasure(2, 2, lr=0.007, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
+kim1 = KacIndependenceMeasure(2, 2, lr=0.007, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
 
 """
 train_transform = transforms.Compose([transforms.Grayscale(num_output_channels=3), 
@@ -188,22 +188,26 @@ for epoch in range(number_of_epoch):
 
         y = torch.nn.functional.one_hot(label).float()
         #print(label)
-        breakpoint()
+        #breakpoint()
 
         loss = loss_fn(pred, label) 
-             
+
+        #breakpoint()     
                 
-        reg0 = kim.forward(bottleneck.clone().detach().to(device), y.clone().detach().to(device), update=True)
+        reg0 = kim.forward(bottleneck.clone().detach().to(device), y.clone().detach().to(device), update=True) +  kim1.forward(output.clone().detach().to(device), y.clone().detach().to(device), update=True)
+        #breakpoint()
         dep_history.append(reg0.detach().cpu().numpy())
         writer.add_scalar("Dep/train", reg_alpha * reg0, global_iteration)
         iteration = iteration + 1
+        #print("qq")
+        #breakpoint()
         #if epoch % 2 == 0 and use_regularization:
         #   print("Dep iteration: epoch {}, iteration {},  reg_estim {} ".format(epoch, iteration,  reg0))
         #   continue
 
         #if epoch % 2 != 0 and use_regularization:
         if use_regularization:
-            reg = kim.forward(bottleneck, y, update=False)
+            reg = kim.forward(bottleneck, y, update=False) +  kim1.forward(output.clone().detach().to(device), y.clone().detach().to(device), update=False)
             dep_history.append(reg.detach().cpu().numpy())
             writer.add_scalar("Reg_alpha/train", reg_alpha * reg, global_iteration)
             writer.add_scalar("Loss/train", loss, global_iteration)
@@ -272,7 +276,7 @@ for epoch in range(number_of_epoch):
 
 writer.close()
 
-with open("./21result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
+with open("./21aresult_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
 #with open("./13result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
     #f.write("{} {} \n".format(accuracy, test_accuracy[-1]))
     f.write("{}\n".format(accuracy))
