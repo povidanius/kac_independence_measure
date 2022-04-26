@@ -12,6 +12,10 @@ import os
 from collections import OrderedDict
 import time
 from torch.utils.tensorboard import SummaryWriter
+import torch.nn.functional as F
+import pdb, traceback, sys
+
+
 writer = SummaryWriter()
 
 
@@ -41,8 +45,8 @@ def get_activation(name):
 REGULARIZER = 0
 LOSS = 1
 
-kim = KacIndependenceMeasure(512, 2, lr=0.007, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
-kim1 = KacIndependenceMeasure(2, 2, lr=0.007, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
+kim = KacIndependenceMeasure(32, 32, lr=0.007, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
+#kim1 = KacIndependenceMeasure(2, 2, lr=0.007, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
 
 """
 train_transform = transforms.Compose([transforms.Grayscale(num_output_channels=3), 
@@ -102,17 +106,38 @@ train_loader = DataLoader(dataset=training_dataset, batch_size=batch_size, shuff
 test_loader = DataLoader(dataset= testing_dataset, shuffle=False)
 
 
-model = resnet18(pretrained=True) #, aux_logits=False)
+class ResNet18(nn.Module):
+    def __init__(self,num_classes,num_fcs=2, loss={'xent'},**kwargs):
+        super(ResNet18,self).__init__()
+        self.loss = loss
+        resnet = resnet18(pretrained=True)
+        self.base= nn.Sequential(*list(resnet.children())[:-2])
+        self.num_fcs = num_fcs
+        for i in range(num_fcs):
+            head = nn.Sequential( nn.Linear(512, 32), nn.ReLU(), nn.BatchNorm1d(32), nn.Linear(32, num_classes))
+            setattr(self, "fc%d" % i, head)
+            setattr(self, "ftr%d" %i, head[0])
+
+
+        self.f = []
+
+
+    def forward(self,x):
+        x = self.base(x)
+        x = F.avg_pool2d(x,x.size()[2:])
+        f = x.view(x.size(0),-1)
+        self.f = f
+
+        clf_outputs = {}
+        for i in range(self.num_fcs):
+            clf_outputs["fc%d" % i] = getattr(self, "fc%d" % i)(f)
+            clf_outputs["ftr%d" % i] = getattr(self, "ftr%d" % i)(f)
+
+        return clf_outputs
+
+model = ResNet18(2, num_fcs=2) #, aux_logits=False)
 #model.fc = nn.Linear(512, 2)
-model.fc = nn.Sequential(
-    #nn.Dropout(0.5),
-    nn.Linear(512, 64),
-    nn.ReLU(),
-    nn.Linear(64, 32),
-    nn.ReLU(),
-    nn.BatchNorm1d(32),
-    nn.Linear(32, 2)
-)
+#breakpoint()
 
 # intermediate activations
 """
@@ -126,9 +151,10 @@ model.layer4[0].register_forward_hook(get_activation('layer4_0'))
 model.layer4[1].register_forward_hook(get_activation('layer4_1'))
 """
 
-model.avgpool.register_forward_hook(get_activation('bottleneck'))
-model.fc[5].register_forward_hook(get_activation('output'))
+#model.base.avgpool.register_forward_hook(get_activation('bottleneck'))
 
+#model.fc[5].register_forward_hook(get_activation('output'))
+#breakpoint()
 
 model.to(device)
 loss_fn = nn.CrossEntropyLoss()
@@ -186,18 +212,21 @@ for epoch in range(number_of_epoch):
         pred = model(data)     
 
         #breakpoint()
-        bottleneck = activation['bottleneck'].squeeze()
-        output = activation['output'].squeeze()
+        ftr0 = pred['ftr0']
+        ftr1 = pred['ftr1']
 
         y = torch.nn.functional.one_hot(label).float()
         #print(label)
         #breakpoint()
 
-        loss = loss_fn(pred, label) 
+        loss0 = loss_fn(pred['fc0'], label) 
+        loss1 = loss_fn(pred['fc1'], label)
+
+        loss = loss0 + loss1
 
         #breakpoint()     
                 
-        reg0 = kim.forward(bottleneck.clone().detach().to(device), y.clone().detach().to(device), update=True) #+  kim1.forward(output.clone().detach().to(device), y.clone().detach().to(device), update=True)
+        reg0 = kim.forward(ftr0.clone().detach().to(device), ftr1.clone().detach().to(device), update=True) #+  kim1.forward(output.clone().detach().to(device), y.clone().detach().to(device), update=True)
         #breakpoint()
         dep_history.append(reg0.detach().cpu().numpy())
         writer.add_scalar("Dep/train", reg_alpha * reg0, global_iteration)
@@ -210,13 +239,13 @@ for epoch in range(number_of_epoch):
 
         #if epoch % 2 != 0 and use_regularization:
         if use_regularization:
-            reg = kim.forward(bottleneck, y, update=False) #+  kim1.forward(output.clone().detach().to(device), y.clone().detach().to(device), update=False)
+            reg = kim.forward(ftr0, ftr1, update=False) #+  kim1.forward(output.clone().detach().to(device), y.clone().detach().to(device), update=False)
             dep_history.append(reg.detach().cpu().numpy())
             writer.add_scalar("Reg_alpha/train", reg_alpha * reg, global_iteration)
             writer.add_scalar("Loss/train", loss, global_iteration)
 
             print("Loss iteration: epoch {}, iteration {}, loss {}, reg {} ".format(epoch, iteration, loss, reg))
-            loss =  (1-reg_alpha)*loss - reg_alpha * reg # loss -> min.., dep -> max
+            loss =  (1-reg_alpha)*loss + reg_alpha * reg # loss -> min.., dep -> max
             writer.add_scalar("LossReg/train", loss, global_iteration)
 
             #reg0 = kim.forward(bottleneck.clone().detach().to(device), y.clone().detach().to(device), update=True)
@@ -231,8 +260,18 @@ for epoch in range(number_of_epoch):
         train_iter_loss += loss.item()
         train_iteration += 1
         
-        _, predicted = torch.max(pred, 1)
-        train_correct += (predicted == label).sum()
+        
+        try:
+            _, predicted0 = torch.max(pred['fc0'], 1)
+            _, predicted1  = torch.max(pred['fc1'], 1)
+        except:
+            breakpoint()
+
+
+        #breakpoint()
+        #predicted = torch.max(predicted0, predicted1)
+        train_correct += 0.5 * ((predicted0 == label).sum() + (predicted0 == label).sum())
+
         num_train += batch_size
         iteration = iteration + 1
 
@@ -267,9 +306,11 @@ for epoch in range(number_of_epoch):
         label = label.to(device)
         
         pred = model(data)
-        _, predicted = torch.max(pred, 1)
+        #d = torch.max(pred, 1)
+        _, predicted0 = torch.max(pred['fc0'], 1)
+        _, predicted1  = torch.max(pred['fc1'], 1)
         
-        corrected += (predicted == label).sum()
+        corrected += 0.5 * ((predicted0 == label).sum() + (predicted0 == label).sum()) #(predicted == label).sum()
         
     accuracy = 100 * float(corrected)/ len_test
     
@@ -279,7 +320,7 @@ for epoch in range(number_of_epoch):
 
 writer.close()
 
-with open("./21bresult_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
+with open("./a_21result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
 #with open("./13result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
     #f.write("{} {} \n".format(accuracy, test_accuracy[-1]))
     f.write("{}\n".format(accuracy))
