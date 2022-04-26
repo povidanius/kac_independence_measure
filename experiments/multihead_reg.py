@@ -116,17 +116,17 @@ class ResNet18(nn.Module):
         for i in range(num_fcs):
             head = nn.Sequential( nn.Linear(512, 32), nn.ReLU(), nn.BatchNorm1d(32), nn.Linear(32, num_classes))
             setattr(self, "fc%d" % i, head)
-            setattr(self, "ftr%d" %i, head[0])
+            setattr(self, "ftr%d" %i, head[:1])
 
 
-        self.f = []
+        #self.f = []
 
 
     def forward(self,x):
         x = self.base(x)
         x = F.avg_pool2d(x,x.size()[2:])
         f = x.view(x.size(0),-1)
-        self.f = f
+        #self.f = f
 
         clf_outputs = {}
         for i in range(self.num_fcs):
@@ -185,8 +185,8 @@ else:
 mode = LOSS
 
 number_of_epoch = 2
-#if use_regularization:
-#    number_of_epoch = 2*number_of_epoch
+if use_regularization:
+    number_of_epoch = 2*number_of_epoch
     
 
 global_iteration = 0
@@ -233,12 +233,12 @@ for epoch in range(number_of_epoch):
         iteration = iteration + 1
         #print("qq")
         #breakpoint()
-        #if epoch % 2 == 0 and use_regularization:
-        #   print("Dep iteration: epoch {}, iteration {},  reg_estim {} ".format(epoch, iteration,  reg0))
+        if epoch % 2 == 0 and use_regularization:
+            print("Dep iteration: epoch {}, iteration {},  reg_estim {} ".format(epoch, iteration,  reg0))
         #   continue
 
-        #if epoch % 2 != 0 and use_regularization:
-        if use_regularization:
+        if epoch % 2 != 0 and use_regularization:
+        #if use_regularization:
             reg = kim.forward(ftr0, ftr1, update=False) #+  kim1.forward(output.clone().detach().to(device), y.clone().detach().to(device), update=False)
             dep_history.append(reg.detach().cpu().numpy())
             writer.add_scalar("Reg_alpha/train", reg_alpha * reg, global_iteration)
@@ -270,7 +270,9 @@ for epoch in range(number_of_epoch):
 
         #breakpoint()
         #predicted = torch.max(predicted0, predicted1)
-        train_correct += 0.5 * ((predicted0 == label).sum() + (predicted0 == label).sum())
+        train_correct += ((predicted0 == predicted1) & (predicted0 == label)).int().sum()
+        #train_correct += 0.5 * ((predicted0 == label).sum() + (predicted1 == label).sum())
+        #breakpoint()
 
         num_train += batch_size
         iteration = iteration + 1
@@ -297,28 +299,28 @@ for epoch in range(number_of_epoch):
 #plt.show()
 #timestr = time.strftime("%Y%m%d-%H%M%S")
 #plt.savefig('./chest_{}.png'.format(timestr))
+    if (not use_regularization) or (epoch % 2 != 0 and use_regularization):
+        corrected = 0
 
-    corrected = 0
+        model.eval()
+        for data, label in test_loader:
+            data = data.to(device)
+            label = label.to(device)
+            
+            pred = model(data)
+            #d = torch.max(pred, 1)
+            _, predicted0 = torch.max(pred['fc0'], 1)
+            _, predicted1  = torch.max(pred['fc1'], 1)
+            
+            corrected += ((predicted0 == predicted1) & (predicted0 == label)).int().sum() #0.5 * ((predicted0 == label).sum() + (predicted1 == label).sum()) #(predicted == label).sum()
+            
+        accuracy = 100 * float(corrected)/ len_test
+        
+        print(f'Test accuracy is {accuracy :.3f}')
+        print("Regularization: {}".format(use_regularization))
+        writer.add_scalar("Acc/test", accuracy, global_iteration)
 
-    model.eval()
-    for data, label in test_loader:
-        data = data.to(device)
-        label = label.to(device)
-        
-        pred = model(data)
-        #d = torch.max(pred, 1)
-        _, predicted0 = torch.max(pred['fc0'], 1)
-        _, predicted1  = torch.max(pred['fc1'], 1)
-        
-        corrected += 0.5 * ((predicted0 == label).sum() + (predicted0 == label).sum()) #(predicted == label).sum()
-        
-    accuracy = 100 * float(corrected)/ len_test
-    
-    print(f'Test accuracy is {accuracy :.3f}')
-    print("Regularization: {}".format(use_regularization))
-    writer.add_scalar("Acc/test", accuracy, global_iteration)
-
-writer.close()
+        writer.close()
 
 with open("./a_21result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
 #with open("./13result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:

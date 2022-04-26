@@ -27,7 +27,7 @@ acc = loadtxt("./21bresult_chest_False_0.2.txt", comments="#", delimiter=",", un
 
 print("acc_reg {}, acc {}".format(np.mean(acc_reg), np.mean(acc)))
 n = np.min([len(acc_reg), len(acc)])
-print("acc_reg {}, acc {}".format(np.mean(acc_reg[:n]), np.mean(acc[:n])))
+#print("acc_reg {}, acc {}".format(np.mean(acc_reg[:n]), np.mean(acc[:n])))
 
 print("acc_reg {}, acc {}".format(len(acc_reg), len(acc)))
 #print(len(acc))

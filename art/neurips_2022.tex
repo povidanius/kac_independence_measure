@@ -248,9 +248,14 @@ Having i.i.d. observations $(x_{j}, y_{j})$, $j = 1,2,...,n$, an empirical estim
 Algorithm~\ref{alg:estimator_computation} requires to initialise $\alpha$ and $\beta$, and optimiser. In our implementation we use uniform initialisation of parameters, and decoupled weight decay regularization optimizer~\cite{Loshchilov2019DecoupledWD}. 
 We also empirically observed that normalisation of parameters $\alpha$ and $\beta$ on to unit sphere increases estimation stability. After the estimation of KacIM via Algorithm~\ref{alg:estimator_computation}, the evaluation the estimator  has computation complexity $O(n)$, where $n$ is sample size.
 
+<<<<<<< HEAD
 
 \subsection{Interpretation and connection to other approaches}
 \textbf{Interpretation as covariance}. Since \eqref{eq:kim} can be reformulated as
+=======
+\subsection{Interpretation and connection to the related approaches}
+\textbf{Interpretation as maximum covariance}. Since \eqref{eq:kim} can be reformulated as
+>>>>>>> refs/remotes/origin/main
 \begin{equation}
 \kappa(X,Y) = \max_{\alpha,\beta} |\cov(e^{i\alpha^{T}X},e^{i\beta^{T}Y})|,
 \end{equation}
@@ -270,9 +275,14 @@ Since $\var(e^{i\alpha^{T}X}) = \phi(2\alpha) - \phi(\alpha)^2$, one can also de
 \end{equation}
 Assuming constant $\alpha^{T}\Sigma_{x}\alpha$ and  $\beta{^T}\Sigma_{y}\beta$, the maximization corresponds to the maximization of  $\alpha{^T}\Sigma_{x,y}\beta$, which coincides with canonical correlation analysis~\cite{10.5555/3279302}. Here $\Sigma_{x}$, $\Sigma_{y}$, and  $\Sigma_{x,y}$ are covariance matrices of $X$, $Y$, and cross-covariance matrix between $X$ and $Y$, respectively.
 
+<<<<<<< HEAD
 \textbf{$f$-divergence-based measures} Recall that the $f$-divergence between two probability distributions $P$ and $Q$ is defined as $D_{f}(P|Q) = \mathbb{E}_{Q} f(\frac{P}{Q})$, and corresponding analogue of mutual information - $D_{f}(P_{x,y}|P_{x}P_{y})$
 
  Note, that mutual information~\cite{Cover2006} (and $f$-divergence-based analogues in general) are also estimated via transforming them into maximisation problem by Donsker-Varadhan representation~\cite{pmlr-v80-belghazi18a}, in order to avoid density estimation. In this case, optimisation is conducted over the space of neural network parameters, which is substantially larger than the number of parameters needed to estimate $KacIM$ (i.e. $d_{x} + d_{y}$ parameters).
+=======
+\textbf{Mutual information} For the neural estimation of mutual information its variational (Donsker-Varadhan) representation $I(X,Y) = max_{\theta}  \mathbb{E}_{X,Y} f(x,y|\theta) - \log \mathbb{E}_{X}\mathbb{E}_{Y} e^{f(x,y|\theta)}$  \cite{pmlr-v80-belghazi18a} is often used, since it allows to avoid density estimation (here $f(x,y|\theta)$ is neural network with parameters $\theta$). The estimation is also iterative process, similar to Algorithm~\ref{alg:estimator_computation}. In this case, optimisation is conducted over the space of neural network parameters, which often is substantially larger than the number of parameters needed to estimate $\KacIM$ (i.e. $d_{x} + d_{y}$ parameters).
+
+>>>>>>> refs/remotes/origin/main
 %\textbf{Generative models}. In the environment of generative models  with Gaussian outputs (e.g. variational autoencoder), estimation of KacIM in equivalent to finding first cannonical correlation pair between corresponding outputs.
 
 
@@ -329,7 +339,7 @@ Previous work in the field of supervised feature extraction, which rely on depen
 
 Let use denote by $T := (x_{i},y_{i})_{i=1}^{N}$ a supervised-learning dataset of $N$ pairs of $d_{x}$-dimensional inputs $x_{i}$, and $d_{y}$-dimensional one-hot-encoded outputs $y_{i}$.
 
-In feature extraction experiments we will use a set of classification data sets from OpenML~\cite{OpenML2013}, which cover different domains.  We use $KacIM$ in order to conduct supervised linear feature extraction by seeking 
+In feature extraction experiments we will use a set of classification data sets from OpenML~\cite{OpenML2013}, which cover different domains.  We use $\KacIM$ in order to conduct supervised linear feature extraction by seeking 
 
 \begin{equation}
 \label{eq:kim_feature_extraction}    
