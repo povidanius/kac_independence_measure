@@ -228,7 +228,7 @@ Although~\eqref{eq:kim} is not scale invariant in general, scale invariance can 
 Having i.i.d. observations $(X^{n},Y^{n}) := (x_{j}, y_{j})$, $j = 1,2,...,n$, an empirical estimator of~\eqref{eq:kim} is defined via corresponding ECF's~\eqref{eq:joint_ecf} and~\eqref{eq:ecf}:
 \begin{equation}
 \label{eq:estimator}
-\widehat{\kappa}(X^{n},Y^{n}) := \max_{\alpha, \beta} \vert \widehat{\Delta}_{X^{n},Y^{n}}(\alpha, \beta) \vert =\max_{\alpha, \beta} \vert \widehat{\phi_{X^{n},Y^{n}}}(\alpha,\beta)  - \widehat{\phi_{X^{n}}}(\alpha) \widehat{\phi_{Y^{n}}}(\beta) \vert.
+\widehat{\kappa}(X^{n},Y^{n}) := \max_{\alpha, \beta} \vert \hat{\Delta}_{X^{n},Y^{n}}(\alpha, \beta) \vert =\max_{\alpha, \beta} \vert \hat{\phi}_{X^{n},Y^{n}}(\alpha,\beta)  - \hat{\phi}_{X^{n}}(\alpha) \hat{\phi}_{Y^{n}}(\beta) \vert.
 \end{equation}
 
 \noindent By \textit{Levy continuity theorem}~\cite{KacTheorem} ECF pointwise converges to CF. Therefore empirical estimator~\eqref{eq:estimator} almost surely converges into KacIM~\eqref{eq:kim}. In practice, KacIM~\eqref{eq:kim} can be estimated iteratively by Algorithm~\ref{alg:estimator_computation} \footnote{Pytorch~\cite{NEURIPS2019_9015} implementation can be accessed from \url{https://github.com/povidanius/kac_independence_measure}}. 
@@ -237,12 +237,12 @@ Having i.i.d. observations $(X^{n},Y^{n}) := (x_{j}, y_{j})$, $j = 1,2,...,n$, a
 \begin{algorithm}
 	\caption{KacIM estimation}\label{alg:estimator_computation}
 	\begin{algorithmic}
-		\Require Number of iterations $N$, gradient-based optimiser $GradOpt([parameters],.)$, initial $\alpha \in \mathbb{R}^{d_{X}}, \beta \in \mathbb{R}^{d_{Y}}$.
+		\Require Number of iterations $N$, bach size $n_{b}$, gradient-based optimiser $GradOpt([parameters],.)$, initial $\alpha \in \mathbb{R}^{d_{X}}, \beta \in \mathbb{R}^{d_{Y}}$.
 		\For{iteration=1 to N}
 		\State Sample data batch $(X^{n},Y^{n}):=(x_{i},y_{i})_{i=1}^{n_{b}}$.
 		\State Normalize $(X^{n},Y^{n})$ to zero mean and unit variance (scale invariance).
 		\State Calculate  $\widehat{\Delta}_{\alpha, \beta}((X^{n},Y^{n}))$.
-		\State Perform one maximization iteration $\widehat{\Delta}_{\alpha, \beta}(X,Y)$ via $\alpha, \beta \rightarrow GradOpt([\alpha, \beta], \widehat{\Delta}_{\alpha, \beta}(X,Y))$.
+		\State Perform one maximization iteration of $\widehat{\Delta}_{\alpha, \beta}(X^{n},Y^{n})$: $\widehat{\Delta}_{\alpha, \beta}(X^{n},Y^{n})$ via $\alpha, \beta \rightarrow GradOpt([\alpha, \beta], \widehat{\Delta}_{\alpha, \beta}(X^{n},Y^{n}))$.
 		\EndFor
 	\end{algorithmic}
 \end{algorithm}
