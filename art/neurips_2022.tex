@@ -174,7 +174,7 @@ In terms of CF's, statistical independence  of $X$ and $Y$ is equivalent to $\fo
 Previously, $\Delta_{X,Y}(\alpha, \beta)$ was used as the basis (first in~\cite{Feuerverger} for one-dimensional case, and afterwards extended and developed by~\cite{Szekely} for bivariate multidimensional random vectors) for construction of statistical independence tests and measures. Distance covariance and distance correlation, prosposed by ~\cite{Szekely} relies on weighted $L^{2}$-norm analysis of~\eqref{eq:kac_theorem}. They select weighting function in such a way, that dependence measure can be expressed in terms of correlection of data-dependent distances. Recent result of~\cite{Bottcher} generalises~\cite{Szekely} to multivariable case.~\cite{CHAUDHURI201915} proposed computationally efficient algorithm for estimation of distance correlation measure, reducing computational complexity from $O(n^2)$ to $O(n\cdot \log n)$, where $n$ is sample size.
 
 \textbf{Motivation and Connection To Previous Work} 
-Taking $\Delta_{X,Y}(\alpha, \beta) = 0$~\eqref{eq:kac_theorem} as the criterion of statistical independence we view the work~\cite{Szekely} from the perspective of weighted $L^{p}$ spaces, measuing statistical dependence by the corresponding $L^{p}$-norms of$|\Delta_{X,Y}(\alpha, \beta)|$~\eqref{eq:kac_theorem} (i.e. $||\Delta_{X,Y}(\alpha, \beta)||_{L^{p}} = (\int |\Delta_{X,Y}(\alpha, \beta)|^{p}d\alpha d\beta)^{\frac{1}{p}$).
+Taking $\Delta_{X,Y}(\alpha, \beta) = 0$~\eqref{eq:kac_theorem} as the criterion of statistical independence we view the work~\cite{Szekely} from the perspective of weighted $L^{p}$ spaces, measuing statistical dependence by the corresponding $L^{p}$-norms of$|\Delta_{X,Y}(\alpha, \beta)|$~\eqref{eq:kac_theorem} (i.e. $||\Delta_{X,Y}(\alpha, \beta)||_{L^{p}} = (\int |\Delta_{X,Y}(\alpha, \beta)|^{p} d\alpha d\beta)^{\frac{1}{p}}$).
 
 Taking into account that~\cite{Szekely} in high dimensions is affected with the curse of dimensionality~\cite{Edlemann}, we focus on the limit case $p \rightarrow \infty$($L^{\infty}$ space), which is associated to the supremum norm. This norm has several potential advantages.
 
@@ -242,7 +242,7 @@ Having i.i.d. observations $(x_{j}, y_{j})$, $j = 1,2,...,n$, an empirical estim
 		\State Sample data batch $(X,Y):=(x_{i},y_{i})_{i=1}^{n_{b}}$.
 		\State Normalize $(X,Y)$ to zero mean and unit variance (scale invariance).
 		\State Calculate  $\widehat{\Delta}_{\alpha, \beta}(X,Y)$.
-		\State Perform one maximization iteration of $\widehat{\Delta}(X,Y)$ via $\alpha, \beta \rightarrow GradOpt([\alpha, \beta], \widehat{\Delta}_{\alpha, \beta}(X,Y))$.
+		\State Perform one maximization iteration $\widehat{\Delta}_{\alpha, \beta}(X,Y)$ via $\alpha, \beta \rightarrow GradOpt([\alpha, \beta], \widehat{\Delta}_{\alpha, \beta}(X,Y))$.
 		\EndFor
 	\end{algorithmic}
 \end{algorithm}
@@ -283,7 +283,9 @@ Assuming constant $\alpha^{T}\Sigma_{x}\alpha$ and  $\beta{^T}\Sigma_{y}\beta$, 
 \section{Experiments}
 \label{section:experiments}
 
-Further we will conduct empirical investigation of KacIM in order to demonstrate that it can measure non-linear statistical dependencies, and that it can be practically useful as a component of cost functions (we investigate feature extraction, and regularisation problems).
+Further we will conduct empirical investigation of KacIM in order to investigate its behaviour in simulations and practical applications.
+
+%demonstrate that it can measure non-linear statistical dependencies, and that it can be practically useful as a component of cost functions (we investigate feature extraction, and regularisation problems).
 
 \subsection{Generated data}
 
