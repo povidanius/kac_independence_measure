@@ -123,7 +123,7 @@ if __name__ == "__main__":
     X_train, y_train, X_test, y_test, dim_x, num_classes, num_samples = load_data(sys.argv[1], train_frac)
 
     dim_y = num_classes 
-    num_features = int(0.5*dim_x) #0.5
+    num_features = int(0.50*dim_x) #0.5
     
     n_batch = 1024 #X_train.shape[0]
 
@@ -197,7 +197,7 @@ if __name__ == "__main__":
     try:
         train = pd.read_csv('feature_extraction/{}.csv'.format(sys.argv[1]))
         train_tensor = torch.tensor(train.values)
-        if train_tensor.shape[0] > 27:
+        if train_tensor.shape[0] > 37:
             print("Enough!")    
             handle_exception = False         
         else: 

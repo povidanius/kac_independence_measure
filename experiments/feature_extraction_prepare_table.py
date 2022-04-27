@@ -33,7 +33,7 @@ for filename in all_files:
     db_name = Path(filename).stem
     print(db_name, end = " ")
 
-    X,y = fetch_openml(name=db_name, as_frame=True, return_X_y=True)
+    X,y = fetch_openml(name=db_name, as_frame=True, return_X_y=True, version=1)
     categories = pd.unique(y.to_numpy().ravel())
     print("& (%d,%d,%d) " % (X.shape[0], X.shape[1], len(categories)), end = " ")
     for ind in range(3):

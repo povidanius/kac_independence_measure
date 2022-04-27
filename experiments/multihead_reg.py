@@ -1,3 +1,4 @@
+from locale import normalize
 import numpy as np
 import matplotlib.pyplot as plt
 import torch
@@ -21,8 +22,8 @@ writer = SummaryWriter()
 
 #torch.manual_seed(31337)
 
-#data_path='/home/tank/Downloads/chest_xray/chest_xray/chest_xray/merged'
-data_path='/home/tank/Downloads/melanoma/joined'
+data_path='/home/tank/Downloads/chest_xray/chest_xray/chest_xray/merged'
+#data_path='/home/tank/Downloads/melanoma/joined'
 
 sys.path.insert(0, "../")
 from kac_independence_measure import KacIndependenceMeasure
@@ -46,9 +47,10 @@ REGULARIZER = 0
 LOSS = 1
 
 kim = KacIndependenceMeasure(32, 32, lr=0.007, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
-#kim1 = KacIndependenceMeasure(2, 2, lr=0.007, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
+kim0 = KacIndependenceMeasure(32, 32, lr=0.007, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
+kim1 = KacIndependenceMeasure(32, 32, lr=0.007, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
 
-"""
+
 train_transform = transforms.Compose([transforms.Grayscale(num_output_channels=3), 
                                       transforms.Resize((224,224)),
                                       transforms.RandomHorizontalFlip(),
@@ -77,6 +79,7 @@ test_transform = transforms.Compose([transforms.Resize((224,224)),
                                      transforms.ToTensor(),
                                      #transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]
                                      transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))])
+"""
 
 full_dataset = ImageFolder(data_path, transform=train_transform)
 
@@ -91,18 +94,21 @@ full_dataset = ImageFolder(data_path, transform=train_transform)
 #print(len_test)
 #print(len_val)
 
-print(len(full_dataset.samples))
+full_data_len = len(full_dataset.samples)
+
+num_train = int(full_data_len * 0.8)
 #training_dataset, testing_dataset = torch.utils.data.random_split(full_dataset, [5000, 856])
-training_dataset, testing_dataset = torch.utils.data.random_split(full_dataset, [9000, 1605])
+training_dataset, testing_dataset = torch.utils.data.random_split(full_dataset, [num_train, full_data_len - num_train])
 len_train= len(training_dataset)
 len_test= len(testing_dataset)
-#breakpoint()
+
 
 print("Train: {}, test: {}".format(len_train, len_test))
 batch_size = 128 # 128
+#breakpoint()
+
 
 train_loader = DataLoader(dataset=training_dataset, batch_size=batch_size, shuffle=True)
-#val_loader = DataLoader(dataset=validation_dataset, shuffle= True)
 test_loader = DataLoader(dataset= testing_dataset, shuffle=False)
 
 
@@ -114,19 +120,16 @@ class ResNet18(nn.Module):
         self.base= nn.Sequential(*list(resnet.children())[:-2])
         self.num_fcs = num_fcs
         for i in range(num_fcs):
-            head = nn.Sequential( nn.Linear(512, 32), nn.ReLU(), nn.BatchNorm1d(32), nn.Linear(32, num_classes))
+            head = nn.Sequential( nn.Linear(512, 32), nn.PReLU(), nn.BatchNorm1d(32), nn.Linear(32, 16), nn.PReLU(), nn.BatchNorm1d(16), nn.Linear(16, num_classes))
+            #head = nn.Sequential( nn.Linear(512, 32), nn.PReLU(), nn.BatchNorm1d(32), nn.Linear(32, 16), nn.PReLU(), nn.BatchNorm1d(16), nn.Linear(16, num_classes))
+
             setattr(self, "fc%d" % i, head)
-            setattr(self, "ftr%d" %i, head[:1])
-
-
-        #self.f = []
-
+            setattr(self, "ftr%d" %i, head[:2])
 
     def forward(self,x):
         x = self.base(x)
         x = F.avg_pool2d(x,x.size()[2:])
         f = x.view(x.size(0),-1)
-        #self.f = f
 
         clf_outputs = {}
         for i in range(self.num_fcs):
@@ -135,27 +138,7 @@ class ResNet18(nn.Module):
 
         return clf_outputs
 
-model = ResNet18(2, num_fcs=2) #, aux_logits=False)
-#model.fc = nn.Linear(512, 2)
-#breakpoint()
-
-# intermediate activations
-"""
-model.layer1[0].register_forward_hook(get_activation('layer1_0'))
-model.layer1[1].register_forward_hook(get_activation('layer1_1'))
-model.layer2[0].register_forward_hook(get_activation('layer2_0'))
-model.layer2[1].register_forward_hook(get_activation('layer2_1'))
-model.layer3[0].register_forward_hook(get_activation('layer3_0'))
-model.layer3[1].register_forward_hook(get_activation('layer3_1'))
-model.layer4[0].register_forward_hook(get_activation('layer4_0'))
-model.layer4[1].register_forward_hook(get_activation('layer4_1'))
-"""
-
-#model.base.avgpool.register_forward_hook(get_activation('bottleneck'))
-
-#model.fc[5].register_forward_hook(get_activation('output'))
-#breakpoint()
-
+model = ResNet18(2, num_fcs=3) 
 model.to(device)
 loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.AdamW(params=model.parameters(), lr = 0.0002, weight_decay=0.00001)
@@ -168,7 +151,7 @@ test_accuracy = []
 
 dep_history = []
 
-reg_alpha = 0.2 #9.0 #0.1
+reg_alpha = 0.15# 0.25 #9.0 #0.1
 
 if len(sys.argv) < 2:
     print(sys.argv)
@@ -184,7 +167,7 @@ else:
 
 mode = LOSS
 
-number_of_epoch = 2
+number_of_epoch = 1
 if use_regularization:
     number_of_epoch = 2*number_of_epoch
     
@@ -214,39 +197,44 @@ for epoch in range(number_of_epoch):
         #breakpoint()
         ftr0 = pred['ftr0']
         ftr1 = pred['ftr1']
-
+        ftr2 = pred['ftr2']
         y = torch.nn.functional.one_hot(label).float()
-        #print(label)
-        #breakpoint()
+
 
         loss0 = loss_fn(pred['fc0'], label) 
         loss1 = loss_fn(pred['fc1'], label)
+        loss2 = loss_fn(pred['fc2'], label)
 
-        loss = loss0 + loss1
+        loss = (loss0 + loss1 + loss2)/3.0
 
         #breakpoint()     
-                
-        reg0 = kim.forward(ftr0.clone().detach().to(device), ftr1.clone().detach().to(device), update=True) #+  kim1.forward(output.clone().detach().to(device), y.clone().detach().to(device), update=True)
-        #breakpoint()
+            
+        reg0 =  kim.forward(ftr0.clone().detach().to(device), ftr1.clone().detach().to(device), update=True, normalize=False) #-  kim0.forward(ftr0.clone().detach().to(device), y.clone().detach().to(device), update=True) -  kim1.forward(ftr1.clone().detach().to(device), y.clone().detach().to(device), update=True)
+        reg0 += kim0.forward(ftr0.clone().detach().to(device), ftr2.clone().detach().to(device), update=True, normalize=False) 
+        reg0 += kim1.forward(ftr1.clone().detach().to(device), ftr2.clone().detach().to(device), update=True, normalize=False) 
         dep_history.append(reg0.detach().cpu().numpy())
         writer.add_scalar("Dep/train", reg_alpha * reg0, global_iteration)
         iteration = iteration + 1
-        #print("qq")
-        #breakpoint()
         if epoch % 2 == 0 and use_regularization:
             print("Dep iteration: epoch {}, iteration {},  reg_estim {} ".format(epoch, iteration,  reg0))
-        #   continue
-
+            #continue
+        
         if epoch % 2 != 0 and use_regularization:
         #if use_regularization:
-            reg = kim.forward(ftr0, ftr1, update=False) #+  kim1.forward(output.clone().detach().to(device), y.clone().detach().to(device), update=False)
+            reg = kim.forward(ftr0, ftr1, update=False, normalize=False) #-  kim0.forward(ftr0, y, update=False) - kim1.forward(ftr1, y, update=False)
+            reg += kim0.forward(ftr0, ftr2, update=False, normalize=False)
+            reg += kim1.forward(ftr1, ftr2, update=False, normalize=False)
+
             dep_history.append(reg.detach().cpu().numpy())
             writer.add_scalar("Reg_alpha/train", reg_alpha * reg, global_iteration)
             writer.add_scalar("Loss/train", loss, global_iteration)
 
             print("Loss iteration: epoch {}, iteration {}, loss {}, reg {} ".format(epoch, iteration, loss, reg))
-            loss =  (1-reg_alpha)*loss + reg_alpha * reg # loss -> min.., dep -> max
+            loss =  (1-reg_alpha) * loss + reg_alpha * reg # loss -> min.., dep -> max
             writer.add_scalar("LossReg/train", loss, global_iteration)
+        if (not use_regularization):
+            writer.add_scalar("Loss/train", loss, global_iteration)
+            print("Loss iteration: epoch {}, iteration {}, loss {}, reg0 {} ".format(epoch, iteration, loss, reg0))
 
             #reg0 = kim.forward(bottleneck.clone().detach().to(device), y.clone().detach().to(device), update=True)
 
@@ -261,18 +249,13 @@ for epoch in range(number_of_epoch):
         train_iteration += 1
         
         
-        try:
-            _, predicted0 = torch.max(pred['fc0'], 1)
-            _, predicted1  = torch.max(pred['fc1'], 1)
-        except:
-            breakpoint()
+        _, predicted0 = torch.max(pred['fc0'], 1)
+        _, predicted1  = torch.max(pred['fc1'], 1)
+        _, predicted2  = torch.max(pred['fc2'], 1)
+        predicted, _ = torch.mode(torch.cat((predicted0.unsqueeze(1),predicted1.unsqueeze(1), predicted2.unsqueeze(1)), axis=1),axis=1)
 
 
-        #breakpoint()
-        #predicted = torch.max(predicted0, predicted1)
-        train_correct += ((predicted0 == predicted1) & (predicted0 == label)).int().sum()
-        #train_correct += 0.5 * ((predicted0 == label).sum() + (predicted1 == label).sum())
-        #breakpoint()
+        train_correct += (predicted == label).sum() #((predicted0 == predicted1) & (predicted0 == label)).int().sum()
 
         num_train += batch_size
         iteration = iteration + 1
@@ -311,8 +294,10 @@ for epoch in range(number_of_epoch):
             #d = torch.max(pred, 1)
             _, predicted0 = torch.max(pred['fc0'], 1)
             _, predicted1  = torch.max(pred['fc1'], 1)
-            
-            corrected += ((predicted0 == predicted1) & (predicted0 == label)).int().sum() #0.5 * ((predicted0 == label).sum() + (predicted1 == label).sum()) #(predicted == label).sum()
+            _, predicted2  = torch.max(pred['fc2'], 1)
+            predicted, _ = torch.mode(torch.cat((predicted0.unsqueeze(1),predicted1.unsqueeze(1), predicted2.unsqueeze(1)), axis=1),axis=1)
+
+            corrected += (predicted == label).int().sum() #((predicted0 == predicted1) & (predicted0 == label)).int().sum() #0.5 * ((predicted0 == label).sum() + (predicted1 == label).sum()) #(predicted == label).sum()
             
         accuracy = 100 * float(corrected)/ len_test
         
@@ -322,7 +307,7 @@ for epoch in range(number_of_epoch):
 
         writer.close()
 
-with open("./a_21result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
+with open("./dd_22result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
 #with open("./13result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
     #f.write("{} {} \n".format(accuracy, test_accuracy[-1]))
     f.write("{}\n".format(accuracy))
