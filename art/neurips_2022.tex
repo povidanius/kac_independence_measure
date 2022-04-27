@@ -2,6 +2,7 @@
 
 
 % if you need to pass options to natbib, use, e.g.:
+
 %     \PassOptionsToPackage{numbers, compress}{natbib}
 % before loading neurips_2022
 
@@ -112,9 +113,11 @@
 \end{abstract}
 
 \section{Introduction}
-The measurement of  statistical dependence plays important role in various empirical learning methods (e.g. hypothesis testing~\cite{Gretton2005MeasuringSD}, feature selection and extraction~\cite{EigenHSIC,HSCA}, information bottleneck methods \cite{Ma2020TheHB}, causal inference~\cite{NIPS2008_f7664060}, self-supervised learning~\cite{li2021selfsupervised}, representation learning~\cite{Ragonesi2021LearningUR}, among others).  Historically, earliest statistical dependence estimation ideas (e.g. conditional probability) share nearly-common origin with the beginning of formal statistical reasoning itself. During last two centuries ideas of correlation and (relative) entropy (including various generalizations) were proposed and became very popular in numerous applications and theoretical developments. In recent years, various other approaches  (e.g. \cite{Gretton2005MeasuringSD},~\cite{Feuerverger, Szekely},~\cite{Pczos2012CopulabasedKD}) induced several lines of research of different popularity. However, with the increasing growth of machine and deep learning, new statistical dependence estimation methods, that are robust, applicable to noisy, high-dimensional, structured data, and which can be efficiently integrated with modern machine learning and deep learning methods are helpful for the development both of the theory and application.
+The measurement of  statistical dependence plays important role in various empirical learning methods (e.g. hypothesis testing~\cite{Gretton2005MeasuringSD}, feature selection and extraction~\cite{EigenHSIC,HSCA}, information bottleneck methods \cite{Ma2020TheHB}, causal inference~\cite{NIPS2008_f7664060}, self-supervised learning~\cite{li2021selfsupervised}, representation learning~\cite{Ragonesi2021LearningUR}, among others).  Historically, earliest statistical dependence estimation ideas (e.g. conditional probability) share nearly-common origin with the beginning of formal statistical reasoning itself. During last two centuries ideas of correlation and (relative) entropy (including various generalizations) were proposed and became very popular in numerous applications and theoretical developments. In recent years, various other approaches  (e.g. \cite{Gretton2005MeasuringSD},~\cite{Feuerverger, Szekely},~\cite{Pczos2012CopulabasedKD}) induced or essentially contributed to several lines of research of different popularity, formulating and investigating statistical dependence measures. 
 
-In this article we focus on quantitative estimation of statistical depdendencies, using characteristic functions. We begin with the short review of some important previous approaches (Section~\ref{section:previous_work}), devoting special attention to ones based on characteristic functions (Section~\ref{section:previous_work_cf}). Afterwards, in (Section~\ref{section:proposed_method}), we formulate the proposed measure, its empirical estimator, and conduct preliminary theoretical analysis, which are the main theoretical contribution of our paper. Section~\ref{section:experiments} is devoted to the empirical investigation of the proposed measure. Therein we conduct experiments both with simulated and real-world data sets, in order to empirically investigate its properties and applicability in various empirical inference scenarios. Finalizing Section~\ref{section:conclusion} discusses and concludes this article.
+With the increasing growth of machine and deep learning, new statistical dependence estimation methods, that are robust, applicable to noisy, high-dimensional, structured data, and which can be efficiently integrated with modern machine learning and deep learning methods are helpful for the development both of the theory and application.
+
+In this article we focus on quantitative estimation of statistical depdendencies, using characteristic functions. We begin with the short review of some important previous approaches (Section~\ref{section:previous_work}), devoting special attention to ones based on characteristic functions (Section~\ref{section:previous_work_cf}). Afterwards, in (Section~\ref{section:proposed_method}), we formulate the proposed measure, its empirical estimator, and conduct preliminary theoretical analysis, which are the main theoretical contribution of our paper. Section~\ref{section:experiments} is devoted to the empirical investigation of the proposed measure. Therein we conduct experiments both with simulated and real-world data sets, in order to empirically investigate its properties and applicability in empirical inference scenarios. Finalizing Section~\ref{section:conclusion} discusses and concludes this article.
 
 
 \section{Previous Work}
@@ -235,7 +238,7 @@ Having i.i.d. observations $(X^{n},Y^{n}) := (x_{j}, y_{j})$, $j = 1,2,...,n$, a
 
 
 \begin{algorithm}
-	\caption{KacIM estimation}\label{alg:estimator_computation}
+	\caption{KacIM gradient estimation.}\label{alg:estimator_computation}
 	\begin{algorithmic}
 		\Require Number of iterations $N$, bach size $n_{b}$, gradient-based optimiser $GradOpt([parameters],.)$, initial $\alpha \in \mathbb{R}^{d_{X}}, \beta \in \mathbb{R}^{d_{Y}}$.
 		\For{iteration=1 to N}
@@ -268,7 +271,8 @@ Since $\var(e^{i\alpha^{T}X}) = \phi(2\alpha) - \phi(\alpha)^2$, one can also de
 
 %\end{comment}
 
-\textbf{Interpretation in Gaussian case}. In special case when both $X$ and $Y$ are zero mean Gaussian random vectors we have:
+\textbf{Interpretation in Gaussian case}. In special case when both $X$ and $Y$ are zero mean Gaussian random vectors we have $\phi_{X}(\alpha) = e^{-\frac{1}{2}\alpha^{T}\Sigma_{X}\alpha}$, $\phi_{Y}(\beta) = e^{-\frac{1}{2}\beta^{T}\Sigma_{Y}\beta}$, $\phi_{X,Y}(\alpha, \beta) = e^{-\frac{1}{2}(\alpha^{T}\Sigma_{X}\alpha + \beta^{T}\Sigma_{Y}\beta 
++2\alpha^{T}\Sigma_{X,Y}\beta)}$. Therefore
 \begin{equation}
 \label{eq:gaussian_kacim}
 \kappa(X,Y) = \max_{\alpha, \beta} | e^{-\frac{1}{2} (\alpha^{T}\Sigma_{x}\alpha + \beta{^T}\Sigma_{y}\beta)}(e^{-\alpha{^T}\Sigma_{x,y}\beta} - 1)|.
@@ -338,7 +342,7 @@ In feature extraction experiments we will use a set of classification data sets 
 
 \begin{equation}
 \label{eq:kim_feature_extraction}    
-W^{*} = arg \max_{W} \kappa(Wx, y) - \lambda Tr\{(W^{T}W-I)^{T}(W^{T}W-I) \},
+W^{*} = arg \max_{W} \widehat{\kappa}_{N}(Wx, y) - \lambda Tr\{(W^{T}W-I)^{T}(W^{T}W-I) \},
 \end{equation}
 where the regularisation term, controlled by multiplier $\lambda \geq 0$, enforces semi-orthogonality of projection matrix $W^{*}$, and $Tr\{.\}$ denotes matrix trace operator.
 
