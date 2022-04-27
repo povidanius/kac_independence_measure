@@ -46,9 +46,9 @@ def get_activation(name):
 REGULARIZER = 0
 LOSS = 1
 
-kim = KacIndependenceMeasure(32, 32, lr=0.007, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
-kim0 = KacIndependenceMeasure(32, 32, lr=0.007, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
-kim1 = KacIndependenceMeasure(32, 32, lr=0.007, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
+kim = KacIndependenceMeasure(16, 16, lr=0.007, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
+kim0 = KacIndependenceMeasure(16, 16, lr=0.007, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
+kim1 = KacIndependenceMeasure(16, 16, lr=0.007, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
 
 
 train_transform = transforms.Compose([transforms.Grayscale(num_output_channels=3), 
@@ -124,7 +124,7 @@ class ResNet18(nn.Module):
             #head = nn.Sequential( nn.Linear(512, 32), nn.PReLU(), nn.BatchNorm1d(32), nn.Linear(32, 16), nn.PReLU(), nn.BatchNorm1d(16), nn.Linear(16, num_classes))
 
             setattr(self, "fc%d" % i, head)
-            setattr(self, "ftr%d" %i, head[:2])
+            setattr(self, "ftr%d" %i, head[:5]) # make 5
 
     def forward(self,x):
         x = self.base(x)
@@ -167,7 +167,7 @@ else:
 
 mode = LOSS
 
-number_of_epoch = 1
+number_of_epoch = 3
 if use_regularization:
     number_of_epoch = 2*number_of_epoch
     
@@ -217,7 +217,7 @@ for epoch in range(number_of_epoch):
         iteration = iteration + 1
         if epoch % 2 == 0 and use_regularization:
             print("Dep iteration: epoch {}, iteration {},  reg_estim {} ".format(epoch, iteration,  reg0))
-            #continue
+            continue
         
         if epoch % 2 != 0 and use_regularization:
         #if use_regularization:
@@ -229,7 +229,7 @@ for epoch in range(number_of_epoch):
             writer.add_scalar("Reg_alpha/train", reg_alpha * reg, global_iteration)
             writer.add_scalar("Loss/train", loss, global_iteration)
 
-            print("Loss iteration: epoch {}, iteration {}, loss {}, reg {} ".format(epoch, iteration, loss, reg))
+            print("Loss iteration: epoch {}, iteration {}, loss {}, reg {}, reg_alpha {}".format(epoch, iteration, loss, reg, reg_alpha))
             loss =  (1-reg_alpha) * loss + reg_alpha * reg # loss -> min.., dep -> max
             writer.add_scalar("LossReg/train", loss, global_iteration)
         if (not use_regularization):
@@ -239,7 +239,7 @@ for epoch in range(number_of_epoch):
             #reg0 = kim.forward(bottleneck.clone().detach().to(device), y.clone().detach().to(device), update=True)
 
 
-
+        print('loss updating')
         loss.backward()
         optimizer.step()
 
@@ -307,7 +307,7 @@ for epoch in range(number_of_epoch):
 
         writer.close()
 
-with open("./dd_22result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
+with open("./aaa_22result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
 #with open("./13result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
     #f.write("{} {} \n".format(accuracy, test_accuracy[-1]))
     f.write("{}\n".format(accuracy))
