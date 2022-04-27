@@ -112,14 +112,14 @@
 \end{abstract}
 
 \section{Introduction}
-The measurement of  statistical dependence plays important role in various empirical learning methods (e.g. hypothesis testing~\cite{Gretton2005MeasuringSD}, feature selection and extraction~\cite{EigenHSIC,HSCA}, information bottleneck methods \cite{Ma2020TheHB}, causal inference~\cite{NIPS2008_f7664060}, self-supervised learning~\cite{li2021selfsupervised}, representation learning~\cite{Ragonesi2021LearningUR}, among others).  Hystorically, earliest statistical dependence estimation ideas (e.g. conditional probability) share nearly-common origin with the beginning of formal statistical reasoning itself. During last two centuries ideas of correlation and (relative) entropy (including various generalizations) were proposed and became very popular in numerous applications and theoretical developments. However, with the increasing growth of machine and deep learning, new statistical dependence estimation methods, that are robust, applicable to noisy, high-dimensional, structured data, and which can be efficiently integrated with modern machine learning and deep learning methods are helpful for the development both of the theory and application.
+The measurement of  statistical dependence plays important role in various empirical learning methods (e.g. hypothesis testing~\cite{Gretton2005MeasuringSD}, feature selection and extraction~\cite{EigenHSIC,HSCA}, information bottleneck methods \cite{Ma2020TheHB}, causal inference~\cite{NIPS2008_f7664060}, self-supervised learning~\cite{li2021selfsupervised}, representation learning~\cite{Ragonesi2021LearningUR}, among others).  Historically, earliest statistical dependence estimation ideas (e.g. conditional probability) share nearly-common origin with the beginning of formal statistical reasoning itself. During last two centuries ideas of correlation and (relative) entropy (including various generalizations) were proposed and became very popular in numerous applications and theoretical developments. In recent years, various other approaches  (e.g. \cite{Gretton2005MeasuringSD},~\cite{Feuerverger, Szekely},~\cite{Pczos2012CopulabasedKD}) induced several lines of research of different popularity. However, with the increasing growth of machine and deep learning, new statistical dependence estimation methods, that are robust, applicable to noisy, high-dimensional, structured data, and which can be efficiently integrated with modern machine learning and deep learning methods are helpful for the development both of the theory and application.
 
-In this article we focus on quantitative estimation of statistical depdendencies, using characteristic functions. We begin with the short review of some important previous dependence estimation approaches (Section~\ref{section:previous_work}), devoting special attention to ones based on characteristic functions (Section~\ref{section:previous_work_cf}). Afterwards, in (Section~\ref{section:proposed_method}), we formulate the proposed measure, its empirical estimator, and conduct preliminary theoretical analysis, which are the main theoretical contribution of our paper. Section~\ref{section:experiments} is devoted to the experiments both with simulated and real data sets, where we apply the proposed statistical measure in various different tasksgf. Finalizing Section~\ref{section:conclusion} discusses and concludes this article.
+In this article we focus on quantitative estimation of statistical depdendencies, using characteristic functions. We begin with the short review of some important previous approaches (Section~\ref{section:previous_work}), devoting special attention to ones based on characteristic functions (Section~\ref{section:previous_work_cf}). Afterwards, in (Section~\ref{section:proposed_method}), we formulate the proposed measure, its empirical estimator, and conduct preliminary theoretical analysis, which are the main theoretical contribution of our paper. Section~\ref{section:experiments} is devoted to the empirical investigation of the proposed measure. Therein we conduct experiments both with simulated and real-world data sets, in order to empirically investigate its properties and applicability in various empirical inference scenarios. Finalizing Section~\ref{section:conclusion} discusses and concludes this article.
 
 
 \section{Previous Work}
 \label{section:previous_work}
-During recent years, various approaches have been used in order to construct statistical dependence estimation methods. For example, information theory (mutual information ~\cite{Cover2006} and generalisations), reproducing kernel Hilbert spaces (Hilbert-Schmidt independence criterion \cite{Gretton2005MeasuringSD}), characteristic functions (distance correlation~\cite{Feuerverger, Szekely}), and other (e.g. ~\cite{Pczos2012CopulabasedKD} copula-based kernel dependence measures, integral-porbability-metric-reliant Sobolev independence criterion~\cite{NIPS2019_9147}).
+During recent years, various approaches have been used in order to construct statistical dependence estimation methods. For example, information theory (mutual information ~\cite{Cover2006}, and generalisations), reproducing kernel Hilbert spaces (Hilbert-Schmidt independence criterion~\cite{Gretton2005MeasuringSD}), characteristic functions (distance correlation~\cite{Feuerverger, Szekely}), and other (e.g. ~\cite{Pczos2012CopulabasedKD} copula-based kernel dependence measures, integral-porbability-metric-reliant Sobolev independence criterion~\cite{NIPS2019_9147}).
 Further we will focus on characteristic-function-based methods. 
 
 \subsection{Characteristic-function-based methods}
@@ -149,13 +149,12 @@ $n$ i.i.d. realisations of $(X,Y)$, joint ECF is defined as:
 
 Uniqueness theorem states that two random variables $X$ and $Y$ have the same distribution if and only if their CF's are identical \cite{?}. Therefore, CF's can be regarded as an alternative description of distribution. Roughly speaking, CF can be regarded as Fourier transform of probability density funciton (PDF).
 
-If for all $x \in \mathbb{R}^{d_{X}}$ and $y \in \mathbb{R}^{d_{Y}}$ cumulative distribution function (CDF) of $(X,Y)$, 
+If for all $x \in \mathbb{R}^{d_{X}}$ and $y \in \mathbb{R}^{d_{Y}}$ cumulative distribution function (CDF) $F_{X,Y}(x,y)$ of $(X,Y)$ factorises as, 
 \begin{equation}
 \label{eq:independence}
 F_{X,Y}(x,y) = F_{X}(x)F_{Y}(y),
 \end{equation} 
-
-$X$ and $Y$ are called independent (the same holds for probability density function, PDF). However, this criterion is impractical due to need of evaluation of potentially high-dimensional CDF or PDF, and often alternative independence criterions are more useful. Let us define 
+where $F_{X}(x)$ and $F_{Y}(y)$ are marginal CDF's, $X$ and $Y$ are called independent (the same holds for probability density function, PDF). However, this criterion is impractical due to need of evaluation of potentially high-dimensional CDF or PDF, and often alternative independence criterions are more useful. Let us define 
 
 \begin{equation}
 %\mathbb{E}_{X,Y} e^{i <\alpha, X> + i <\beta, Y>} = \mathbb{E}_{X} e^{i <\alpha, X>} \mathbb{E}_{Y} e^{i <\beta, Y>},
@@ -174,9 +173,9 @@ In terms of CF's, statistical independence  of $X$ and $Y$ is equivalent to $\fo
 Previously, $\Delta_{X,Y}(\alpha, \beta)$ was used as the basis (first in~\cite{Feuerverger} for one-dimensional case, and afterwards extended and developed by~\cite{Szekely} for bivariate multidimensional random vectors) for construction of statistical independence tests and measures. Distance covariance and distance correlation, prosposed by ~\cite{Szekely} relies on weighted $L^{2}$-norm analysis of~\eqref{eq:kac_theorem}. They select weighting function in such a way, that dependence measure can be expressed in terms of correlection of data-dependent distances. Recent result of~\cite{Bottcher} generalises~\cite{Szekely} to multivariable case.~\cite{CHAUDHURI201915} proposed computationally efficient algorithm for estimation of distance correlation measure, reducing computational complexity from $O(n^2)$ to $O(n\cdot \log n)$, where $n$ is sample size.
 
 \textbf{Motivation and Connection To Previous Work} 
-Taking $\Delta_{X,Y}(\alpha, \beta) = 0$~\eqref{eq:kac_theorem} as the criterion of statistical independence we view the work~\cite{Szekely} from the perspective of weighted $L^{p}$ spaces, measuing statistical dependence by the corresponding $L^{p}$-norms of$|\Delta_{X,Y}(\alpha, \beta)|$~\eqref{eq:kac_theorem} (i.e. $||\Delta_{X,Y}(\alpha, \beta)||_{L^{p}} = (\int |\Delta_{X,Y}(\alpha, \beta)|^{p} d\alpha d\beta)^{\frac{1}{p}}$).
+Taking $\Delta_{X,Y}(\alpha, \beta) = 0$~\eqref{eq:kac_theorem} as the criterion of statistical independence we view the work~\cite{Szekely} from the perspective of weighted $L^{p}$ spaces, measuing statistical dependence by the corresponding $L^{p}$-norms of$|\Delta_{X,Y}(\alpha, \beta)|$~\eqref{eq:kac_theorem} (i.e. $||\Delta_{X,Y}(\alpha, \beta)||_{L^{p}} = \int |\Delta_{X,Y}(\alpha, \beta)|^{p} d\alpha d\beta)^{\frac{1}{p}}$).
 
-Taking into account that~\cite{Szekely} in high dimensions is affected with the curse of dimensionality~\cite{Edlemann}, we focus on the limit case $p \rightarrow \infty$($L^{\infty}$ space), which is associated to the supremum norm. This norm has several potential advantages.
+Taking into account that~\cite{Szekely} in high dimensions is affected with the curse of dimensionality~\cite{Edlemann}, we focus on the limit case $p \rightarrow \infty$ ($L^{\infty}$ space), which is associated to the supremum norm. This norm has several potential advantages.
 
 
 
@@ -217,7 +216,7 @@ In addition, in our opinion it is worth to note, that applications of characteri
 	\mathbb{E}_{X,Y} |( e^{i\alpha^{T}X} - \phi_{X}(\alpha) )(e^{i\beta^{T}Y}- \phi_{Y}(\beta) )|^{2} \leq \\
 	\mathbb{E}_{X,Y} |( e^{i\alpha^{T}X} - \phi_{X}(\alpha) )|^{2} |(e^{i\beta^{T}Y}- \phi_{Y}(\beta) )|^{2}  = (1 - |\phi_{X}(\alpha)|^{2}) (1 - |\phi_{Y}(\beta)|^{2}).
 	\end{multline*}
-	Proof of property $\textit{3.}$ directly follows from properties of CF's (see e.g.~\cite{Jacod}, Corollary 14.1)\footnote{This property also is known as Kac's theorem~\cite{KacTheorem}. Although it is quite simple mathematical fact, this provides the basis of the proposed measure's name.}.	
+	Property $\textit{3.}$ directly follows from properties of CF's (see e.g.~\cite{Jacod}, Corollary 14.1)\footnote{This property also is known as Kac's theorem~\cite{KacTheorem}. Although it is quite simple mathematical fact, this provides the basis of the proposed measure's name.}.	
 \end{proof}
 
 Although~\eqref{eq:kim} is not scale invariant in general, scale invariance can be achieved by assuming standartization of $X$ and $Y$.
@@ -338,9 +337,9 @@ In feature extraction experiments we will use a set of classification data sets 
 
 \begin{equation}
 \label{eq:kim_feature_extraction}    
-W^{*} = arg \max_{W} \kappa(Wx, y) - \alpha Tr\{(W^{T}W-I)^{T}(W^{T}W-I) \},
+W^{*} = arg \max_{W} \kappa(Wx, y) - \lambda Tr\{(W^{T}W-I)^{T}(W^{T}W-I) \},
 \end{equation}
-where the regularisation term, controlled by multiplier $\alpha \geq 0$, enforces semi-orthogonality of projection matrix $W^{*}$, and $Tr\{.\}$ denotes matrix trace operator.
+where the regularisation term, controlled by multiplier $\lambda \geq 0$, enforces semi-orthogonality of projection matrix $W^{*}$, and $Tr\{.\}$ denotes matrix trace operator.
 
 
 In all the experiments~\eqref{eq:kim_feature_extraction} the cost function is optimised iteratively ($250$ iterations), learning rate was set to $0.007$, simultaneously optimising parameters of KacIM ($\alpha$ and $\beta$) and projection matrix $W$.
@@ -348,11 +347,11 @@ After the optimisation, the feature extraction is conducted by $f(x) = W^{*}x$, 
 
 
 
-We randomly split all the datasets in training and testing sets of equal size. % comparing unmodified inputs $x$, and features % of all possible dimensions up to $d_{x}$ with $10\%$ step.  
-In our experiments we set $\alpha$ to $1.0$ to quickly ensure orthogonal projection matrices, and further proceed to dependence maximization stage. In order to quantitatively evaluate features, we use logistic regression classifier accuracy, measured on the testing set.
+In each experiment, we randomly split all the datasets in training and testing sets of equal size, and report accuracy, measured on the testing set as the performance measure. % comparing unmodified inputs $x$, and features % of all possible dimensions up to $d_{x}$ with $10\%$ step.  
+We set $\lambda$ to $1.0$ to quickly ensure orthogonal projection matrices, and further proceed to dependence maximization stage. In order to quantitatively evaluate features, we use logistic regression classifier accuracy, measured on the testing set. The logistic regression classifier is trained using the data from the training set.
 
 
-We compare our approach with the two baselines: raw features (RAW column in Table~\ref{table:classification_accuracies}) and neighborhood component analysis~\cite{NIPS2004_42fe8808} (NCA column in Table~\ref{table:classification_accuracies}).  The purpose of these experiments is to provide the preliminary evaluation of the applicability of KacIM for feature extraction, hence we use rather basic cost function and comparative baselines.
+We compare our approach with the two baselines: raw features (RAW column in Table~\ref{table:classification_accuracies}) and neighborhood component analysis~\cite{NIPS2004_42fe8808} (NCA column in Table~\ref{table:classification_accuracies}).  %The purpose of these experiments is to provide the preliminary evaluation of the applicability of KacIM for feature extraction, hence we use rather basic cost function and comparative baselines.
 
 
 
