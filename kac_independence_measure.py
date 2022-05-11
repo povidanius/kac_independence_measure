@@ -38,17 +38,19 @@ class KacIndependenceMeasure(nn.Module):
             self.projection_x = nn.Linear(self.dim_x, self.input_projection_dim).to(self.device)
             param_list = param_list + list(self.projection_x.parameters()) #  + [self.a] #[self.a, self.b]
         else:
-            self.a = Variable(torch.ones(self.dim_x, device=self.device), requires_grad=True)
+            self.a = Variable(torch.rand(self.dim_x, device=self.device), requires_grad=True)
 
         if self.output_projection_dim > 0:
             self.b = Variable(torch.rand(self.output_projection_dim,device=self.device), requires_grad=True)
             self.projection_y = nn.Linear(self.dim_y, self.output_projection_dim).to(self.device)
             param_list = param_list + list(self.projection_y.parameters()) #+ [self.b]
         else:            
-            self.b = Variable(-torch.ones(self.dim_y,device=self.device), requires_grad=True)
+            self.b = Variable(torch.rand(self.dim_y,device=self.device), requires_grad=True)
         
-        self.trainable_parameters = param_list  + [self.a, self.b]        
-        self.optimizer = torch.optim.AdamW(param_list  + [self.a, self.b], lr=self.lr, weight_decay=self.weight_decay) 
+        self.bnx = nn.BatchNorm1d(self.dim_x, affine=True).to(self.device)
+        self.bny = nn.BatchNorm1d(self.dim_y, affine=True).to(self.device)
+        #self.trainable_parameters = param_list  + [self.a, self.b] +        
+        self.optimizer = torch.optim.AdamW(param_list  + [self.a, self.b] + list(self.bnx.parameters()) + list(self.bny.parameters()), lr=self.lr, weight_decay=self.weight_decay) 
 
 
    
@@ -56,7 +58,8 @@ class KacIndependenceMeasure(nn.Module):
     def project(self, x, normalize=True):
         x = x.to(self.device)
         if normalize:
-            x = (x - x.mean(axis=0, keepdim=True))/(0.00001 + x.std(axis=0, keepdim=True))
+            #x = (x - x.mean(axis=0, keepdim=True))/(0.00001 + x.std(axis=0, keepdim=True))
+            x = self.bnx(x)
 
         proj = self.projection_x(x)            
         return proj
@@ -65,11 +68,13 @@ class KacIndependenceMeasure(nn.Module):
         x = x.to(self.device)
         y = y.to(self.device)
         if normalize:
-            x = (x - x.mean(axis=0, keepdim=True))/(0.00001 + x.std(axis=0, keepdim=True))
+            #x = (x - x.mean(axis=0, keepdim=True))/(0.00001 + x.std(axis=0, keepdim=True))
             #if self.dim_y > 1:
             #    y = (y - y.mean(axis=1, keepdim=True))/y.std(axis=1, keepdim=True)
             #else:    
-            y = (y - y.mean(axis=0, keepdim=True))/(0.00001 + y.std(axis=0, keepdim=True))
+            #y = (y - y.mean(axis=0, keepdim=True))/(0.00001 + y.std(axis=0, keepdim=True))
+            x = self.bnx(x)
+            y = self.bny(y)
         
 
         if self.input_projection_dim > 0:                

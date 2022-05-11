@@ -88,8 +88,9 @@ def load_data(db_name, train_frac):
 
 
     X_train = preprocessing.normalize(X_train)
+    X_val = preprocessing.normalize(X_val)
+
     X_test = preprocessing.normalize(X_test)
-    breakpoint()
     return X_train, y_train, X_val, y_val, X_test, y_test, X_train.shape[1], len(categories),X.shape[0]
 
 def benchmark(X_train, y_train, X_test, y_test, method_name = 'R'):
@@ -99,7 +100,7 @@ def benchmark(X_train, y_train, X_test, y_test, method_name = 'R'):
     #svc = SVC(kernel='rbf', gamma='auto', degree=2)
     #lsvm = LinearSVC(random_state=0, max_iter=100000)
     result = logistic.fit(X_train, y_train).score(X_test, y_test)
-    print("%5.2f" % (result), end=" ")
+    #print("%5.2f" % (result), end=" ")
 
     #print("LR score(%s): %f" % (method_name, logistic.fit(X_train, y_train).score(X_test, y_test)))
     #print("KNN3 score(%s): %f" % (method_name, knn.fit(X_train, y_train).score(X_test, y_test)))
@@ -108,8 +109,8 @@ def benchmark(X_train, y_train, X_test, y_test, method_name = 'R'):
     #print("---")
     return result
 
-# seq 10 | xargs -l -- | sed 's/[0-9]\+/pc4/g' | xargs -I {} python ./feature_extraction.py  {}
-# seq 25 | xargs -l -- | sed 's/[0-9]\+/robot-failures-lp2/g' | xargs -I {} python ./feature_extraction.py  {}
+# seq 10 | xargs -l -- | sed 's/[0-9]\+/pc4/g' | xargs -I {} python ./feature_extraction_dim_selection.py  {}
+# seq 25 | xargs -l -- | sed 's/[0-9]\+/robot-failures-lp2/g' | xargs -I {} python ./feature_extraction_dim_selection.py  {}
 
 if __name__ == "__main__":
 
@@ -133,78 +134,122 @@ if __name__ == "__main__":
 
 
     num_features = int(0.50*dim_x) #0.5
-
-    #for num_features in range(10, dim_x, int(10*dim_x)):
-    
     n_batch = 1024 #X_train.shape[0]
-
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    #breakpoint()
-    kim = KacIndependenceMeasure(dim_x, dim_y, lr=0.007, input_projection_dim = num_features, weight_decay=0.01, orthogonality_enforcer=1.0, device=device) #0.007
-    #knn = KNeighborsClassifier(n_neighbors=3)
-    #logistic = linear_model.LogisticRegression(max_iter=1000)
-    #svc = SVC(kernel='poly', gamma='auto', degree=2)
-    #lsvm = LinearSVC(random_state=42, max_iter=10000)
-    #one_hot = sklearn.preprocessing.LabelBinarizer()
+    zz = []
+
+    for num_features in range(10, dim_x, int(0.1*dim_x)):
+    
+   
+        #breakpoint()
+        kim = KacIndependenceMeasure(dim_x, dim_y, lr=0.007, input_projection_dim = num_features, weight_decay=0.01, orthogonality_enforcer=1.0, device=device) #0.007
+        #knn = KNeighborsClassifier(n_neighbors=3)
+        #logistic = linear_model.LogisticRegression(max_iter=1000)
+        #svc = SVC(kernel='poly', gamma='auto', degree=2)
+        #lsvm = LinearSVC(random_state=42, max_iter=10000)
+        #one_hot = sklearn.preprocessing.LabelBinarizer()
 
 
+        n = X_train.shape[0]
+        ytr = one_hot(y_train, num_classes)
+        yte = one_hot(y_test, num_classes)
+        dep_history = []
+        for i in range(num_epochs):
+            print("Epoch: {}".format(i))
+            shuffled_indices = np.arange(n)
+            np.random.shuffle(shuffled_indices)
+            num_batches = math.ceil(n/n_batch)
+            for j in np.arange(num_batches):
+                batch_indices = shuffled_indices[n_batch*j:n_batch*(j+1)]
+                Xb = torch.from_numpy(X_train[batch_indices, :].astype(np.float32))
+                yb = torch.from_numpy(ytr[batch_indices, :].astype(np.float32)) #.unsqueeze(1)
+                #print("{} {}".format(Xb.shape, yb.shape))
+                #breakpoint()
+                dep = kim.forward(Xb, yb, normalize=normalize)
+                dep_history.append(dep.detach().cpu().numpy())
+                print("epoch {} batch {} {}, {}".format(i, j, dep, Xb.shape[0]))
+
+    
+
+        F_train = kim.project(torch.from_numpy(X_train.astype(np.float32)).to(device), normalize=normalize).detach().cpu().numpy()
+        F_val = kim.project(torch.from_numpy(X_val.astype(np.float32)).to(device), normalize=normalize).detach().cpu().numpy()
+
+        #X_test = test_data.tensors[0].detach().numpy()
+        F_test = kim.project(torch.from_numpy(X_test.astype(np.float32)).to(device), normalize=normalize).detach().cpu().numpy() #test_data.tensors[0]).detach().numpy()
+        #y_test = test_data.tensors[1].detach().numpy()
+
+        num_features_nca = num_features
+        max_num_features_nca = min(X_train.shape[0], X_train.shape[1])
+        num_features_nca = min(num_features_nca, max_num_features_nca)
+        #breakpoint()
+
+       
+
+        num_features_nca = num_features
+        #max_num_features_nca = min(X_train.shape[0], X_train.shape[1])
+        #num_features_nca = min(num_features_nca, max_num_features_nca)
+        #breakpoint()
+
+        nca = make_pipeline(StandardScaler(),NeighborhoodComponentsAnalysis(n_components=num_features_nca, random_state=random_state))
+        nca.fit(X_train, y_train)
+        NCA_X_train = nca.transform(X_train)
+        NCA_X_val = nca.transform(X_val)
+        NCA_X_test = nca.transform(X_test)
+
+
+        rez_raw = benchmark(X_train, y_train, X_val, y_val, 'R')
+        rez_kacIMFE = benchmark(F_train, y_train, F_val, y_val, 'KacIMF')
+        #benchmark(PCA_X_train, y_train, PCA_X_test, y_test, 'PCA')
+        rez_NCA = benchmark(NCA_X_train, y_train, NCA_X_test, y_test, 'NCA')
+        zz.append([num_features, rez_raw, rez_kacIMFE, rez_NCA])
+    zz = np.array(zz)
+    dim_kacimfe = int(zz[int(np.argmax(zz[:,2])),0])
+    dim_nca = int(zz[int(np.argmax(zz[:,3])),0])
+
+    kim = KacIndependenceMeasure(dim_x, dim_y, lr=0.007, input_projection_dim = dim_kacimfe, weight_decay=0.01, orthogonality_enforcer=1.0, device=device) #0.007
+ 
     n = X_train.shape[0]
     ytr = one_hot(y_train, num_classes)
     yte = one_hot(y_test, num_classes)
     dep_history = []
     for i in range(num_epochs):
-        print("Epoch: {}".format(i))
-        shuffled_indices = np.arange(n)
-        np.random.shuffle(shuffled_indices)
-        num_batches = math.ceil(n/n_batch)
-        for j in np.arange(num_batches):
-            batch_indices = shuffled_indices[n_batch*j:n_batch*(j+1)]
-            Xb = torch.from_numpy(X_train[batch_indices, :].astype(np.float32))
-            yb = torch.from_numpy(ytr[batch_indices, :].astype(np.float32)) #.unsqueeze(1)
-            #print("{} {}".format(Xb.shape, yb.shape))
-            #breakpoint()
-            dep = kim.forward(Xb, yb, normalize=normalize)
-            dep_history.append(dep.detach().cpu().numpy())
-            print("epoch {} batch {} {}, {}".format(i, j, dep, Xb.shape[0]))
+            print("Epoch: {}".format(i))
+            shuffled_indices = np.arange(n)
+            np.random.shuffle(shuffled_indices)
+            num_batches = math.ceil(n/n_batch)
+            for j in np.arange(num_batches):
+                batch_indices = shuffled_indices[n_batch*j:n_batch*(j+1)]
+                Xb = torch.from_numpy(X_train[batch_indices, :].astype(np.float32))
+                yb = torch.from_numpy(ytr[batch_indices, :].astype(np.float32)) #.unsqueeze(1)
+                #print("{} {}".format(Xb.shape, yb.shape))
+                #breakpoint()
+                dep = kim.forward(Xb, yb, normalize=normalize)
+                dep_history.append(dep.detach().cpu().numpy())
+                print("epoch {} batch {} {}, {}".format(i, j, dep, Xb.shape[0]))
 
-  
+    
 
     F_train = kim.project(torch.from_numpy(X_train.astype(np.float32)).to(device), normalize=normalize).detach().cpu().numpy()
     #X_test = test_data.tensors[0].detach().numpy()
     F_test = kim.project(torch.from_numpy(X_test.astype(np.float32)).to(device), normalize=normalize).detach().cpu().numpy() #test_data.tensors[0]).detach().numpy()
     #y_test = test_data.tensors[1].detach().numpy()
-    
-    print(X_train.shape)
-    print(X_test.shape)
-    print(F_train.shape)
-    print(F_test.shape)
-    print(y_train.shape)
-    print(y_test.shape)
 
-    #plt.plot(dep_history)
-    #plt.show()
-
-
-    num_features_nca = num_features
+    num_features_nca = dim_nca
     max_num_features_nca = min(X_train.shape[0], X_train.shape[1])
     num_features_nca = min(num_features_nca, max_num_features_nca)
-    #breakpoint()
-
-    pca = make_pipeline(StandardScaler(), PCA(n_components=num_features_nca, random_state=random_state))
-    pca.fit(X_train, y_train)
-    PCA_X_train = pca.transform(X_train)
-    PCA_X_test = pca.transform(X_test)
-
-    num_features_nca = num_features
-    #max_num_features_nca = min(X_train.shape[0], X_train.shape[1])
-    #num_features_nca = min(num_features_nca, max_num_features_nca)
-    #breakpoint()
-
     nca = make_pipeline(StandardScaler(),NeighborhoodComponentsAnalysis(n_components=num_features_nca, random_state=random_state))
     nca.fit(X_train, y_train)
     NCA_X_train = nca.transform(X_train)
     NCA_X_test = nca.transform(X_test)
 
+
+    rez_raw = benchmark(X_train, y_train, X_test, y_test, 'R')
+    rez_kacIMFE = benchmark(F_train, y_train, F_test, y_test, 'KacIMF')
+    #benchmark(PCA_X_train, y_train, PCA_X_test, y_test, 'PCA')
+    rez_NCA = benchmark(NCA_X_train, y_train, NCA_X_test, y_test, 'NCA')
+
+    #breakpoint()
+    
     #from os.path import exists
     handle_exception = True
     try:
@@ -220,12 +265,15 @@ if __name__ == "__main__":
                 print(" & ",end =" ")
                 print("({},{},{})".format(num_samples,X_train.shape[1],num_classes),end =" ")
                 print(" & ",end =" ")
-                rez_raw = benchmark(X_train, y_train, X_test, y_test, 'R')
+                #rez_raw = benchmark(X_train, y_train, X_test, y_test, 'R')
+                print("%5.2f" % (rez_raw), end=" ")
                 print(" & ",end =" ")
-                rez_kacIMFE = benchmark(F_train, y_train, F_test, y_test, 'KacIMF')
-                print(" & ",end =" ")
+                #rez_kacIMFE = benchmark(F_train, y_train, F_test, y_test, 'KacIMF')
+                print("%5.2f" % (rez_kacIMFE), end=" ")
                 #benchmark(PCA_X_train, y_train, PCA_X_test, y_test, 'PCA')
-                rez_NCA = benchmark(NCA_X_train, y_train, NCA_X_test, y_test, 'NCA')
+                #rez_NCA = benchmark(NCA_X_train, y_train, NCA_X_test, y_test, 'NCA')
+                print(" & ",end =" ")
+                print("%5.2f" % (rez_NCA), end=" ")
                 print("\\\\",end ="\n")
                 #print("num_classes {}".format(num_classes))
 
@@ -241,18 +289,22 @@ if __name__ == "__main__":
                     print(" & ",end =" ")
                     print("({},{},{})".format(num_samples,X_train.shape[1],num_classes),end =" ")
                     print(" & ",end =" ")
-                    rez_raw = benchmark(X_train, y_train, X_test, y_test, 'R')
+                    #rez_raw = benchmark(X_train, y_train, X_test, y_test, 'R')
+                    print("%5.2f" % (rez_raw), end=" ")
                     print(" & ",end =" ")
-                    rez_kacIMFE = benchmark(F_train, y_train, F_test, y_test, 'KacIMF')
-                    print(" & ",end =" ")
+                    #rez_kacIMFE = benchmark(F_train, y_train, F_test, y_test, 'KacIMF')
+                    print("%5.2f" % (rez_kacIMFE), end=" ")
                     #benchmark(PCA_X_train, y_train, PCA_X_test, y_test, 'PCA')
-                    rez_NCA = benchmark(NCA_X_train, y_train, NCA_X_test, y_test, 'NCA')
+                    #rez_NCA = benchmark(NCA_X_train, y_train, NCA_X_test, y_test, 'NCA')
+                    print(" & ",end =" ")
+                    print("%5.2f" % (rez_NCA), end=" ")
                     print("\\\\",end ="\n")
                     #print("num_classes {}".format(num_classes))
 
                     result_row = [rez_raw, rez_kacIMFE, rez_NCA] 
                     writer = csv.writer(fd)
-                    writer.writerow(result_row)  
+                    writer.writerow(result_row)
+
 
 
     """

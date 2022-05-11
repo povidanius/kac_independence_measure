@@ -22,8 +22,8 @@ writer = SummaryWriter()
 
 #torch.manual_seed(31337)
 
-data_path='/home/tank/Downloads/chest_xray/chest_xray/chest_xray/merged'
-#data_path='/home/tank/Downloads/melanoma/joined'
+#data_path='/home/tank/Downloads/chest_xray/chest_xray/chest_xray/merged'
+data_path='/home/tank/Downloads/melanoma/joined'
 
 sys.path.insert(0, "../")
 from kac_independence_measure import KacIndependenceMeasure
@@ -46,11 +46,11 @@ def get_activation(name):
 REGULARIZER = 0
 LOSS = 1
 
-kim = KacIndependenceMeasure(16, 16, lr=0.007, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
-kim0 = KacIndependenceMeasure(16, 16, lr=0.007, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
-kim1 = KacIndependenceMeasure(16, 16, lr=0.007, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
+kim = KacIndependenceMeasure(32, 32, lr=0.007, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
+kim0 = KacIndependenceMeasure(32, 32, lr=0.007, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
+kim1 = KacIndependenceMeasure(32, 32, lr=0.007, input_projection_dim = 0, weight_decay=0.01, device=device) #0.007
 
-
+"""
 train_transform = transforms.Compose([transforms.Grayscale(num_output_channels=3), 
                                       transforms.Resize((224,224)),
                                       transforms.RandomHorizontalFlip(),
@@ -79,7 +79,7 @@ test_transform = transforms.Compose([transforms.Resize((224,224)),
                                      transforms.ToTensor(),
                                      #transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]
                                      transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))])
-"""
+
 
 full_dataset = ImageFolder(data_path, transform=train_transform)
 
@@ -120,11 +120,11 @@ class ResNet18(nn.Module):
         self.base= nn.Sequential(*list(resnet.children())[:-2])
         self.num_fcs = num_fcs
         for i in range(num_fcs):
-            head = nn.Sequential( nn.Linear(512, 32), nn.PReLU(), nn.BatchNorm1d(32), nn.Linear(32, 16), nn.PReLU(), nn.BatchNorm1d(16), nn.Linear(16, num_classes))
+            head = nn.Sequential( nn.Linear(512, 32), nn.ReLU(), nn.BatchNorm1d(32), nn.Linear(32, 16), nn.ReLU(), nn.BatchNorm1d(16), nn.Linear(16, num_classes))
             #head = nn.Sequential( nn.Linear(512, 32), nn.PReLU(), nn.BatchNorm1d(32), nn.Linear(32, 16), nn.PReLU(), nn.BatchNorm1d(16), nn.Linear(16, num_classes))
 
             setattr(self, "fc%d" % i, head)
-            setattr(self, "ftr%d" %i, head[:5]) # make 5
+            setattr(self, "ftr%d" %i, head[:3]) # make 5
 
     def forward(self,x):
         x = self.base(x)
@@ -151,11 +151,11 @@ test_accuracy = []
 
 dep_history = []
 
-reg_alpha = 0.15# 0.25 #9.0 #0.1
+reg_alpha = 0.2# 0.25 #9.0 #0.1
 
 if len(sys.argv) < 2:
     print(sys.argv)
-    breakpoint()
+    #breakpoint()
     print("Usage {} 1/0".format(sys.argv[0]))
     sys.exit(0)
 
@@ -164,7 +164,7 @@ if sys.argv[1] == "0":
 else:
     use_regularization = True
 
-
+kim_normalization = True
 mode = LOSS
 
 number_of_epoch = 3
@@ -209,9 +209,9 @@ for epoch in range(number_of_epoch):
 
         #breakpoint()     
             
-        reg0 =  kim.forward(ftr0.clone().detach().to(device), ftr1.clone().detach().to(device), update=True, normalize=False) #-  kim0.forward(ftr0.clone().detach().to(device), y.clone().detach().to(device), update=True) -  kim1.forward(ftr1.clone().detach().to(device), y.clone().detach().to(device), update=True)
-        reg0 += kim0.forward(ftr0.clone().detach().to(device), ftr2.clone().detach().to(device), update=True, normalize=False) 
-        reg0 += kim1.forward(ftr1.clone().detach().to(device), ftr2.clone().detach().to(device), update=True, normalize=False) 
+        reg0 =  kim.forward(ftr0.clone().detach().to(device), ftr1.clone().detach().to(device), update=True, normalize=kim_normalization) #-  kim0.forward(ftr0.clone().detach().to(device), y.clone().detach().to(device), update=True) -  kim1.forward(ftr1.clone().detach().to(device), y.clone().detach().to(device), update=True)
+        reg0 += kim0.forward(ftr0.clone().detach().to(device), ftr2.clone().detach().to(device), update=True, normalize=kim_normalization) 
+        reg0 += kim1.forward(ftr1.clone().detach().to(device), ftr2.clone().detach().to(device), update=True, normalize=kim_normalization) 
         dep_history.append(reg0.detach().cpu().numpy())
         writer.add_scalar("Dep/train", reg_alpha * reg0, global_iteration)
         iteration = iteration + 1
@@ -221,9 +221,9 @@ for epoch in range(number_of_epoch):
         
         if epoch % 2 != 0 and use_regularization:
         #if use_regularization:
-            reg = kim.forward(ftr0, ftr1, update=False, normalize=False) #-  kim0.forward(ftr0, y, update=False) - kim1.forward(ftr1, y, update=False)
-            reg += kim0.forward(ftr0, ftr2, update=False, normalize=False)
-            reg += kim1.forward(ftr1, ftr2, update=False, normalize=False)
+            reg = kim.forward(ftr0, ftr1, update=False, normalize=kim_normalization) #-  kim0.forward(ftr0, y, update=False) - kim1.forward(ftr1, y, update=False)
+            reg += kim0.forward(ftr0, ftr2, update=False, normalize=kim_normalization)
+            reg += kim1.forward(ftr1, ftr2, update=False, normalize=kim_normalization)
 
             dep_history.append(reg.detach().cpu().numpy())
             writer.add_scalar("Reg_alpha/train", reg_alpha * reg, global_iteration)
@@ -307,7 +307,7 @@ for epoch in range(number_of_epoch):
 
         writer.close()
 
-with open("./aaa_22result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
+with open("./melanmom_4_result_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
 #with open("./13result_chest_{}_{}.txt".format(use_regularization, reg_alpha),"a") as f:
     #f.write("{} {} \n".format(accuracy, test_accuracy[-1]))
     f.write("{}\n".format(accuracy))
