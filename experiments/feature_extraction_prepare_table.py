@@ -20,6 +20,7 @@ for filename in all_files:
     #print("{} {}".format(filename, acc_avg))
     #breakpoint()
     max_ind = np.argmax(acc_avg)
+    
     #print(acc_avg[max_ind])
     p_vals = []
     for ind in range(3):
@@ -42,7 +43,8 @@ for filename in all_files:
             print(r'\textbf{%2.4f}' % acc_avg[ind], end = " ")
         else:    
             print(r'%2.4f' % (acc_avg[ind]), end = " ")
-
+    
+    #print(np.max(p_vals))
     print("\\\\")
     #df = pd.read_csv(filename, index_col=None, header=0)
     #li.append(df)

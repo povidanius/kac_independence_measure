@@ -43,7 +43,7 @@ random_state = 0
 def one_hot(x, num_classes=2):
   return np.squeeze(np.eye(num_classes)[x.reshape(-1)])
 
-def load_data(db_name, train_frac):
+def load_data(db_name):
     #db_name="bioresponse"
     #db_name="ionosphere"
     #db_name="spambase"
@@ -121,34 +121,27 @@ if __name__ == "__main__":
         print("Usage {} OpenML_dbname".format(sys.argv[0]))
         sys.exit(0)
 
-    num_epochs = 250 #200
-    train_frac = 0.5
+    num_epochs = 250 #200  
     normalize = True
 
 
-    X_train, y_train, X_val, y_val, X_test, y_test, dim_x, num_classes, num_samples = load_data(sys.argv[1], train_frac)
+    X_train, y_train, X_val, y_val, X_test, y_test, dim_x, num_classes, num_samples = load_data(sys.argv[1])
 
     dim_y = num_classes 
 
     # now select feature dimension, which maximize test accuracy
 
 
-    num_features = int(0.50*dim_x) #0.5
     n_batch = 1024 #X_train.shape[0]
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     zz = []
+    zz_test = []
 
     for num_features in range(10, dim_x, int(0.1*dim_x)):
     
    
         #breakpoint()
         kim = KacIndependenceMeasure(dim_x, dim_y, lr=0.007, input_projection_dim = num_features, weight_decay=0.01, orthogonality_enforcer=1.0, device=device) #0.007
-        #knn = KNeighborsClassifier(n_neighbors=3)
-        #logistic = linear_model.LogisticRegression(max_iter=1000)
-        #svc = SVC(kernel='poly', gamma='auto', degree=2)
-        #lsvm = LinearSVC(random_state=42, max_iter=10000)
-        #one_hot = sklearn.preprocessing.LabelBinarizer()
-
 
         n = X_train.shape[0]
         ytr = one_hot(y_train, num_classes)
@@ -199,10 +192,27 @@ if __name__ == "__main__":
 
         rez_raw = benchmark(X_train, y_train, X_val, y_val, 'R')
         rez_kacIMFE = benchmark(F_train, y_train, F_val, y_val, 'KacIMF')
-        #benchmark(PCA_X_train, y_train, PCA_X_test, y_test, 'PCA')
-        rez_NCA = benchmark(NCA_X_train, y_train, NCA_X_test, y_test, 'NCA')
+        rez_NCA = benchmark(NCA_X_train, y_train, NCA_X_val, y_val, 'NCA')
         zz.append([num_features, rez_raw, rez_kacIMFE, rez_NCA])
+
+        rez_raw_test = benchmark(X_train, y_train, X_test, y_test, 'R')
+        rez_kacIMFE_test = benchmark(F_train, y_train, F_test, y_test, 'KacIMF')
+        rez_NCA_test = benchmark(NCA_X_train, y_train, NCA_X_test, y_test, 'NCA')
+
+        zz_test.append([num_features, rez_raw_test, rez_kacIMFE_test, rez_NCA_test])
+
     zz = np.array(zz)
+    zz_test = np.array(zz_test)
+
+    if not os.path.isfile('./feature_extraction/' + sys.argv[1] + '.npy'):
+        np.save('./feature_extraction/' + sys.argv[1] + '.npy', zz_test)
+    else:
+
+        zzz = np.load('./feature_extraction/' + sys.argv[1] + '.npy')
+        #breakpoint()
+        zzz = np.concatenate((zzz,zz_test), axis=0)    
+        np.save('./feature_extraction/' + sys.argv[1] + '.npy', zzz)
+
     dim_kacimfe = int(zz[int(np.argmax(zz[:,2])),0])
     dim_nca = int(zz[int(np.argmax(zz[:,3])),0])
 
@@ -245,7 +255,6 @@ if __name__ == "__main__":
 
     rez_raw = benchmark(X_train, y_train, X_test, y_test, 'R')
     rez_kacIMFE = benchmark(F_train, y_train, F_test, y_test, 'KacIMF')
-    #benchmark(PCA_X_train, y_train, PCA_X_test, y_test, 'PCA')
     rez_NCA = benchmark(NCA_X_train, y_train, NCA_X_test, y_test, 'NCA')
 
     #breakpoint()
@@ -255,7 +264,7 @@ if __name__ == "__main__":
     try:
         train = pd.read_csv('feature_extraction/{}.csv'.format(sys.argv[1]))
         train_tensor = torch.tensor(train.values)
-        if train_tensor.shape[0] > 25:
+        if train_tensor.shape[0] > 30:
             print("Enough!")    
             handle_exception = False         
         else: 
@@ -304,17 +313,3 @@ if __name__ == "__main__":
                     result_row = [rez_raw, rez_kacIMFE, rez_NCA] 
                     writer = csv.writer(fd)
                     writer.writerow(result_row)
-
-
-
-    """
-    print("LR score(R): %f" % logistic.fit(X_train, y_train).score(X_test, y_test))
-    print("LR score(F): %f" % logistic.fit(F_train, y_train).score(F_test, y_test))
-    print("KNN score(R): %f" % knn.fit(X_train, y_train).score(X_test, y_test))
-    print("KNN score(F): %f" % knn.fit(F_train, y_train).score(F_test, y_test))
-    print("LSVM score(R): %f" % lsvm.fit(X_train, y_train).score(X_test, y_test))
-    print("LSVM score(F): %f" % lsvm.fit(F_train, y_train).score(F_test, y_test))
-    print("SVM score(R): %f" % svc.fit(X_train, y_train).score(X_test, y_test))
-    print("SVM score(F): %f" % svc.fit(F_train, y_train).score(F_test, y_test))
-    """
-

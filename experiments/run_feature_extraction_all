@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#./run_feature_extraction ionosphere
+#./run_feature_extraction micro-mass
+#./run_feature_extraction robot-failures-lp2
+#./run_feature_extraction scene
+#./run_feature_extraction one-hundred-plants-shape 
+#### ./run_feature_extraction PhishingWebsites # not works and too big 
+#./run_feature_extraction mfeat-zernike
+#./run_feature_extraction tokyo1
+
+#./run_feature_extraction wdbc
+#./run_feature_extraction spambase
+#./run_feature_extraction satimage
+#./run_feature_extraction eeg-eye-state
+#./run_feature_extraction semeion
