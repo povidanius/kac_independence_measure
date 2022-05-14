@@ -1,17 +1,8 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-#import math
-#import numpy as np
-#import matplotlib.pyplot as plt
 from torch.autograd import Variable
 import itertools
-#from torch.nn.utils import weight_norm
-#import numpy as np
-
-# Kac independence measure, preprint/article will be added further.
-# Author: Dr. Povilas Daniušis, ORCID 0000-0001-5977-827X
-# Special thanks to Neurotechnology (www.neurotechnology.com)
 
 
 class KacIndependenceMeasure(nn.Module):
@@ -34,7 +25,6 @@ class KacIndependenceMeasure(nn.Module):
         param_list = []
         if self.input_projection_dim > 0:
             self.a = Variable(torch.rand(self.input_projection_dim,device=self.device), requires_grad=True)
-            #self.projection = weight_norm(nn.Linear(self.dim_x, self.input_projection_dim))
             self.projection_x = nn.Linear(self.dim_x, self.input_projection_dim).to(self.device)
             param_list = param_list + list(self.projection_x.parameters()) #  + [self.a] #[self.a, self.b]
         else:
@@ -49,7 +39,6 @@ class KacIndependenceMeasure(nn.Module):
         
         self.bnx = nn.BatchNorm1d(self.dim_x, affine=True).to(self.device)
         self.bny = nn.BatchNorm1d(self.dim_y, affine=True).to(self.device)
-        #self.trainable_parameters = param_list  + [self.a, self.b] +        
         self.optimizer = torch.optim.AdamW(param_list  + [self.a, self.b] + list(self.bnx.parameters()) + list(self.bny.parameters()), lr=self.lr, weight_decay=self.weight_decay) 
 
 
@@ -101,7 +90,3 @@ class KacIndependenceMeasure(nn.Module):
             self.optimizer.step()   
 
         return kim
-
-
-if __name__ == "__main__":    
-    print("See ./experiments")
