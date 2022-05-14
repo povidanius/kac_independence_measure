@@ -1,18 +1,39 @@
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 import math
 import numpy as np
 import matplotlib.pyplot as plt
-from torch.autograd import Variable
 import itertools
-from torch.nn.utils import weight_norm
+from numpy import loadtxt
 import numpy as np
+
 import sys
 sys.path.insert(0, "../")
 
 from kac_independence_measure import KacIndependenceMeasure
 import os
+
+def get_file_name():
+    id = 0
+    while os.path.isfile('./noise_effect/noise_effect_{}.txt'.format(id)):
+        id = id + 1
+
+    file_name = './noise_effect/noise_effect_{}.txt'.format(id)
+    return file_name
+
+def produce_plots():
+    z = []
+    for id in range(25):
+            file_name = './noise_effect/noise_effect_{}.txt'.format(id)
+            lines = loadtxt(file_name, comments="#", delimiter=",", unpack=False)
+            z.append(lines)
+            #breakpoint()
+    z = np.array(z)     
+    mean = np.mean(z,axis=0)       
+    std = np.std(z, axis=0)
+    plt.errorbar(0.1*np.array(range(0,30)), mean, yerr=std, fmt='-o')
+    plt.savefig('./noise_effect/noise_effect.png')
+    breakpoint()            
 
 
 if __name__ == "__main__":
@@ -20,21 +41,23 @@ if __name__ == "__main__":
     if not os.path.exists('noise_effect'):
         os.makedirs('noise_effect')
 
-    n_batch = 2048 #2048
-    dim_x = 512 # 1024
-    dim_y = 4 # 32
-    num_iter = 1000 #500
-    input_proj_dim = 0#64 #0
+    produce_plots();
+    sys.exit(0)
 
-    #model = KacIndependenceMeasure(dim_x, dim_y, lr=0.05, num_iter = num_iter, input_projection_dim = input_proj_dim)
-    #model = KacIndependenceMeasure(dim_x, dim_y, lr=0.01, num_iter = num_iter, input_projection_dim = input_proj_dim)
+    n_batch = 2048 
+    dim_x = 512 
+    dim_y = 4 
+    num_iter = 600 
+    input_proj_dim = 0
 
-    file_object = open('./noise_effect/noise_effect.txt', 'w')
+
+    file_object = open(get_file_name(), 'w')
+    
 
     to_plot = []
     step = 0
 
-    random_proj = nn.Linear(dim_x, dim_y) #, requires_grad=False)
+    random_proj = nn.Linear(dim_x, dim_y)
 
     noise_levels = np.arange(0.0, 3.0, 0.1)
 
@@ -56,13 +79,14 @@ if __name__ == "__main__":
         to_plot.append(history_dep[-1])
         file_object.write(str(history_dep[-1]))    
         file_object.write('\n')
-        plt.plot(history_dep, label="Scale: ".format(str(noise_level)))
-        plt.savefig('./noise_effect/{}.png'.format(step))
+        #plt.plot(history_dep, label="Scale: ".format(str(noise_level)))
+        #plt.savefig('./noise_effect/{}.png'.format(step))
         step = step + 1
         plt.clf()
 
     #breakpoint()
-    plt.plot(noise_levels, to_plot)    
-    plt.savefig('./noise_effect/summary.png')
+    #plt.plot(noise_levels, to_plot)    
+    #plt.savefig('./noise_effect/summary.png')
 
     file_object.close()
+
