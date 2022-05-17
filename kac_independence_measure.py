@@ -39,6 +39,8 @@ class KacIndependenceMeasure(nn.Module):
         
         self.bnx = nn.BatchNorm1d(self.dim_x, affine=True).to(self.device)
         self.bny = nn.BatchNorm1d(self.dim_y, affine=True).to(self.device)
+        self.trainable_parameters = param_list  + [self.a, self.b] + list(self.bnx.parameters()) + list(self.bny.parameters())
+        
         self.optimizer = torch.optim.AdamW(param_list  + [self.a, self.b] + list(self.bnx.parameters()) + list(self.bny.parameters()), lr=self.lr, weight_decay=self.weight_decay) 
 
 

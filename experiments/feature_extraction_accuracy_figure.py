@@ -44,8 +44,8 @@ for filename in all_files:
         dbname = 'ohps'
 
     ax[row,col].set_title(dbname)
-    ax[row,col].errorbar(mn[:,0], mn[:,method_kacimfe], yerr=std[:,method_kacimfe], fmt='--x',color='b')
-    ax[row,col].errorbar(mn[:,0], mn[:,method_nca], yerr=std[:,method_nca], fmt='-o',color='r')
+    ax[row,col].errorbar(mn[:,0], mn[:,method_kacimfe], yerr=std[:,method_kacimfe], fmt='--o',color='b')
+    ax[row,col].errorbar(mn[:,0], mn[:,method_nca], yerr=std[:,method_nca], fmt='-o',color='tab:orange')
     #ax[row,col].errorbar(mn[:,0], mn[:,method_raw], yerr=std[:,method_raw], fmt='-o',color='k')
             
     

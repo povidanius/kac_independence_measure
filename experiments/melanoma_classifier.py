@@ -108,7 +108,7 @@ test_accuracy = []
 
 dep_history = []
 
-reg_alpha = 0.05 #0.1
+reg_alpha = 0.1 #0.1
 
 if len(sys.argv) < 2:
     print(sys.argv)
@@ -153,6 +153,7 @@ for epoch in range(number_of_epoch):
 
         #breakpoint()
         bottleneck = activation['bottleneck'].squeeze()
+        breakpoint()
         y = torch.nn.functional.one_hot(label).float()
         #print(label)
 
