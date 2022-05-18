@@ -25,7 +25,7 @@ from scipy.stats import wilcoxon
 #acc_reg = loadtxt("aaa_22result_chest_True_0.15.txt", comments="#", delimiter=",", unpack=False)
 #acc = loadtxt("aaa_22result_chest_False_0.15.txt", comments="#", delimiter=",", unpack=False)
 
-acc_reg =  loadtxt("./qmelanoma2_True_0.2a.txt", comments="#", delimiter=",", unpack=False)
+acc_reg =  loadtxt("./qmelanoma2_True_0.2.txt", comments="#", delimiter=",", unpack=False)
 acc = loadtxt("./qmelanoma2_False_0.2.txt", comments="#", delimiter=",", unpack=False)
 print("{} {}".format(acc_reg.shape[0], acc.shape[0]))
 mean1 = 100*np.mean(acc_reg, axis=0)

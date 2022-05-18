@@ -90,7 +90,7 @@ model.fc = nn.Sequential(
 
 # intermediate activations
 
-model.fc[2].register_forward_hook(get_activation('bottleneck'))
+#model.fc[2].register_forward_hook(get_activation('bottleneck'))
 
 
 model.to(device)
@@ -152,9 +152,9 @@ for epoch in range(number_of_epoch):
         pred = model(data)     
 
         #breakpoint()
-        bottleneck = activation['bottleneck'].squeeze()
-        bottleneck1 = bottleneck[:,:128-20]
-        bottleneck2 = bottleneck[:,128-20:]
+        #bottleneck = activation['bottleneck'].squeeze()
+        #bottleneck1 = bottleneck[:,:128-20]
+        #bottleneck2 = bottleneck[:,128-20:]
 
         y = torch.nn.functional.one_hot(label).float()
 
@@ -248,7 +248,7 @@ for epoch in range(number_of_epoch):
 
 writer.close()
 
-with open("./qmelanoma2_{}_{}a.txt".format(use_regularization, reg_alpha),"a") as f:
+with open("./qmelanoma2_{}_{}b.txt".format(use_regularization, reg_alpha),"a") as f:
     f.write("{},{},{},{},{},{} \n".format(accuracy, cm[0,0], cm[0,1], cm[1,0], cm[1,1], f1))
     
 
