@@ -1,3 +1,7 @@
+# DEPRECATED
+
+This repository is deprecated now. See https://github.com/povidanius/UFDM for the updated repository.
+
 # Kac Independence Measure 
 Kac Independence Measure (KacIM) is bivariate statistical independence measure, 
 which can detect arbitrary statistical dependence between two random vectors (similar to mutual information, Hilbert-Schmidt independence criterion (HSIC), distance covariance/correlation, etc.). The idea of KacIM is to maximimize lenght of difference 
